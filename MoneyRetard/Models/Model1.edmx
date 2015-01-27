@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FlZlModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="FlZlModelStoreContainer">
+          <EntitySet Name="FJ_AffixUrl" EntityType="FlZlModel.Store.FJ_AffixUrl" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_BasicData" EntityType="FlZlModel.Store.FJ_BasicData" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_BasicField" EntityType="FlZlModel.Store.FJ_BasicField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_BasicHtml" EntityType="FlZlModel.Store.FJ_BasicHtml" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_Field_Html" EntityType="FlZlModel.Store.FJ_Field_Html" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_File" EntityType="FlZlModel.Store.FJ_File" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_Select" EntityType="FlZlModel.Store.FJ_Select" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_User" EntityType="FlZlModel.Store.FJ_User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_UserInfo" EntityType="FlZlModel.Store.FJ_UserInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_ValueType" EntityType="FlZlModel.Store.FJ_ValueType" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_FJ_Field_Html" Association="FlZlModel.Store.FK_FJ_Field_Html">
+            <End Role="FJ_BasicHtml" EntitySet="FJ_BasicHtml" />
+            <End Role="FJ_Field_Html" EntitySet="FJ_Field_Html" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FJ_AffixUrl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="varchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="FJ_BasicData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="nvarchar" />
+          <Property Name="bid" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="bhid" Type="int" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="FJ_BasicField">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="FieldType" Type="int" />
+          <Property Name="PID" Type="int" />
+        </EntityType>
+        <EntityType Name="FJ_BasicHtml">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Html" Type="text" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="IsStart" Type="bit" />
+        </EntityType>
+        <EntityType Name="FJ_Field_Html">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bfid" Type="int" />
+          <Property Name="Bhid" Type="int" />
+        </EntityType>
+        <EntityType Name="FJ_File">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="nvarchar" MaxLength="100" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="FJ_Select">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="type" Type="int" />
+        </EntityType>
+        <EntityType Name="FJ_User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="Pwd" Type="varchar" MaxLength="100" />
+          <Property Name="IsAllocation" Type="bit" />
+          <Property Name="IsAgency" Type="bit" />
+          <Property Name="Limits" Type="int" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FJ_UserInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="UserRealName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Icard_1" Type="int" />
+          <Property Name="Icard_1_Num" Type="varchar" MaxLength="100" />
+          <Property Name="Icard_2" Type="int" />
+          <Property Name="Icard_2_Num" Type="varchar" MaxLength="100" />
+          <Property Name="MustNum" Type="varchar" MaxLength="100" />
+          <Property Name="Area" Type="int" />
+          <Property Name="LegalPeo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="300" />
+          <Property Name="QQ" Type="varchar" MaxLength="50" />
+          <Property Name="IsAgency" Type="bit" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FJ_ValueType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_FJ_Field_Html">
+          <End Role="FJ_BasicHtml" Type="FlZlModel.Store.FJ_BasicHtml" Multiplicity="0..1" />
+          <End Role="FJ_Field_Html" Type="FlZlModel.Store.FJ_Field_Html" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_BasicHtml">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_Field_Html">
+              <PropertyRef Name="Bhid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FlZlModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="FlZlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FJ_AffixUrl" EntityType="FlZlModel.FJ_AffixUrl" />
+          <EntitySet Name="FJ_BasicData" EntityType="FlZlModel.FJ_BasicData" />
+          <EntitySet Name="FJ_BasicField" EntityType="FlZlModel.FJ_BasicField" />
+          <EntitySet Name="FJ_BasicHtml" EntityType="FlZlModel.FJ_BasicHtml" />
+          <EntitySet Name="FJ_Field_Html" EntityType="FlZlModel.FJ_Field_Html" />
+          <EntitySet Name="FJ_File" EntityType="FlZlModel.FJ_File" />
+          <EntitySet Name="FJ_Select" EntityType="FlZlModel.FJ_Select" />
+          <EntitySet Name="FJ_User" EntityType="FlZlModel.FJ_User" />
+          <EntitySet Name="FJ_UserInfo" EntityType="FlZlModel.FJ_UserInfo" />
+          <EntitySet Name="FJ_ValueType" EntityType="FlZlModel.FJ_ValueType" />
+          <AssociationSet Name="FK_FJ_Field_Html" Association="FlZlModel.FK_FJ_Field_Html">
+            <End Role="FJ_BasicHtml" EntitySet="FJ_BasicHtml" />
+            <End Role="FJ_Field_Html" EntitySet="FJ_Field_Html" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FJ_AffixUrl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="guid" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FJ_BasicData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
+          <Property Name="bid" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="bhid" Type="Int32" />
+          <Property Name="guid" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="FJ_BasicField">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="FieldType" Type="Int32" />
+          <Property Name="PID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FJ_BasicHtml">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Html" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="createTime" Type="DateTime" />
+          <Property Name="IsStart" Type="Boolean" />
+          <NavigationProperty Name="FJ_Field_Html" Relationship="FlZlModel.FK_FJ_Field_Html" FromRole="FJ_BasicHtml" ToRole="FJ_Field_Html" />
+        </EntityType>
+        <EntityType Name="FJ_Field_Html">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bfid" Type="Int32" />
+          <Property Name="Bhid" Type="Int32" />
+          <NavigationProperty Name="FJ_BasicHtml" Relationship="FlZlModel.FK_FJ_Field_Html" FromRole="FJ_Field_Html" ToRole="FJ_BasicHtml" />
+        </EntityType>
+        <EntityType Name="FJ_File">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="createTime" Type="DateTime" />
+          <Property Name="UserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FJ_Select">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FJ_User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Pwd" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="IsAllocation" Type="Boolean" />
+          <Property Name="IsAgency" Type="Boolean" />
+          <Property Name="Limits" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="FJ_UserInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="UserRealName" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="Icard_1" Type="Int32" />
+          <Property Name="Icard_1_Num" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Icard_2" Type="Int32" />
+          <Property Name="Icard_2_Num" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="MustNum" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Area" Type="Int32" />
+          <Property Name="LegalPeo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Adress" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="QQ" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsAgency" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="FJ_ValueType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_FJ_Field_Html">
+          <End Role="FJ_BasicHtml" Type="FlZlModel.FJ_BasicHtml" Multiplicity="0..1" />
+          <End Role="FJ_Field_Html" Type="FlZlModel.FJ_Field_Html" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_BasicHtml">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_Field_Html">
+              <PropertyRef Name="Bhid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FlZlModelStoreContainer" CdmEntityContainer="FlZlEntities">
+          <EntitySetMapping Name="FJ_AffixUrl">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_AffixUrl">
+              <MappingFragment StoreEntitySet="FJ_AffixUrl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_BasicData">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_BasicData">
+              <MappingFragment StoreEntitySet="FJ_BasicData">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="bid" ColumnName="bid" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="bhid" ColumnName="bhid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_BasicField">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_BasicField">
+              <MappingFragment StoreEntitySet="FJ_BasicField">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_BasicHtml">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_BasicHtml">
+              <MappingFragment StoreEntitySet="FJ_BasicHtml">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Html" ColumnName="Html" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="IsStart" ColumnName="IsStart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_Field_Html">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_Field_Html">
+              <MappingFragment StoreEntitySet="FJ_Field_Html">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bfid" ColumnName="bfid" />
+                <ScalarProperty Name="Bhid" ColumnName="Bhid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_File">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_File">
+              <MappingFragment StoreEntitySet="FJ_File">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_Select">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_Select">
+              <MappingFragment StoreEntitySet="FJ_Select">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_User">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_User">
+              <MappingFragment StoreEntitySet="FJ_User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="IsAllocation" ColumnName="IsAllocation" />
+                <ScalarProperty Name="IsAgency" ColumnName="IsAgency" />
+                <ScalarProperty Name="Limits" ColumnName="Limits" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_UserInfo">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_UserInfo">
+              <MappingFragment StoreEntitySet="FJ_UserInfo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
+                <ScalarProperty Name="Icard_1" ColumnName="Icard_1" />
+                <ScalarProperty Name="Icard_1_Num" ColumnName="Icard_1_Num" />
+                <ScalarProperty Name="Icard_2" ColumnName="Icard_2" />
+                <ScalarProperty Name="Icard_2_Num" ColumnName="Icard_2_Num" />
+                <ScalarProperty Name="MustNum" ColumnName="MustNum" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="LegalPeo" ColumnName="LegalPeo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="IsAgency" ColumnName="IsAgency" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_ValueType">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_ValueType">
+              <MappingFragment StoreEntitySet="FJ_ValueType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="FlZlModel.FJ_AffixUrl" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9700325520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_BasicData" Width="1.5" PointX="2.75" PointY="3.75" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_BasicField" Width="1.5" PointX="4.75" PointY="3.75" Height="1.779012858072917" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_BasicHtml" Width="1.5" PointX="0.75" PointY="0.875" Height="1.9700325520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_Field_Html" Width="1.5" PointX="3" PointY="1" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_File" Width="1.5" PointX="5.75" PointY="0.75" Height="1.7790128580729165" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_Select" Width="1.5" PointX="0.75" PointY="6.75" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_User" Width="1.5" PointX="2.75" PointY="6.75" Height="2.3520719401041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_UserInfo" Width="1.5" PointX="6.75" PointY="3.75" Height="4.0712491861979174" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_ValueType" Width="1.5" PointX="7.75" PointY="0.75" Height="1.3969734700520817" IsExpanded="true" />
+        <AssociationConnector Association="FlZlModel.FK_FJ_Field_Html" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8895064290364587" />
+          <ConnectorPoint PointX="3" PointY="1.8895064290364587" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

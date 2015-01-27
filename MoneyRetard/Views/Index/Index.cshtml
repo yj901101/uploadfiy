@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+@using MoneyRetard.Models;
+@using MoneyRetard.Content;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <style type="text/css">
+        html
+        {
+            font: 12px/25px "Microsoft Yahei","宋体";
+            color: #515151;
+        }
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
+        .applyForm{}
+        .applyForm li
+        {
+            clear: both;
+            position: relative;
+        }
+        .applyForm li span
+        {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+            }
+        .applyForm input[type="text"]
+        {
+            width: 170px;
+            height: 18px;
+            line-height: 18px;
+            padding: 3px 0;
+            text-indent 5px;
+            
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="../Index/AddObj" enctype="multipart/form-data">
+        <ul class="applyForm">
+            @foreach (FJ_BasicField fb in (List<FJ_BasicField>)ViewData["fb"]) {
+                var ListType = JudgeType.retType(fb.id);
+                <li><span>@fb.name</span>
+                    @if (ListType != null)
+                    {
+                        foreach (FJ_BasicField f in (List<FJ_BasicField>)ListType)
+                        {
+                            if (f.FieldType == 1)
+                            { 
+                                <label><input type="checkbox" value="@f.id" />@f.name</label>
+                            }
+                        }
+                    }
+                    else
+                    { 
+                        <input type="text" id="fb+@fb.id" name="fb+@fb.id" /><br />
+                    }
+                </li>
+            }
+        </ul>
+        <input type="submit" value="提交" />
+    </form>
+</body>
+</html>

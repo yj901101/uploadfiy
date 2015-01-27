@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MoneyRetard.Content;
 using Microsoft.Office.Interop.Word;
+using MoneyRetard.Models;
 
 namespace MoneyRetard.Controllers
 {
@@ -12,7 +13,7 @@ namespace MoneyRetard.Controllers
     {
         //
         // GET: /Home/
-
+        FlZlEntities fj = new FlZlEntities();
         public ActionResult Index()
         {
             WriteWord();
@@ -23,6 +24,7 @@ namespace MoneyRetard.Controllers
             string s = Server.MapPath("/wordFiles/f7.dot");
             report.CreateNewDocument(s); //模板路径
             //report.InsertValue("Bookmark_value", "世界杯");//在书签“Bookmark_value”处插入值
+            List<FJ_BasicField> fb = fj.FJ_BasicField.ToList();
             Table table = report.InsertTable("boottable", 2, 4, 0);//在书签“Bookmark_table”处插入2行3列行宽最大的表 
             report.AddRow(1, 5); //给模板中第一个表格插入2行
             report.MergeCell(table, 1, 1, 1, 4);//表名,开始行号,开始列号,结束行号,结束列号,
