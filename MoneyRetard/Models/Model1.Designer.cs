@@ -19,7 +19,8 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
 
-[assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_Field_Html", "FJ_BasicHtml", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_BasicHtml), "FJ_Field_Html", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_Field_Html), true)]
+[assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_ZlInfo), "FJ_AffixUrl", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_AffixUrl), true)]
+[assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_ZlInfo_FJ_Select", "FJ_Select", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_Select), "FJ_ZlInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_ZlInfo), true)]
 
 #endregion
 
@@ -138,22 +139,6 @@ namespace MoneyRetard.Models
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<FJ_Field_Html> FJ_Field_Html
-        {
-            get
-            {
-                if ((_FJ_Field_Html == null))
-                {
-                    _FJ_Field_Html = base.CreateObjectSet<FJ_Field_Html>("FJ_Field_Html");
-                }
-                return _FJ_Field_Html;
-            }
-        }
-        private ObjectSet<FJ_Field_Html> _FJ_Field_Html;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
         public ObjectSet<FJ_File> FJ_File
         {
             get
@@ -230,6 +215,38 @@ namespace MoneyRetard.Models
             }
         }
         private ObjectSet<FJ_ValueType> _FJ_ValueType;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<FJ_ZlInfo> FJ_ZlInfo
+        {
+            get
+            {
+                if ((_FJ_ZlInfo == null))
+                {
+                    _FJ_ZlInfo = base.CreateObjectSet<FJ_ZlInfo>("FJ_ZlInfo");
+                }
+                return _FJ_ZlInfo;
+            }
+        }
+        private ObjectSet<FJ_ZlInfo> _FJ_ZlInfo;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<personDatabase> personDatabases
+        {
+            get
+            {
+                if ((_personDatabases == null))
+                {
+                    _personDatabases = base.CreateObjectSet<personDatabase>("personDatabases");
+                }
+                return _personDatabases;
+            }
+        }
+        private ObjectSet<personDatabase> _personDatabases;
 
         #endregion
 
@@ -265,14 +282,6 @@ namespace MoneyRetard.Models
         public void AddToFJ_BasicHtml(FJ_BasicHtml fJ_BasicHtml)
         {
             base.AddObject("FJ_BasicHtml", fJ_BasicHtml);
-        }
-    
-        /// <summary>
-        /// 用于向 FJ_Field_Html EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddToFJ_Field_Html(FJ_Field_Html fJ_Field_Html)
-        {
-            base.AddObject("FJ_Field_Html", fJ_Field_Html);
         }
     
         /// <summary>
@@ -313,6 +322,22 @@ namespace MoneyRetard.Models
         public void AddToFJ_ValueType(FJ_ValueType fJ_ValueType)
         {
             base.AddObject("FJ_ValueType", fJ_ValueType);
+        }
+    
+        /// <summary>
+        /// 用于向 FJ_ZlInfo EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToFJ_ZlInfo(FJ_ZlInfo fJ_ZlInfo)
+        {
+            base.AddObject("FJ_ZlInfo", fJ_ZlInfo);
+        }
+    
+        /// <summary>
+        /// 用于向 personDatabases EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddTopersonDatabases(personDatabase personDatabase)
+        {
+            base.AddObject("personDatabases", personDatabase);
         }
 
         #endregion
@@ -404,24 +429,24 @@ namespace MoneyRetard.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String guid
+        public Nullable<global::System.Int32> Zid
         {
             get
             {
-                return _guid;
+                return _Zid;
             }
             set
             {
-                OnguidChanging(value);
-                ReportPropertyChanging("guid");
-                _guid = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("guid");
-                OnguidChanged();
+                OnZidChanging(value);
+                ReportPropertyChanging("Zid");
+                _Zid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Zid");
+                OnZidChanged();
             }
         }
-        private global::System.String _guid;
-        partial void OnguidChanging(global::System.String value);
-        partial void OnguidChanged();
+        private Nullable<global::System.Int32> _Zid;
+        partial void OnZidChanging(Nullable<global::System.Int32> value);
+        partial void OnZidChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -474,6 +499,48 @@ namespace MoneyRetard.Models
         #endregion
 
     
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo")]
+        public FJ_ZlInfo FJ_ZlInfo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_ZlInfo>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_ZlInfo>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FJ_ZlInfo> FJ_ZlInfoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_ZlInfo>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FJ_ZlInfo>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -905,183 +972,34 @@ namespace MoneyRetard.Models
         private Nullable<global::System.Boolean> _IsStart;
         partial void OnIsStartChanging(Nullable<global::System.Boolean> value);
         partial void OnIsStartChanged();
-
-        #endregion
-
-    
-        #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_Field_Html", "FJ_Field_Html")]
-        public EntityCollection<FJ_Field_Html> FJ_Field_Html
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FJ_Field_Html>("FlZlModel.FK_FJ_Field_Html", "FJ_Field_Html");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FJ_Field_Html>("FlZlModel.FK_FJ_Field_Html", "FJ_Field_Html", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// 没有元数据文档可用。
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="FlZlModel", Name="FJ_Field_Html")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class FJ_Field_Html : EntityObject
-    {
-        #region 工厂方法
-    
-        /// <summary>
-        /// 创建新的 FJ_Field_Html 对象。
-        /// </summary>
-        /// <param name="id">id 属性的初始值。</param>
-        public static FJ_Field_Html CreateFJ_Field_Html(global::System.Int32 id)
-        {
-            FJ_Field_Html fJ_Field_Html = new FJ_Field_Html();
-            fJ_Field_Html.id = id;
-            return fJ_Field_Html;
-        }
-
-        #endregion
-
-        #region 基元属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> bfid
+        public global::System.String WordAdre
         {
             get
             {
-                return _bfid;
+                return _WordAdre;
             }
             set
             {
-                OnbfidChanging(value);
-                ReportPropertyChanging("bfid");
-                _bfid = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("bfid");
-                OnbfidChanged();
+                OnWordAdreChanging(value);
+                ReportPropertyChanging("WordAdre");
+                _WordAdre = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WordAdre");
+                OnWordAdreChanged();
             }
         }
-        private Nullable<global::System.Int32> _bfid;
-        partial void OnbfidChanging(Nullable<global::System.Int32> value);
-        partial void OnbfidChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Bhid
-        {
-            get
-            {
-                return _Bhid;
-            }
-            set
-            {
-                OnBhidChanging(value);
-                ReportPropertyChanging("Bhid");
-                _Bhid = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Bhid");
-                OnBhidChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Bhid;
-        partial void OnBhidChanging(Nullable<global::System.Int32> value);
-        partial void OnBhidChanged();
+        private global::System.String _WordAdre;
+        partial void OnWordAdreChanging(global::System.String value);
+        partial void OnWordAdreChanged();
 
         #endregion
 
     
-        #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_Field_Html", "FJ_BasicHtml")]
-        public FJ_BasicHtml FJ_BasicHtml
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_BasicHtml>("FlZlModel.FK_FJ_Field_Html", "FJ_BasicHtml").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_BasicHtml>("FlZlModel.FK_FJ_Field_Html", "FJ_BasicHtml").Value = value;
-            }
-        }
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<FJ_BasicHtml> FJ_BasicHtmlReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_BasicHtml>("FlZlModel.FK_FJ_Field_Html", "FJ_BasicHtml");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FJ_BasicHtml>("FlZlModel.FK_FJ_Field_Html", "FJ_BasicHtml", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>
@@ -1316,6 +1234,32 @@ namespace MoneyRetard.Models
         #endregion
 
     
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_ZlInfo_FJ_Select", "FJ_ZlInfo")]
+        public EntityCollection<FJ_ZlInfo> FJ_ZlInfo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FJ_ZlInfo>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_ZlInfo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FJ_ZlInfo>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_ZlInfo", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -1447,7 +1391,7 @@ namespace MoneyRetard.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsAgency
+        public Nullable<global::System.Int32> IsAgency
         {
             get
             {
@@ -1462,8 +1406,8 @@ namespace MoneyRetard.Models
                 OnIsAgencyChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsAgency;
-        partial void OnIsAgencyChanging(Nullable<global::System.Boolean> value);
+        private Nullable<global::System.Int32> _IsAgency;
+        partial void OnIsAgencyChanging(Nullable<global::System.Int32> value);
         partial void OnIsAgencyChanged();
     
         /// <summary>
@@ -1513,6 +1457,30 @@ namespace MoneyRetard.Models
         private Nullable<global::System.DateTime> _CreateTime;
         partial void OnCreateTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnCreateTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsStart
+        {
+            get
+            {
+                return _IsStart;
+            }
+            set
+            {
+                OnIsStartChanging(value);
+                ReportPropertyChanging("IsStart");
+                _IsStart = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsStart");
+                OnIsStartChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsStart;
+        partial void OnIsStartChanging(Nullable<global::System.Int32> value);
+        partial void OnIsStartChanged();
 
         #endregion
 
@@ -1888,7 +1856,7 @@ namespace MoneyRetard.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsAgency
+        public Nullable<global::System.Int32> IsAgency
         {
             get
             {
@@ -1903,8 +1871,8 @@ namespace MoneyRetard.Models
                 OnIsAgencyChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsAgency;
-        partial void OnIsAgencyChanging(Nullable<global::System.Boolean> value);
+        private Nullable<global::System.Int32> _IsAgency;
+        partial void OnIsAgencyChanging(Nullable<global::System.Int32> value);
         partial void OnIsAgencyChanged();
     
         /// <summary>
@@ -1930,6 +1898,30 @@ namespace MoneyRetard.Models
         private Nullable<global::System.DateTime> _CreateTime;
         partial void OnCreateTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnCreateTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                OnUserIDChanging(value);
+                ReportPropertyChanging("UserID");
+                _UserID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserID");
+                OnUserIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UserID;
+        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        partial void OnUserIDChanged();
 
         #endregion
 
@@ -2011,6 +2003,400 @@ namespace MoneyRetard.Models
         private global::System.String _name;
         partial void OnnameChanging(global::System.String value);
         partial void OnnameChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FlZlModel", Name="FJ_ZlInfo")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FJ_ZlInfo : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 FJ_ZlInfo 对象。
+        /// </summary>
+        /// <param name="id">id 属性的初始值。</param>
+        public static FJ_ZlInfo CreateFJ_ZlInfo(global::System.Int32 id)
+        {
+            FJ_ZlInfo fJ_ZlInfo = new FJ_ZlInfo();
+            fJ_ZlInfo.id = id;
+            return fJ_ZlInfo;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Zl_Type
+        {
+            get
+            {
+                return _Zl_Type;
+            }
+            set
+            {
+                OnZl_TypeChanging(value);
+                ReportPropertyChanging("Zl_Type");
+                _Zl_Type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Zl_Type");
+                OnZl_TypeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Zl_Type;
+        partial void OnZl_TypeChanging(Nullable<global::System.Int32> value);
+        partial void OnZl_TypeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Zl_Name
+        {
+            get
+            {
+                return _Zl_Name;
+            }
+            set
+            {
+                OnZl_NameChanging(value);
+                ReportPropertyChanging("Zl_Name");
+                _Zl_Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Zl_Name");
+                OnZl_NameChanged();
+            }
+        }
+        private global::System.String _Zl_Name;
+        partial void OnZl_NameChanging(global::System.String value);
+        partial void OnZl_NameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ZL_Bnum
+        {
+            get
+            {
+                return _ZL_Bnum;
+            }
+            set
+            {
+                OnZL_BnumChanging(value);
+                ReportPropertyChanging("ZL_Bnum");
+                _ZL_Bnum = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ZL_Bnum");
+                OnZL_BnumChanged();
+            }
+        }
+        private global::System.String _ZL_Bnum;
+        partial void OnZL_BnumChanging(global::System.String value);
+        partial void OnZL_BnumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String guid
+        {
+            get
+            {
+                return _guid;
+            }
+            set
+            {
+                OnguidChanging(value);
+                ReportPropertyChanging("guid");
+                _guid = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("guid");
+                OnguidChanged();
+            }
+        }
+        private global::System.String _guid;
+        partial void OnguidChanging(global::System.String value);
+        partial void OnguidChanged();
+
+        #endregion
+
+    
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_AffixUrl")]
+        public EntityCollection<FJ_AffixUrl> FJ_AffixUrl
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FJ_AffixUrl>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_AffixUrl");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FJ_AffixUrl>("FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_AffixUrl", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_ZlInfo_FJ_Select", "FJ_Select")]
+        public FJ_Select FJ_Select
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_Select").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_Select").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FJ_Select> FJ_SelectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_Select");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FJ_Select>("FlZlModel.FK_FJ_ZlInfo_FJ_Select", "FJ_Select", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FlZlModel", Name="personDatabase")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class personDatabase : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 personDatabase 对象。
+        /// </summary>
+        /// <param name="id">id 属性的初始值。</param>
+        public static personDatabase CreatepersonDatabase(global::System.Int32 id)
+        {
+            personDatabase personDatabase = new personDatabase();
+            personDatabase.id = id;
+            return personDatabase;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Zl_Type
+        {
+            get
+            {
+                return _Zl_Type;
+            }
+            set
+            {
+                OnZl_TypeChanging(value);
+                ReportPropertyChanging("Zl_Type");
+                _Zl_Type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Zl_Type");
+                OnZl_TypeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Zl_Type;
+        partial void OnZl_TypeChanging(Nullable<global::System.Int32> value);
+        partial void OnZl_TypeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Zl_Name
+        {
+            get
+            {
+                return _Zl_Name;
+            }
+            set
+            {
+                OnZl_NameChanging(value);
+                ReportPropertyChanging("Zl_Name");
+                _Zl_Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Zl_Name");
+                OnZl_NameChanged();
+            }
+        }
+        private global::System.String _Zl_Name;
+        partial void OnZl_NameChanging(global::System.String value);
+        partial void OnZl_NameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ZL_Bnum
+        {
+            get
+            {
+                return _ZL_Bnum;
+            }
+            set
+            {
+                OnZL_BnumChanging(value);
+                ReportPropertyChanging("ZL_Bnum");
+                _ZL_Bnum = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ZL_Bnum");
+                OnZL_BnumChanged();
+            }
+        }
+        private global::System.String _ZL_Bnum;
+        partial void OnZL_BnumChanging(global::System.String value);
+        partial void OnZL_BnumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String guid
+        {
+            get
+            {
+                return _guid;
+            }
+            set
+            {
+                OnguidChanging(value);
+                ReportPropertyChanging("guid");
+                _guid = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("guid");
+                OnguidChanged();
+            }
+        }
+        private global::System.String _guid;
+        partial void OnguidChanging(global::System.String value);
+        partial void OnguidChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> userid
+        {
+            get
+            {
+                return _userid;
+            }
+            set
+            {
+                OnuseridChanging(value);
+                ReportPropertyChanging("userid");
+                _userid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userid");
+                OnuseridChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _userid;
+        partial void OnuseridChanging(Nullable<global::System.Int32> value);
+        partial void OnuseridChanged();
 
         #endregion
 

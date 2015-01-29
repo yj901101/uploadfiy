@@ -1,0 +1,224 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*  @formApply
+------------------------------------------------------------------------------------------- */
+
+/*  进度条  */
+.progressBar{
+	width: 90%;
+	background: url(../images/progressBar-bg.png) repeat-x 0 22px;
+	position: relative;
+	height: 95px;
+	margin-top: 35px;
+}
+.progressBar > em{
+	display: block;
+	position: absolute;
+	top: 22px;
+	width: 10px;
+	height: 18px;
+}
+.progressBar > em:first-child{
+	background-position: -425px -425px;
+	left: 0;
+}
+.progressBar > em:first-child + em{
+	background-position: -435px -425px;
+	right: 0;
+}
+.progressBar ul li{
+	display: inline-block;
+	display: inline\9;
+	zoom: 1\9;
+	width: 200px;
+	margin: 0 4%\9;
+}
+.progressBar ul li > em{
+	display: block;
+	width: 58px;
+	height: 62px;
+	font: bold 26px/62px Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	background-position: 0 -708px;
+	margin: 0 auto;
+}
+.progressBar ul li.on > em{
+	background-position: 0 -780px;
+}
+.progressBar ul li p{
+	margin-top: 10px;
+	color: #848484;
+}
+
+@media screen and (min-width:1100px){
+	.progressBar ul li{
+		margin: 0 20px;
+	}
+}
+@media screen and (min-width:1300px){
+	.progressBar ul li{
+		margin: 0 50px;
+	}
+}
+@media screen and (min-width:1600px){
+	.progressBar ul li{
+		margin: 0 100px;
+	}
+}
+
+
+
+/*  @stepOne 
+---------------------------------------------------------------- */
+.stepOne{
+	width: 90%;
+	margin-top: 30px;
+}
+
+.formWrite table{
+	border: 1px solid #d3d3d3;
+	width: 100%;
+}
+.formWrite table th{
+	text-align: center;
+	font-weight: normal;
+	padding: 7px 12px 12px 12px;
+	width: 10%;
+	min-width: 140px;
+}
+.formWrite table th span{
+	background: #e5e5e5;
+	height: 33px;
+	line-height: 33px;
+	display: inline-block;
+	display: inline\9;
+	zoom: 1\9;
+	width: 100%;
+}
+.formWrite table td{
+	padding: 7px 12px 7px 0;
+}
+.formWrite table input[type="text"]{
+	border: 1px solid #848282;
+	height: 18px;
+	line-height: 18px;
+	padding: 6px 0 7px 0;
+	text-indent: 10px;
+	width: auto;
+	min-width: 95%;
+}
+.formWrite table label{
+	margin: 0 10px;
+}
+.formWrite table label input{
+	margin-right: 5px;
+}
+.formWrite table textarea{
+	border: 1px solid #848282;
+	width: 96%;
+	padding: 2%;
+	height: auto;
+	overflow-y: auto;
+}
+
+
+
+
+.applyProve h1{
+	background: #e5e5e5;
+	height: 35px;
+	font: normal 14px/35px "宋体","Microsoft Yahei";
+}
+.applyProve table{
+	width: 100%;
+}
+.applyProve table td{
+	border: 1px solid #d3d3d3;
+	height: 40px;
+}
+.applyProve table thead td{
+	border-top: none;
+}
+.applyProve table tr td:first-child,
+.applyProve table tr td:last-child{
+	width: 150px;
+}
+.applyProve table tr td:first-child select{
+	border: none;
+}
+
+
+
+
+/*  @stepTwo
+------------------------------------------------------------------ */
+.stepTwo{
+	padding: 30px 0;
+}
+.stepTwo span{
+	display: inline-block;
+	width: 95px;
+	height: 41px;
+	cursor: pointer;
+	background-position: -213px -709px;
+	margin: 0 20px;
+}
+.stepTwo span:first-child{
+	background-position: -71px -709px;
+}
+
+
+
+
+
+
+
+
+/*  @stepThree
+-------------------------------------------------------------------- */
+.stepThree{
+	background: #e5e5e5;
+	padding: 33px 0;
+	width: 90%;
+}
+.stepThree span{
+	display: inline-block;
+	width: 44px;
+	height: 22px;
+	cursor: pointer;
+	vertical-align: middle;
+	margin: 0 5px;
+}
+.stepThree span.upload{
+	background-position: -71px -780px;
+}
+.stepThree span.submit{
+	background-position: -71px -802px;
+}
+.stepThree span.cancel{
+	background-position: -71px -824px;
+}
+.stepThree input{
+	vertical-align: middle;
+}
+.stepThree input[type="text"]{
+	width: 280px;
+	height: 25px;
+	background: #fff;
+	border: none;
+	text-align: left;
+	text-indent: 20px;
+	margin: 0 10px;
+}
+
+
+
+
+
+
+
+
+

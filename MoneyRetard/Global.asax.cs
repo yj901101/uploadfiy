@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MoneyRetard.Content;
 
 namespace MoneyRetard
 {
@@ -24,7 +25,7 @@ namespace MoneyRetard
             routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
-                new { controller = "Login", action = "Index", id = UrlParameter.Optional } // 参数默认值
+                new { controller = "Welcome", action = "Index", id = UrlParameter.Optional } // 参数默认值
             );
 
         }
@@ -32,7 +33,7 @@ namespace MoneyRetard
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            GlobalFilters.Filters.Add(new LoginValidate());
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }

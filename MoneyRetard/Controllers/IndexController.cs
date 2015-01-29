@@ -14,6 +14,9 @@ namespace MoneyRetard.Controllers
         FlZlEntities fj = new FlZlEntities();
         public ActionResult Index()
         {
+            if (Session["limit"].ToString() != "0") {
+                return RedirectToAction("../");
+            }
             List<FJ_BasicField> fb = fj.FJ_BasicField.Where(u=>u.PID==0).ToList();
             ViewData["fb"] = fb;
             return View();

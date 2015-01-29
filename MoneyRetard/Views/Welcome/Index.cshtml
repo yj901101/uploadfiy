@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>欢迎界面</title>
+<link type="text/css" rel="stylesheet" href="../../style/base.css">
+<link type="text/css" rel="stylesheet" href="../../style/login.css">
+</head>
+<body>
+    <!--  topNav  -->
+<div class="topNav-outer oh">
+	<div class="topNav"></div>
+    <div class="text w1000 tr">
+    	<p>欢迎进入马鞍山市知识产权局专利申请费用减缓系统</p>
+		<p>@ViewData["now"]</p>
+    </div>
+</div>
+<!--  topNav end  -->
+
+<!--  container  -->
+<div class="container w1000 middle oh tc">
+	
+    <img src="../../images/login-logo.png" class="img-logo clear">
+    
+    <!--  welcome-outer  -->
+    <div class="welcome-outer middle oh clear">
+    	<div class="announ-outer clear fl oh"></div>
+        <!--  通知公告  -->
+        <div class="announ clear fl oh tl">
+        	<h1>通知公告</h1>
+            <div class="announ-scroll oh" id="demo">
+                <div id="demo1">
+                    <ul>
+                        <li>XX1，专利号为XXX的专利未通过审核1，<a href="#">点击查看</a></li>
+                        <li>XX2，专利号为XXX的专利未通过审核2，<a href="#">点击查看</a></li>
+                        <li>XX3，专利号为XXX的专利未通过审核3，<a href="#">点击查看</a></li>
+                        <li>XX4，专利号为XXX的专利未通过审核4，<a href="#">点击查看</a></li>
+                        <li>XX5，专利号为XXX的专利未通过审核5，<a href="#">点击查看</a></li>
+                        <li>XX1，专利号为XXX的专利未通过审核6，<a href="#">点击查看</a></li>
+                        <li>XX2，专利号为XXX的专利未通过审核7，<a href="#">点击查看</a></li>
+                        <li>XX3，专利号为XXX的专利未通过审核8，<a href="#">点击查看</a></li>
+                        <li>XX4，专利号为XXX的专利未通过审核9，<a href="#">点击查看</a></li>
+                        <li>XX5，专利号为XXX的专利未通过审核10，<a href="#">点击查看</a></li>
+                        <li>XX1，专利号为XXX的专利未通过审核11，<a href="#">点击查看</a></li>
+                        <li>XX2，专利号为XXX的专利未通过审核12，<a href="#">点击查看</a></li>
+                        <li>XX3，专利号为XXX的专利未通过审核13，<a href="#">点击查看</a></li>
+                        <li>XX4，专利号为XXX的专利未通过审核14，<a href="#">点击查看</a></li>
+                        <li>XX5，专利号为XXX的专利未通过审核15，<a href="#">点击查看</a></li>
+                    </ul>
+                </div>
+                <div id="demo2"></div>
+            </div>
+            <script>
+                var speed = 50
+                demo2.innerHTML = demo1.innerHTML
+                function Marquee() {
+                    if (demo2.offsetTop - demo.scrollTop <= 0)
+                        demo.scrollTop -= demo1.offsetHeight
+                    else {
+                        demo.scrollTop++
+                    }
+                }
+                var MyMar = setInterval(Marquee, speed)
+                demo.onmouseover = function () { clearInterval(MyMar) }
+                demo.onmouseout = function () { MyMar = setInterval(Marquee, speed) }
+            </script>
+        </div>
+        <!--  通知公告 end  -->
+        
+        <div class="agency fr oh tl">
+        	<ul>
+        		<li><a href="../Login/Index?ty=2">非代理机构</a></li>
+            	<li><a href="../Login/Index?ty=1">代理机构</a></li>
+            </ul>
+       	</div>
+    	
+    </div>
+    <!--  welcome-outer end  -->
+
+
+</div>
+<!--  container end  --
+
+<!--  footer  -->
+<div class="footer oh tc">
+	技术支持：安徽省钢之家超越电子商务有限公司
+</div>
+<!--  footer end  -->
+</body>
+</html>

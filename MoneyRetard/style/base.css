@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+html{
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font: 14px/25px "宋体","Microsoft Yahei";
+	color: #515151;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+ul,li{ list-style: none;}
+img,iframe,fieldset{ border: none;}
+.fl{ float: left;}
+.fr{ float: right;}
+.tc{ text-align: center;}
+.tl{ text-align: left;}
+.tr{ text-align: right;}
+.oh{ overflow: hidden;}
+a:link,a:visited{
+	color: #515151;
+	text-decoration: none;
+}
+a:hover,a:focus,a:active{ text-decoration: underline;}
+.w1000{ width: 1000px;}
+.w100{ width: 100%;}
+.middle{
+	margin-left: auto;
+	margin-right: auto;
+}
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+img,em,input,select,button{ vertical-align: middle;}
+clear:after{ 
+	content: "."; 
+	height: 0; 
+	visibility: hidden; 
+	display: block; 
+	clear: both;
+}
+em{
+	font-style: normal;
+	font-weight: normal;
+}
+
+.login-window ul li span.btn,
+.welcome-outer .announ,
+.welcome-outer .announ h1,
+.announ-scroll ul li,
+.welcome-outer .agency ul li,
+.columnList > ul > li > span em,
+.columnList > ul > li,
+.mainbody .begining p.location,
+.progressBar em,
+.stepTwo span,
+.stepThree span{ 
+	background-image: url(../images/sprite.png);
+	background-repeat: no-repeat;
+}

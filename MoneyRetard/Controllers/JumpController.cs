@@ -18,7 +18,7 @@ namespace MoneyRetard.Controllers
                 return RedirectToAction("../Index/Index");
             }
             else {
-                return RedirectToAction("../");   
+                return RedirectToAction("../ApplyForm/Index");   
             }
         }
 
