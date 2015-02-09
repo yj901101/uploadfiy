@@ -153,6 +153,7 @@ html{
 	right: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
+	padding-bottom: 30px;
 }
 .columnList{
 	width: 215px;
@@ -201,6 +202,7 @@ html{
 	margin: 6px auto 0 auto;
 	background: #fff url(../images/sprite.png) no-repeat -884px 7px;
 	font-size: 12px;
+	cursor: pointer;
 }
 .columnList > ul > li > ul > li.on,
 .columnList > ul > li > ul > li:hover{

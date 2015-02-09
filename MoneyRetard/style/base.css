@@ -60,7 +60,14 @@ em{
 .mainbody .begining p.location,
 .progressBar em,
 .stepTwo span,
-.stepThree span{ 
+.stepThree span,
+.stepOne div.btn span,
+.applyProve table em,
+.viewPatent div.search,
+.viewPatent .addUser h1,
+.proovDownload span.btn-download,
+.agencyRegister ul h2{ 
+	display: block;
 	background-image: url(../images/sprite.png);
 	background-repeat: no-repeat;
 }

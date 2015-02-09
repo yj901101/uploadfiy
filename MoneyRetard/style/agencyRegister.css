@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{
+	background: #fff;
+}
+.footer{
+	background-color: #d3d3d3;
+	color: #515151;
+}
+.mainbody{
+	position: absolute;
+	top: 122px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	left: 0;
+	right: 0;
+	bottom: 60px;
+	background: #fff;
+	-webkit-box-shadow: 0;
+	-moz-box-shadow: 0;
+	-o-box-shadow: 0;
+	box-shadow: 0;
+}
+
+.agencyRegister{
+	width: 940px;
+}
+.agencyRegister h1{
+	height: 53px;
+	background: #e5e5e5;
+}
+.agencyRegister h1 span{
+	display: block;
+	float: left;
+	height: 100%;
+	font: bold 22px/53px "Microsoft Yahei","宋体";
+	color: #fff;
+	text-align: center;
+	background: #116EAA;
+	width: 230px;
+}
+.agencyRegister ul{
+	padding: 0px 0 0 50px;
+}
+.agencyRegister ul li{
+	float: left;
+	overflow: hidden;
+	position: relative;
+	padding-left: 105px;
+	height: 60px;
+	width: 330px;
+}
+.agencyRegister ul h2
+{
+    height: 50px;
+	font: normal 16px "Microsoft Yahei","宋体";
+	color: #2977b3;
+	background-position: -412px -486px;
+    clear: both;
+    margin-left: -20px;
+    text-indent: 40px;
+    padding: 0 20px 0 0;
+    width: 200px;
+}
+.agencyRegister ul li span{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	text-align: right;
+}
+.agencyRegister ul li input[type="text"],
+.agencyRegister ul li input[type="password"]{
+	width: 250px;
+	height: 29px;
+	line-height: 29px;
+	text-indent: 5px;
+	border: 1px solid #848282;
+}
+.agencyRegister ul li select{
+	width: 252px;
+	height: 33px;
+	border: 1px solid #848282;
+}
+.agencyRegister ul li b{
+	font-weight: normal;
+	color: #f00;
+	margin: 0 0 0 13px;
+}
+
+
+
+.agencyRegister div.btn{
+	padding: 20px 0 30px 0;
+}
+.agencyRegister div.btn input,
+.agencyRegister div.btn img{
+	margin: 0 20px;
+}

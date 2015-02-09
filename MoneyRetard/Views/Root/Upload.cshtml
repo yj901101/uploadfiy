@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+}
+
+<style type="text/css">
+    <!--
+    div.popUpload
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 380px;
+        padding: 30px 20px 20px 40px;
+        margin: -50px 0 0 -220px;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #d6d6d6;
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -o-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    div.popUpload ul li
+    {
+        clear: both;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    div.popUpload ul li span
+    {
+        font-size: 12px;
+    }
+    div.popUpload img.img-close
+    {
+        position: absolute;
+        top: 5px;
+        width: 18px;
+        height: auto;
+        right: 5px;
+        cursor: pointer;
+        }
+   div.popUpload .txt
+        {
+            height: 22px;
+            border: 1px solid #cdcdcd;
+            width: 180px;
+        }
+       div.popUpload .file
+        {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            height: 24px;
+            filter: alpha(opacity:0);
+            opacity: 0;
+            width: 260px;
+            cursor: pointer;
+        }
+       div.popUpload div.btn input[type="submit"],
+       div.popUpload div.btn input[type="button"]
+       {
+           width: 60px;
+           height: 24px;
+           display: inline-block;
+           margin: 0 10px;
+           }
+       div.popUpload div.btn input[type="submit"]
+       {
+           margin-left: 150px;
+       }
+    -->
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(".closeingupoad").click(function () {
+                $("#popDownFile").hide();
+            })
+        })
+    </script>
+<a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
+<form action="../UploadFile/UploadFile" method="post" enctype="multipart/form-data" id="upform1">
+<input type="hidden" value="@ViewData["id"]" id="forminnerval" name= "forminnerval" />
+    <ul>
+        <li style="position: relative;"><span>审核word表单：</span>
+            <input type='text' name='textfield' id='textfield' class='txt' />
+            <input type='button' class='btn' value='浏览...' />
+            <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+            </li>
+        </ul>
+        <li><input type="radio" value="0" name="status" checked="checked" />未通过<input type="radio" value="2" name="status" />已通过</li>
+        <div class="clear oh btn">
+            <input type="submit" value="确定"/>
+            <input type="button" value="取消" class="closeingupoad"/>
+        </div>
+</form>

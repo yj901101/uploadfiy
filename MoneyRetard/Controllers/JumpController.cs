@@ -15,7 +15,7 @@ namespace MoneyRetard.Controllers
         {
             if (Session["limit"].ToString() == "0")
             {
-                return RedirectToAction("../Index/Index");
+                return RedirectToAction("../Root/Index");
             }
             else {
                 return RedirectToAction("../ApplyForm/Index");   

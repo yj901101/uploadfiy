@@ -10,7 +10,7 @@ namespace MoneyRetard.Controllers
 {
     public class LoginController : Controller
     {
-        //
+        //登陆账号判断
         // GET: /Login/
         FlZlEntities fjLgon = new FlZlEntities();
         [HttpGet]
