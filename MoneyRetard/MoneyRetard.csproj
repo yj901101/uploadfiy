@@ -67,16 +67,24 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\CheckAudit.cs" />
+    <Compile Include="Content\CreateWord.cs" />
     <Compile Include="Content\JsonModel.cs" />
     <Compile Include="Content\JudgeType.cs" />
     <Compile Include="Content\LoginValidate.cs" />
     <Compile Include="Content\PagedList.cs" />
     <Compile Include="Content\Report.cs" />
+    <Compile Include="Content\StyleControl.cs" />
+    <Compile Include="Content\WriteIntoWord.cs" />
     <Compile Include="Controllers\ApplyFormController.cs" />
+    <Compile Include="Controllers\FAgencyRegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\JumpController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RootController.cs" />
+    <Compile Include="Controllers\UploadFileController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -118,6 +126,22 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\btn-cancel.png" />
+    <Content Include="images\btn-common-reset.png" />
+    <Content Include="images\btn-common-submit.png" />
+    <Content Include="images\btn-confirm.png" />
+    <Content Include="images\btn-dcword.png" />
+    <Content Include="images\btn-dljgzssc.png" />
+    <Content Include="images\btn-download-error.png" />
+    <Content Include="images\btn-download-erro1r.png" />
+    <Content Include="images\btn-download.png" />
+    <Content Include="images\btn-failed.png" />
+    <Content Include="images\btn-publish.png" />
+    <Content Include="images\btn-reset.png" />
+    <Content Include="images\btn-shdsc.png" />
+    <Content Include="images\btn-submit.png" />
+    <Content Include="images\btn-upload.png" />
+    <Content Include="images\close.png" />
     <Content Include="images\formApply-sidebar-columnList-li.jpg" />
     <Content Include="images\formApply-sidebar-h1.jpg" />
     <Content Include="images\html-bg.jpg" />
@@ -129,10 +153,14 @@
     <Content Include="images\login-logo.png" />
     <Content Include="images\login-window-outer-bg.png" />
     <Content Include="images\progressBar-bg.png" />
+    <Content Include="images\proov.jpg" />
     <Content Include="images\sprite.png" />
+    <Content Include="images\viewPatent-go.png" />
+    <Content Include="images\viewPatent-search-btn.png" />
     <Content Include="images\welcome-announ-bg.png" />
     <Content Include="images\welcome-nail.png" />
     <Content Include="images\yzm.jpg" />
+    <Content Include="js\jquery.validate.min.js" />
     <Content Include="js\pager.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
@@ -144,10 +172,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="style\agencyRegister.css" />
     <Content Include="style\base.css" />
     <Content Include="style\formApply.css" />
     <Content Include="style\frame.css" />
     <Content Include="style\login.css" />
+    <Content Include="style\viewPatent.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -210,6 +240,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ApplyForm\Person_Zl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UploadFile\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\Download.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\Upload.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\CheckedAlready.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\NotChecked.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\NotSumbit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\allocationID.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\FAgencyRegister\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

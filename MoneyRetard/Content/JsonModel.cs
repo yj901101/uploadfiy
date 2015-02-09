@@ -9,5 +9,6 @@ namespace MoneyRetard.Content
     {
         public string msg { get; set; }
         public string statu { get; set; }
+        public string guid { get; set; }
     }
 }

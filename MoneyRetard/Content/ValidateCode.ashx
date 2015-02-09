@@ -9,7 +9,7 @@ public class ValidateCode : IHttpHandler, IRequiresSessionState
 {
     HttpContext context;
     public void ProcessRequest (HttpContext context1) {
-        uthis.context = context1;
+        this.context = context1;
         CreateCheckCodeImage(GenerateCheckCode());
     }
 

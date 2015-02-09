@@ -149,8 +149,24 @@
 .applyProve table tr td:first-child select{
 	border: none;
 }
-
-
+.applyProve table tbody tr td:first-child{
+	position: relative;
+}
+.applyProve table tbody tr td:first-child em{
+	width: 12px;
+	height: 12px;
+	background-position: -921px -496px;
+	cursor: pointer;
+	position: absolute;
+	top: 15px;
+	left: -23px;
+}
+.applyProve table tbody td input[type="text"]{
+	width: 90%;
+	border: 0;
+	outline: 0;
+	text-align: center;
+}
 
 
 /*  @stepTwo
@@ -158,19 +174,19 @@
 .stepTwo{
 	padding: 30px 0;
 }
-.stepTwo span{
+.stepTwo span,
+.stepTwo input[type="image"]{
 	display: inline-block;
 	width: 95px;
 	height: 41px;
 	cursor: pointer;
-	background-position: -213px -709px;
+	vertical-align: middle;
 	margin: 0 20px;
 }
-.stepTwo span:first-child{
-	background-position: -71px -709px;
-}
-
-
+.stepTwo span.confirm{ background-position: -142px -708px;}
+.stepTwo span.export{ background-position: -284px -708px;}
+.stepTwo span.export-error{ background-position: -284px -779px;}
+.stepTwo span.empty{ background-position: -425px -708px;}
 
 
 
@@ -181,7 +197,7 @@
 -------------------------------------------------------------------- */
 .stepThree{
 	background: #e5e5e5;
-	padding: 33px 0;
+	padding: 30px 0;
 	width: 90%;
 }
 .stepThree span{

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+@using MoneyRetard.Models;
+<style type="text/css">
+    <!--
+    div.popUpload
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 380px;
+        padding: 30px 20px 20px 40px;
+        margin: -50px 0 0 -220px;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #d6d6d6;
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -o-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    div.popUpload ul li
+    {
+        clear: both;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    div.popUpload ul li span
+    {
+        font-size: 12px;
+    }
+    div.popUpload img.img-close
+    {
+        position: absolute;
+        top: 5px;
+        width: 18px;
+        height: auto;
+        right: 5px;
+        cursor: pointer;
+        }
+       div.popUpload div.btn input[type="submit"],
+       div.popUpload div.btn input[type="button"]
+       {
+           width: 60px;
+           height: 24px;
+           display: inline-block;
+           margin: 0 10px;
+           }
+       div.popUpload div.btn input[type="submit"]
+       {
+           margin-left: 150px;
+       }
+    -->
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(".closeingupoad").click(function () {
+                $("#popDownFile").hide();
+            })
+        })
+    </script>
+<a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
+    <ul>
+        <li style="position: relative;">
+           <a href=@ViewData["word"]>word表单</a>
+            </li>
+          <li @try
+           {
+               
+               if (ViewData["agen"]!=null){
+                   FJ_ExportWord mf = (FJ_ExportWord)ViewData["agen"];
+                   <a href="@mf.url">代理机构证书</a>
+               }
+           }
+           catch { 
+                <span></span>
+           }</li><li><a href=@ViewData["zlurl"]>专利审核表单</a></li>
+            </ul>
+        <div class="clear oh btn">
+            <input type="submit" value="确定"/>
+            <input type="button" value="取消" class="closeingupoad"/>
+        </div>

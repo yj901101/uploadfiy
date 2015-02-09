@@ -12,12 +12,85 @@
     <link type="text/css" rel="stylesheet" href="../../style/base.css" />
     <link type="text/css" rel="stylesheet" href="../../style/frame.css" />
     <link type="text/css" rel="stylesheet" href="../../style/formApply.css" />
+    <style type="text/css">
+    <!--
+    div.black
+    {
+        position: absolute;
+        top: 43px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.4) none repeat scroll !important;
+        background: #000; 
+        filter: Alpha(opacity=40);
+        z-index: 1000;
+        display:none;
+    }
+    
+    -->
+    </style>
     <script type="text/javascript">
+        var lastID=@ViewData["lastId"];
+        var busType = @ViewData["UserType"]
         $(function () {
-            $("#checkZL").click(function () {
+            $("#checkZL").click(function () {//查看专利
                 $("#mainvalue").html('<iframe src=Person_Zl width="100%" height="100%"></iframe>');
             })
+            $("#exportfile").click(function(){//导出文件
+                window.location.href = "http://" + window.location.host + $("#hidefiles").val();
+            })
+            $("#userContre").click(function(){//用户中心
+                window.location.href = "../ApplyForm/Index"
+            })
+            $("input[type='checkbox']").click(function(){//企业性质只能选择1个
+                $("input[name='fj5']").each(function(){
+                    $(this).attr("checked",false);
+                })
+                $(this).attr("checked",true);
+            })
         })
+        var i = 1;
+        function addTR() {
+            if (i < 100) {
+                var strconn = '<tr><td><em onclick="addTR();"></em><select name="zltype' + i + '" id="zltype' + i + '"><option value="1">发明专利</option><option value="2">外观专利</option><option value="3">实用新型</option></select></td><td><input type="text" id="zlname' + i + '" name="zlname' + i + '"/></td><td><input type="text" id="zlnum' + i + '" name="zlnum' + i + '" readonly="readonly"/></td></tr>'
+                $("#zl").append(strconn);
+                $("#zlnum"+i).val("MZ"+(lastID+i))
+                i++;
+            } else {
+                alert("最多可以添加10条");
+                return false;
+            }
+        }
+        $(document).ready(function(){
+            $("div").ajaxStart(function(){
+                $("#blackgroudvalue").show();
+            });
+            $("div").ajaxStop(function(){
+                $("#blackgroudvalue").hide();
+            });
+            $("#zlnum0").val("MZ"+lastID);
+            $("input[name='fj5']").each(function(){
+                if($(this).val()==busType){
+                    $(this).attr("checked",true)
+                }
+            })
+        })
+        function sumbitForm(){
+            var data = $("#form1").serialize();
+            $.post("../ApplyForm/FromSubmit", data, function (jsobj) {
+                alert(jsobj.msg);
+                if(jsobj.statu=="success"){$("#exportfileerror").hide();$("#exportfile").show();$("#hidefiles").val(jsobj.guid);
+//                    $("#flowPath li").each(function(){
+//                        $(this).removeClass("on")
+//                    })
+//                    $("#flowli2").addClass("on")
+                }
+
+            })
+        }
+        
+
     </script>
 </head>
 <body>
@@ -46,19 +119,19 @@
         <!--  栏目列表  -->
         <div class="columnList clear">
         	<ul>
-        		<li class="userCenter"><span>用户中心<em></em></span>
+        		<li class="userCenter"><span id="userContre">用户中心<em></em></span>
                     <ul>
-                    	<li><a id="checkZL">查看专利</a></li>
-						<li><a href="#">申请审核表填写/上传</a></li>
+                    	<li><a id="checkZL">查看专利/上传审核表单</a></li>
+						<li><a href="../ApplyForm/Index">申请审核表填写</a></li>
 						<li><a href="#">专利费用减缓证明</a></li>
         			</ul>
                 </li>
         		<li class="personalSet"><span>个人设置<em></em></span>
-                    <ul>
+                    @*<ul>
                     	<li><a href="#">查看专利</a></li>
 						<li><a href="#">申请审核表填写/上传</a></li>
 						<li><a href="#">专利费用减缓证明</a></li>
-        			</ul>
+        			</ul>*@
                 </li>
         		<li class="administrator"><span><a href="#">管理员<em></em></a></span></li>
         		<li class="announ"><span><a href="#">通知公告<em></em></a></span></li>
@@ -78,62 +151,65 @@
 
 
 <!--  mainbody  -->
-<div class="mainbody fr">
+<div class="mainbody fr" id="mainvalue">
 	<div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="#">首页</a>&nbsp;>&nbsp;<a href="#">用户中心</a>&nbsp;>&nbsp;申请审批</p>
+    	<p class="location">您的位置：<a href="../ApplyForm/Index">首页</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">用户中心</a>&nbsp;>&nbsp;申请审批</p>
     </div>
     
+    <div class="black" id="blackgroudvalue"></div>
     <!--  mainContent  -->
-   <div class="mainContent" id="mainvalue">
+   <div class="mainContent">
    
    
      <!--  申请审批表  -->
     <div class="formApply clear">
             
             <!--  进度条  -->
-            <div class="progressBar middle tc clear oh">
+            <!--<div class="progressBar middle tc clear oh">
                 <em></em>
                 <em></em>
-                <ul>
-                    <li class="on"><em>1</em><p>专利费用减缓申请审批表填写</p></li>
-                    <li><em>2</em><p>导出申请审批表加盖公章</p></li>
-                    <li><em>3</em><p>上传申请审批表</p></li>
+                <ul id="flowPath">
+                    <li class="on" id="flowli1"><em>1</em><p>专利费用减缓申请审批表填写</p></li>
+                    <li id="flowli2"><em>2</em><p>生成申请审批表</p></li>
+                    <li id="flowli3"><em>3</em><p>上传加盖公章申请审批表</p></li>
                 </ul>
-            </div>
+            </div>-->
             <!--  进度条 end  -->
             
             <!--  第一步  -->
+            <form id="form1" method="post" action="../ApplyForm/FromSubmit" enctype="multipart/form-data">
             <div class="stepOne clear middle">
                 
                 	<!--  填写表格  -->
+                    
                     <div class="formWrite clear">
                     	<table>
                     		<tr>
                             	<th valign="top"><span>申请单位名称：</span></th>
-                                <td valign="top"><input type="text"></td>
+                                <td valign="top"><input type="text" id="fj1" name="fj1" value=@ViewData["deptname"]></td>
                             	<th valign="top"><span>联系人：</span></th>
-                                <td valign="top"><input type="text"></td>
+                                <td valign="top"><input type="text" id="fj2" name="fj2" value=@ViewData["LinkPeo"]></td>
                             </tr>
                     		<tr>
                             	<th valign="top"><span>地&nbsp;址：</span></th>
-                                <td valign="top"><input type="text"></td>
+                                <td valign="top"><input type="text" id="fj3" name="fj3" value=@ViewData["Adress"]></td>
                             	<th valign="top"><span>电&nbsp;话：</span></th>
-                                <td valign="top"><input type="text"></td>
+                                <td valign="top"><input type="text" id="fj4" name="fj4" value=@ViewData["Phone"]></td>
                             </tr>
                     		<tr>
                             	<th valign="top"><span>所属性质：</span></th>
                                 <td valign="top" colspan="3">
-                                	<label><input type="checkbox">企业</label>
-                                	<label><input type="checkbox">事业</label>
-                                	<label><input type="checkbox">高校</label>
-                                	<label><input type="checkbox">科研机构</label>
-                                	<label><input type="checkbox">机关团体</label>
-                                	<label><input type="checkbox">个人</label>
+                                	<label><input type="checkbox" name="fj5" value="6">企业</label>
+                                	<label><input type="checkbox" name="fj5" value="7">事业</label>
+                                	<label><input type="checkbox" name="fj5" value="8">高校</label>
+                                	<label><input type="checkbox" name="fj5" value="9">科研机构</label>
+                                	<label><input type="checkbox" name="fj5" value="10">机关团体</label>
+                                	<label><input type="checkbox" name="fj5" value="11">个人</label>
                                 </td>
                             </tr>
                     		<tr>
                             	<th valign="top"><span>申请理由：</span></th>
-                                <td valign="top" colspan="3"><textarea rows="10"></textarea></td>
+                                <td valign="top" colspan="3"><textarea rows="10" id="fj13" name="fj13"></textarea></td>
                             </tr>
                     	</table>
                     </div>
@@ -147,14 +223,14 @@
                                 <tr>
                                     <td>专利申请类型</td>
                                     <td>专利申请名称</td>
-                                    <td>______年编号</td>
+                                    <td>@ViewData["year"]年编号</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="zl">
                                 <tr>
-                                    <td><select><option>请选择</option></select></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><em onclick="addTR()"></em>@Html.DropDownList("zltype0", ViewData["datatype_sellist"] as IEnumerable<SelectListItem>)</td>
+                                    <td><input type="text" id="zlname0" name="zlname0"/></td>
+                                    <td><input type="text" id="zlnum0" name="zlnum0" readonly="readonly"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -168,19 +244,23 @@
             
             <!--  第二步  -->
             <div class="stepTwo tc oh clear">
-                <span></span>
-                <span></span>
+            	<img src="../../images/btn-confirm.png" onclick="sumbitForm();"/>
+                <input type="hidden" id="hidefiles" />
+                <span class="export" style="display:none" id="exportfile"></span>
+                <span class="export-error" id="exportfileerror"></span>
+                <span class="empty"></span>
             </div>
             <!--  第二步 end  -->
-            
+           </form> 
             
             <!--  第三步  -->
             <div class="stepThree clear oh tc middle">
-                <em>请选择要上传的文件</em>
+                @*<em>请选择要上传的文件</em>
                 <input type="text" placeholder="费减申请表">
                 <span class="upload"></span>
                 <span class="submit"></span>
-                <span class="cancel"></span>
+                <span class="cancel"></span>*@
+                盖完章的审核单请到“查看专利页面”提交
             </div>
             <!--  第三步 end  -->
             

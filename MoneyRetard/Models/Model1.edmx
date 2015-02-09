@@ -10,12 +10,48 @@
           <EntitySet Name="FJ_BasicData" EntityType="FlZlModel.Store.FJ_BasicData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_BasicField" EntityType="FlZlModel.Store.FJ_BasicField" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_BasicHtml" EntityType="FlZlModel.Store.FJ_BasicHtml" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FJ_ExportWord" EntityType="FlZlModel.Store.FJ_ExportWord" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_File" EntityType="FlZlModel.Store.FJ_File" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_Select" EntityType="FlZlModel.Store.FJ_Select" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_User" EntityType="FlZlModel.Store.FJ_User" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_UserInfo" EntityType="FlZlModel.Store.FJ_UserInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_ValueType" EntityType="FlZlModel.Store.FJ_ValueType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FJ_ZlInfo" EntityType="FlZlModel.Store.FJ_ZlInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Checked" EntityType="FlZlModel.Store.Checked" store:Type="Views" store:Schema="dbo" store:Name="Checked">
+            <DefiningQuery>SELECT 
+      [Checked].[id] AS [id], 
+      [Checked].[Zl_Type] AS [Zl_Type], 
+      [Checked].[Zl_Name] AS [Zl_Name], 
+      [Checked].[ZL_Bnum] AS [ZL_Bnum], 
+      [Checked].[guid] AS [guid], 
+      [Checked].[userid] AS [userid], 
+      [Checked].[status] AS [status], 
+      [Checked].[createTime] AS [createTime], 
+      [Checked].[UserRealName] AS [UserRealName]
+      FROM [dbo].[Checked] AS [Checked]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NotChecked" EntityType="FlZlModel.Store.NotChecked" store:Type="Views" store:Schema="dbo" store:Name="NotChecked">
+            <DefiningQuery>SELECT 
+      [NotChecked].[id] AS [id], 
+      [NotChecked].[Zl_Type] AS [Zl_Type], 
+      [NotChecked].[Zl_Name] AS [Zl_Name], 
+      [NotChecked].[ZL_Bnum] AS [ZL_Bnum], 
+      [NotChecked].[guid] AS [guid], 
+      [NotChecked].[userid] AS [userid], 
+      [NotChecked].[UserRealName] AS [UserRealName]
+      FROM [dbo].[NotChecked] AS [NotChecked]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NotSumbit" EntityType="FlZlModel.Store.NotSumbit" store:Type="Views" store:Schema="dbo" store:Name="NotSumbit">
+            <DefiningQuery>SELECT 
+      [NotSumbit].[id] AS [id], 
+      [NotSumbit].[Zl_Type] AS [Zl_Type], 
+      [NotSumbit].[Zl_Name] AS [Zl_Name], 
+      [NotSumbit].[ZL_Bnum] AS [ZL_Bnum], 
+      [NotSumbit].[guid] AS [guid], 
+      [NotSumbit].[userid] AS [userid], 
+      [NotSumbit].[UserRealName] AS [UserRealName]
+      FROM [dbo].[NotSumbit] AS [NotSumbit]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="personDatabase" EntityType="FlZlModel.Store.personDatabase" store:Type="Views" store:Schema="dbo" store:Name="personDatabase">
             <DefiningQuery>SELECT 
       [personDatabase].[id] AS [id], 
@@ -25,6 +61,17 @@
       [personDatabase].[guid] AS [guid], 
       [personDatabase].[userid] AS [userid]
       FROM [dbo].[personDatabase] AS [personDatabase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="personDatabaseByReal" EntityType="FlZlModel.Store.personDatabaseByReal" store:Type="Views" store:Schema="dbo" store:Name="personDatabaseByReal">
+            <DefiningQuery>SELECT 
+      [personDatabaseByReal].[id] AS [id], 
+      [personDatabaseByReal].[Zl_Type] AS [Zl_Type], 
+      [personDatabaseByReal].[Zl_Name] AS [Zl_Name], 
+      [personDatabaseByReal].[ZL_Bnum] AS [ZL_Bnum], 
+      [personDatabaseByReal].[guid] AS [guid], 
+      [personDatabaseByReal].[userid] AS [userid], 
+      [personDatabaseByReal].[userRealName] AS [userRealName]
+      FROM [dbo].[personDatabaseByReal] AS [personDatabaseByReal]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_FJ_AffixUrl_FJ_ZlInfo" Association="FlZlModel.Store.FK_FJ_AffixUrl_FJ_ZlInfo">
             <End Role="FJ_ZlInfo" EntitySet="FJ_ZlInfo" />
@@ -74,6 +121,16 @@
           <Property Name="createTime" Type="datetime" />
           <Property Name="IsStart" Type="bit" />
           <Property Name="WordAdre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FJ_ExportWord">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="nvarchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="FileType" Type="int" />
+          <Property Name="creatTime" Type="datetime" />
         </EntityType>
         <EntityType Name="FJ_File">
           <Key>
@@ -143,6 +200,54 @@
           <Property Name="Zl_Name" Type="nvarchar" MaxLength="300" />
           <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
           <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“FlZl.dbo.Checked”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="Checked">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Zl_Type" Type="int" />
+          <Property Name="Zl_Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="int" />
+          <Property Name="status" Type="int" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="UserRealName" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“FlZl.dbo.NotChecked”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="NotChecked">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Zl_Type" Type="int" />
+          <Property Name="Zl_Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="int" />
+          <Property Name="UserRealName" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“FlZl.dbo.NotSumbit”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="NotSumbit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Zl_Type" Type="int" />
+          <Property Name="Zl_Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="int" />
+          <Property Name="UserRealName" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <!--生成过程中发现错误:
       警告 6002: 表/视图“FlZl.dbo.personDatabase”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
@@ -157,6 +262,21 @@
           <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
           <Property Name="guid" Type="varchar" MaxLength="100" />
           <Property Name="userid" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“FlZl.dbo.personDatabaseByReal”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="personDatabaseByReal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Zl_Type" Type="int" />
+          <Property Name="Zl_Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="ZL_Bnum" Type="varchar" MaxLength="100" />
+          <Property Name="guid" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="int" />
+          <Property Name="userRealName" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <Association Name="FK_FJ_AffixUrl_FJ_ZlInfo">
           <End Role="FJ_ZlInfo" Type="FlZlModel.Store.FJ_ZlInfo" Multiplicity="0..1" />
@@ -213,6 +333,11 @@
             <End Role="FJ_ZlInfo" EntitySet="FJ_ZlInfo" />
           </AssociationSet>
           <EntitySet Name="personDatabases" EntityType="FlZlModel.personDatabase" />
+          <EntitySet Name="FJ_ExportWord" EntityType="FlZlModel.FJ_ExportWord" />
+          <EntitySet Name="personDatabaseByReals" EntityType="FlZlModel.personDatabaseByReal" />
+          <EntitySet Name="Checkeds" EntityType="FlZlModel.Checked" />
+          <EntitySet Name="NotCheckeds" EntityType="FlZlModel.NotChecked" />
+          <EntitySet Name="NotSumbits" EntityType="FlZlModel.NotSumbit" />
         </EntityContainer>
         <EntityType Name="FJ_AffixUrl">
           <Key>
@@ -326,6 +451,7 @@
           <Property Name="guid" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="FJ_AffixUrl" Relationship="FlZlModel.FK_FJ_AffixUrl_FJ_ZlInfo" FromRole="FJ_ZlInfo" ToRole="FJ_AffixUrl" />
           <NavigationProperty Name="FJ_Select" Relationship="FlZlModel.FK_FJ_ZlInfo_FJ_Select" FromRole="FJ_ZlInfo" ToRole="FJ_Select" />
+          <Property Type="Int32" Name="userid" />
         </EntityType>
         <Association Name="FK_FJ_AffixUrl_FJ_ZlInfo">
           <End Role="FJ_ZlInfo" Type="FlZlModel.FJ_ZlInfo" Multiplicity="0..1" />
@@ -361,6 +487,66 @@
           <Property Type="String" Name="ZL_Bnum" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="userid" />
+        </EntityType>
+        <EntityType Name="FJ_ExportWord">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="url" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="FileType" />
+          <Property Type="DateTime" Name="creatTime" />
+        </EntityType>
+        <EntityType Name="personDatabaseByReal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Zl_Type" />
+          <Property Type="String" Name="Zl_Name" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZL_Bnum" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="userid" />
+          <Property Type="String" Name="userRealName" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Checked">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Zl_Type" />
+          <Property Type="String" Name="Zl_Name" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZL_Bnum" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="userid" />
+          <Property Type="Int32" Name="status" />
+          <Property Type="DateTime" Name="createTime" />
+          <Property Type="String" Name="UserRealName" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NotChecked">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Zl_Type" />
+          <Property Type="String" Name="Zl_Name" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZL_Bnum" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="userid" />
+          <Property Type="String" Name="UserRealName" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NotSumbit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="Zl_Type" />
+          <Property Type="String" Name="Zl_Name" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZL_Bnum" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="userid" />
+          <Property Type="String" Name="UserRealName" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -479,6 +665,7 @@
           <EntitySetMapping Name="FJ_ZlInfo">
             <EntityTypeMapping TypeName="FlZlModel.FJ_ZlInfo">
               <MappingFragment StoreEntitySet="FJ_ZlInfo">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Zl_Type" ColumnName="Zl_Type" />
                 <ScalarProperty Name="Zl_Name" ColumnName="Zl_Name" />
@@ -490,6 +677,71 @@
           <EntitySetMapping Name="personDatabases">
             <EntityTypeMapping TypeName="FlZlModel.personDatabase">
               <MappingFragment StoreEntitySet="personDatabase">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="ZL_Bnum" ColumnName="ZL_Bnum" />
+                <ScalarProperty Name="Zl_Name" ColumnName="Zl_Name" />
+                <ScalarProperty Name="Zl_Type" ColumnName="Zl_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FJ_ExportWord">
+            <EntityTypeMapping TypeName="FlZlModel.FJ_ExportWord">
+              <MappingFragment StoreEntitySet="FJ_ExportWord">
+                <ScalarProperty Name="creatTime" ColumnName="creatTime" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personDatabaseByReals">
+            <EntityTypeMapping TypeName="FlZlModel.personDatabaseByReal">
+              <MappingFragment StoreEntitySet="personDatabaseByReal">
+                <ScalarProperty Name="userRealName" ColumnName="userRealName" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="ZL_Bnum" ColumnName="ZL_Bnum" />
+                <ScalarProperty Name="Zl_Name" ColumnName="Zl_Name" />
+                <ScalarProperty Name="Zl_Type" ColumnName="Zl_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Checkeds">
+            <EntityTypeMapping TypeName="FlZlModel.Checked">
+              <MappingFragment StoreEntitySet="Checked">
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="ZL_Bnum" ColumnName="ZL_Bnum" />
+                <ScalarProperty Name="Zl_Name" ColumnName="Zl_Name" />
+                <ScalarProperty Name="Zl_Type" ColumnName="Zl_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotCheckeds">
+            <EntityTypeMapping TypeName="FlZlModel.NotChecked">
+              <MappingFragment StoreEntitySet="NotChecked">
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="ZL_Bnum" ColumnName="ZL_Bnum" />
+                <ScalarProperty Name="Zl_Name" ColumnName="Zl_Name" />
+                <ScalarProperty Name="Zl_Type" ColumnName="Zl_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotSumbits">
+            <EntityTypeMapping TypeName="FlZlModel.NotSumbit">
+              <MappingFragment StoreEntitySet="NotSumbit">
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="guid" ColumnName="guid" />
                 <ScalarProperty Name="ZL_Bnum" ColumnName="ZL_Bnum" />
@@ -536,10 +788,15 @@
         </AssociationConnector>
         <AssociationConnector Association="FlZlModel.FK_FJ_ZlInfo_FJ_Select" >
           <ConnectorPoint PointX="7.5" PointY="3.75" />
-          <ConnectorPoint PointX="7.5" PointY="3.1628120930989576" />
-          <ConnectorPoint PointX="2.25" PointY="3.1628120930989576" />
+          <ConnectorPoint PointX="7.5" PointY="3.2583219401041665" />
+          <ConnectorPoint PointX="2.25" PointY="3.2583219401041665" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FlZlModel.personDatabase" Width="1.5" PointX="3.375" PointY="7.75" Height="2.1610522460937531" />
+        <EntityTypeShape EntityType="FlZlModel.FJ_ExportWord" Width="1.5" PointX="9.375" PointY="3.75" Height="1.5879931640625031" />
+        <EntityTypeShape EntityType="FlZlModel.personDatabaseByReal" Width="1.5" PointX="9.375" PointY="6.75" Height="2.3520719401041674" />
+        <EntityTypeShape EntityType="FlZlModel.Checked" Width="1.5" PointX="3.375" PointY="10.75" Height="2.7341113281250031" />
+        <EntityTypeShape EntityType="FlZlModel.NotChecked" Width="1.5" PointX="5.375" PointY="10.75" Height="2.3520719401041674" />
+        <EntityTypeShape EntityType="FlZlModel.NotSumbit" Width="1.5" PointX="7.375" PointY="10.75" Height="2.3520719401041674" />
       </Diagram>
     </Diagrams>
   </Designer>
