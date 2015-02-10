@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+<link rel="stylesheet" type="text/css" href="../../js/uploadfiy/uploadify.css" />
 <style type="text/css">
     <!--
     div.popUpload
@@ -9,8 +10,8 @@
         top: 50%;
         left: 50%;
         width: 380px;
-        padding: 30px 20px 20px 40px;
-        margin: -50px 0 0 -220px;
+        padding: 10px 20px 20px 40px;
+        margin: -40px 0 0 -220px;
         z-index: 1000;
         background: #fff;
         border: 1px solid #d6d6d6;
@@ -19,6 +20,14 @@
         -o-box-shadow: 0 0 5px rgba(0,0,0,0.3);
         box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }
+    div.popUpload h5
+    {
+        font: weight 14px/25px "Microsoft Yahei","宋体";
+        position: relative;
+        left: -20px;
+        
+    }
+    
     div.popUpload ul li
     {
         clear: both;
@@ -84,9 +93,139 @@
                 $("#popUploadFile").hide();
             })
         })
+        var isagency = 0;
+        $(document).ready(function () {
+            isagency = @ViewData["ag"];
+            $("#uploadify").uploadify({
+                'uploader': '../UploadFile/Uploadfiy?uploadType=@ViewData["guid"]',
+                'swf': '../js/uploadfiy/uploadify.swf',
+                'cancelImg': '../js/uploadfiy/img/uploadify-cancel.png',
+                'sizeLimit': '300000000000',
+                'queueID': 'fileQueue',
+                'removeCompleted': false,
+                'height': 20, //上传按钮的高和宽
+                'width': 55,
+                'auto': false,
+                'multi': true,
+                'buttonText': "添加附件",
+                'fileTypeExts': '*.jpg', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                'queueSizeLimit': 5, //队列中允许的最大文件数目
+                'onSelectError': uploadify_onSelectError,
+                onError: function (a, b, c, d) {
+                    if (d.status == 404)
+                        alert('Could not find upload script. Use a path relative to: ' + '<?= getcwd() ?>');
+                    else if (d.type === "HTTP")
+                        alert('error ' + d.type + ": " + d.status);
+                    else if (d.type === "File Size")
+                        alert(c.name + ' ' + d.type + ' Limit: ' + Math.round(d.sizeLimit / 1024) + 'KB');
+                    else
+                        alert('error ' + d.type + ": " + d.info);
+                },
+                onUploadSuccess: function (file, data, response) {
+                    alert(file.name)
+                    this.enable();
+                    var responseText = response.toString();
+                    if (/MSIE 6.0/i.test(navigator.userAgent)) {
+                        responseText = getCookies();
+                    }
+                    document.getElementById("hidd_UploadFiles").value += param + "%" + file + "&";
+                    var imgCount = $("#hidd_imgCount").val();
+                    alert(document.getElementById("hidd_UploadFiles").value)
+                }
+            });
+            if(isagency==1){
+                $("#uploadify_1").uploadify({
+                    'uploader': '../UploadFile/Uploadfiy_1?uploadType=@ViewData["guid"]',
+                    'swf': '../js/uploadfiy/uploadify.swf',
+                    'cancelImg': '../js/uploadfiy/img/uploadify-cancel.png',
+                    'sizeLimit': '300000000000',
+                    'queueID': 'fileQueue_1',
+                    'removeCompleted': false,
+                    'height': 20, //上传按钮的高和宽
+                    'width': 55,
+                    'auto': false,
+                    'multi': true,
+                    'buttonText': "添加附件",
+                    'fileTypeExts': '*.jpg', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                    'queueSizeLimit': 5, //队列中允许的最大文件数目
+                    'onSelectError': uploadify_onSelectError,
+                    onError: function (a, b, c, d) {
+                        if (d.status == 404)
+                            alert('Could not find upload script. Use a path relative to: ' + '<?= getcwd() ?>');
+                        else if (d.type === "HTTP")
+                            alert('error ' + d.type + ": " + d.status);
+                        else if (d.type === "File Size")
+                            alert(c.name + ' ' + d.type + ' Limit: ' + Math.round(d.sizeLimit / 1024) + 'KB');
+                        else
+                            alert('error ' + d.type + ": " + d.info);
+                    },
+                    onUploadSuccess: function (file, data, response) {
+                        alert(file.name)
+                        this.enable();
+                        var responseText = response.toString();
+                        if (/MSIE 6.0/i.test(navigator.userAgent)) {
+                            responseText = getCookies();
+                        }
+                        document.getElementById("hidd_UploadFiles").value += param + "%" + file + "&";
+                        var imgCount = $("#hidd_imgCount").val();
+                        alert(document.getElementById("hidd_UploadFiles").value)
+                    }
+                });
+            }
+        })
+        var uploadify_onSelectError = function (file, errorCode, errorMsg) {
+            var msgText = "上传失败\n";
+            switch (errorCode) {
+                case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+                    //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";  
+                    msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                    break;
+                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                    break;
+                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                    msgText += "文件大小为0";
+                    break;
+                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                    break;
+                default:
+                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+            }
+            alert(msgText);
+        };
+        function onclick_1() {
+            $('#uploadify').uploadify('upload', '*');
+            if(isagency==1){
+                $('#uploadify_1').uploadify('upload', '*');
+            
+            }
+        } 
+        function onclick_cancel() {
+            $('#uploadify').uploadify('cancel', '*');
+            if(isagency==1){
+                $('#uploadify_1').uploadify('cancel', '*');
+            }
+        }
     </script>
 <a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
-<form action="../UploadFile/Upload" method="post" enctype="multipart/form-data" id="upform1">
+<h5>审核表单上传</h5>
+    <div id="fileQueue" style="width:399px">
+    </div>
+    <input type="file" name="uploadify" id="uploadify" />
+    @if (Convert.ToInt32(ViewData["ag"]) == 1)
+    {
+        
+<h5>代理机构证书上传</h5>
+    <div id="fileQueue_1" style="width:399px">
+    </div>
+    <input type="file" name="uploadify_1" id="uploadify_1" />}
+    <p>
+        <a href="javascript:onclick_1();">上传</a>| <a href="javascript:onclick_cancel()">
+            取消上传</a>
+    </p>
+
+@*<form action="../UploadFile/Upload" method="post" enctype="multipart/form-data" id="upform1">
 <input type="hidden" value="@ViewData["guid"]" id="forminnerval" name= "forminnerval" />
     <ul>
         <li style="position: relative;"><span>审核word表单：</span>
@@ -107,4 +246,4 @@
             <input type="submit" value="确定"/>
             <input type="button" value="取消" class="closeingupoad" />
         </div>
-</form>
+</form>*@

@@ -141,10 +141,6 @@ namespace MoneyRetard.Controllers
             ViewData["rpeo"] = pagerList.ToList();
             return View();
         }
-        public ActionResult updatePwa() {//修改密码
-
-            return View();
-        }
         public ActionResult allocationID() {//分配账号 
             List<FJ_Select> lfs = fjAppRoot.FJ_Select.Where(u=>u.type==1).ToList();//县区的下拉
             SelectList datatype_sellist = new SelectList(lfs, "id", "name");
@@ -172,7 +168,19 @@ namespace MoneyRetard.Controllers
                 createFileFromTempates(downguid, downzlID);
                 ViewData["zlurl"] = "../zlWordFiles/" + filename;
             }
-            ViewData["word"] = lfew[0].url;//最新提交的数据
+            List<string> ls_1 = new List<string>();
+            foreach (FJ_ExportWord few in lfew) { 
+                if(few.url.IndexOf(".pdf")!=-1){
+                    ls_1.Add(few.url);
+                }
+            }
+            try
+            {
+                ViewData["word"] = ls_1[0];
+            }
+            catch {
+                ViewData["word"] = null;
+            }//最新提交的数据
             try
             {
                 ViewData["agen"] = lfew_1[0];//最新的代理证书证明
@@ -207,6 +215,18 @@ namespace MoneyRetard.Controllers
             report.InsertValue("day",DateTime.Now.ToString("dd"));
             string SaveDocPath = Server.MapPath("../zlWordFiles/" + filename);
             report.SaveDocument(SaveDocPath);
+        }
+        public ActionResult ShowPicture(string pinum)
+        {
+            List<string> ls = new List<string>();
+            List<FJ_ExportWord> lfew = fjAppRoot.FJ_ExportWord.Where(u => u.guid == pinum && u.FileType==2).ToList();//上传的费减审核表单
+            foreach (FJ_ExportWord f in lfew) {
+                if (f.url.LastIndexOf(".jpg") != -1 || f.url.IndexOf(".png") != -1 || f.url.IndexOf(".bmp") != -1 || f.url.IndexOf(".jpeg") != -1) {
+                    ls.Add(f.url);
+                }
+            }
+            ViewData["picList"] = ls;
+            return View();
         }
         private bool FilesContains(FileInfo[] fileInfo, string fileName)//判断文件夹是否存在fileName文件
         { 

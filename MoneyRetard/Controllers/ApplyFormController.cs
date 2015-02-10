@@ -35,11 +35,21 @@ namespace MoneyRetard.Controllers
             ViewData["datatype_sellist"] = datatype_sellist.AsEnumerable();
             int userId = Convert.ToInt32(Session["userID"]);
             FJ_UserInfo fu = fjApp.FJ_UserInfo.Where(u => u.UserID == userId).FirstOrDefault();
-            ViewData["deptname"] = fu.UserRealName;//申请单位
-            ViewData["LinkPeo"] = fu.LegalPeo;//联系人
-            ViewData["Adress"] = fu.Adress;//地址
-            ViewData["UserType"] = fu.UserType;//企业性质
-            ViewData["Phone"] = fu.Phone;//电话
+            try
+            {
+                ViewData["deptname"] = fu.UserRealName;//申请单位
+                ViewData["LinkPeo"] = fu.LegalPeo;//联系人
+                ViewData["Adress"] = fu.Adress;//地址
+                ViewData["UserType"] = fu.UserType;//企业性质
+                ViewData["Phone"] = fu.Phone;//电话
+            }
+            catch {
+                ViewData["deptname"] = "";//申请单位
+                ViewData["LinkPeo"] = "";//联系人
+                ViewData["Adress"] = "";//地址
+                ViewData["UserType"] = "";//企业性质
+                ViewData["Phone"] = "";//电话
+            }
             return View();
         }
         [HttpPost]
@@ -127,6 +137,11 @@ namespace MoneyRetard.Controllers
             jmform.msg = "word生成成功";
             jmform.guid = "/wordFiles/" + newid + ".doc";
             return Json(jmform);
+        }
+        public ActionResult updatePwa()
+        {//修改密码
+
+            return View();
         }
         public ActionResult Person_Zl() {
             int pageIndex = 1;

@@ -1,0 +1,10 @@
+*{ margin:0; padding:0;}
+
+.rollphotos{ border:1px solid #ccc; ZOOM: 1; POSITION: relative; width:1000px;}
+.rollphotos .LeftBotton{ BACKGROUND: url(../images/ca_hz_002.gif) no-repeat 0px 0px; LEFT: 5px; FLOAT: left; WIDTH: 11px; CURSOR: pointer; POSITION: absolute; TOP: 10px; HEIGHT: 114px}
+.rollphotos .RightBotton{ RIGHT: 5px; BACKGROUND: url(../images/ca_hz_002.gif) no-repeat -11px 0px; FLOAT: right; WIDTH: 11px; CURSOR: pointer; POSITION: absolute; TOP: 10px; HEIGHT: 114px}
+.rollphotos .Cont{ MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 888px; PADDING-TOP: 5px}
+.rollphotos .box{ FLOAT: left; WIDTH: 152px; TEXT-ALIGN: center}
+.rollphotos .box img{ BORDER-RIGHT: #add2fc 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #add2fc 1px solid; DISPLAY: block; PADDING-LEFT: 3px; BACKGROUND: #fff; PADDING-BOTTOM: 3px; MARGIN: 0px auto; BORDER-LEFT: #add2fc 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #add2fc 1px solid}
+.rollphotos .box A:hover img{ BORDER-RIGHT: #5385cc 1px solid; BORDER-TOP: #5385cc 1px solid; BORDER-LEFT: #5385cc 1px solid; BORDER-BOTTOM: #5385cc 1px solid}
+.rollphotos .box P{	MARGIN: 6px auto 0px; WIDTH: 97px; LINE-HEIGHT: 20px}

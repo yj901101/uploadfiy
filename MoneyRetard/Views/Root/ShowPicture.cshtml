@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+<style type="text/css">
+    <!--
+    .rollphotos 
+    {
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 660px;
+        height: 520px;
+        padding: 20px 0 0 0;
+        margin: -270px 0 0 -330px;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #d6d6d6;
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        -o-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        ZOOM: 1;
+        }
+        
+    .rollphotos img.img-close
+    {
+        position: absolute;
+        top: 5px;
+        width: 18px;
+        height: auto;
+        right: 5px;
+        cursor: pointer;
+        }
+.rollphotos .LeftBotton,
+.rollphotos .RightBotton
+{
+    width: 19px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 200px;
+    }
+.rollphotos .LeftBotton{ background: url(../img/leftjt.gif) no-repeat; left: 0;}
+.rollphotos .RightBotton{ background: url(../img/rightjt.gif) no-repeat; right: 0;}
+.rollphotos .Cont{ MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 606px;}
+.rollphotos .box{ FLOAT: left; WIDTH: 606px; TEXT-ALIGN: center}
+.rollphotos .box img{  DISPLAY: block;
+                       width: 600px;
+                       height: 500px;
+                       border: 1px solid #ccc;
+                       padding: 2px;}
+
+    
+    -->
+    </style>
+<a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
+    <div class="LeftBotton" id="LeftArr"></div>
+    <div class="Cont" id="ISL_Cont_1"><!-- 图片列表 begin -->
+        @foreach (string s in (List<string>)ViewData["picList"])
+        {
+        <div class="box"><img src=@s /></div>}
+        
+    </div><!-- 图片列表 end -->
+    <div class="RightBotton" id="RightArr"></div>
+    <script type="text/javascript">
+        $(function () {
+
+            $(".closeingupoad").click(function () {
+                $("#showPicture").hide();
+            });
+        })
+    </script>
+    <SCRIPT language=javascript type=text/javascript>
+<!--        //--><![CDATA[//><!--
+        var scrollPic_02 = new ScrollPic();
+        scrollPic_02.scrollContId = "ISL_Cont_1"; //内容容器ID
+        scrollPic_02.arrLeftId = "LeftArr"; //左箭头ID
+        scrollPic_02.arrRightId = "RightArr"; //右箭头ID
+
+        scrollPic_02.frameWidth = 606; //显示框宽度
+        scrollPic_02.pageWidth = 606; //翻页宽度
+
+        scrollPic_02.speed = 10; //移动速度(单位毫秒，越小越快)
+        scrollPic_02.space = 10; //每次移动像素(单位px，越大越快)
+        scrollPic_02.autoPlay = false; //自动播放
+        scrollPic_02.autoPlayTime = 3; //自动播放间隔时间(秒)
+
+        scrollPic_02.initialize(); //初始化
+
+        //--><!]]>
+</SCRIPT>

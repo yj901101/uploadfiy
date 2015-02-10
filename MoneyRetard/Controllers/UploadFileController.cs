@@ -22,6 +22,53 @@ namespace MoneyRetard.Controllers
             ViewData["guid"] = uploadguid;
             return View();
         }
+        public void Uploadfiy(HttpPostedFileBase Filedata)
+        {
+            string forminnerval = Request.QueryString["uploadType"];   
+            if (Filedata != null && Filedata.ContentLength > 0)
+            {
+                if (Filedata != null && Filedata.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Filedata.FileName);
+                    string fileExt = Path.GetExtension(fileName);//接收文件的扩展名
+                    string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+                    Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
+                    string newFileName = Guid.NewGuid().ToString() + fileExt;
+                    var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                    Filedata.SaveAs(path);
+
+                    FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                    fewu.creatTime = DateTime.Now;
+                    fewu.FileType = 2;
+                    fewu.guid = forminnerval;
+                    fewu.url = ".." + imageDir + newFileName;
+                    fjApp1.FJ_ExportWord.AddObject(fewu);
+                    fjApp1.SaveChanges();
+                }
+            }
+        }
+        public void Uploadfiy_1(HttpPostedFileBase Filedata)
+        {
+            string forminnerval = Request.QueryString["uploadType"];
+            if (Filedata != null && Filedata.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(Filedata.FileName);
+                string fileExt = Path.GetExtension(fileName);//接收文件的扩展名
+                string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+                Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
+                string newFileName = Guid.NewGuid().ToString() + fileExt;
+                var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                Filedata.SaveAs(path);
+
+                FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                fewu.creatTime = DateTime.Now;
+                fewu.FileType = 3;
+                fewu.guid = forminnerval;
+                fewu.url = ".." + imageDir + newFileName;
+                fjApp1.FJ_ExportWord.AddObject(fewu);
+                fjApp1.SaveChanges();
+            }
+        }
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase fileField, HttpPostedFileBase fileFielddaili, string forminnerval)
         {
