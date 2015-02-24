@@ -14,7 +14,12 @@
         var TotalPager = @ViewData["TotalPager"]
         $(document).ready(function () {
             getLink(pager, TotalPager, tatol, "../Root/NotChecked", "middle", "pageLinkRoot");
+            $("#FisrtPage").click(Jump);
+            $("#secondpage").click(Jump);
         });
+        function Jump() {
+            window.parent.location = "/Root/Index";
+        }
         function Adownload(downguid,downzlID){
             $.ajax({type:"post",url:"../Root/Download",dataType:"html",data:{"downguid":downguid,"downzlID":downzlID},
                 success : function(data){
@@ -33,7 +38,7 @@
         }
    </script>
     <div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="#">首页</a>&nbsp;>&nbsp;<a href="#">用户中心</a>&nbsp;>&nbsp;申请审批</p>
+    	<p class="location">您的位置：<a href="#" id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="#" id="secondpage">专利审核</a>&nbsp;>&nbsp;<a href="/Root/NotChecked">未审核专利</a></p>
     </div>
     
     <!--  mainContent  -->

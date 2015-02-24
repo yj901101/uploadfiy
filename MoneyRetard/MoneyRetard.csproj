@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.Office.Interop.Word, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="MvcPager">
+      <HintPath>Libs\MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -67,15 +70,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DbHelperSQL.cs" />
+    <Compile Include="Common\FileHelper.cs" />
+    <Compile Include="Common\PageHelper.cs" />
     <Compile Include="Content\CheckAudit.cs" />
     <Compile Include="Content\CreateWord.cs" />
     <Compile Include="Content\JsonModel.cs" />
     <Compile Include="Content\JudgeType.cs" />
     <Compile Include="Content\LoginValidate.cs" />
-    <Compile Include="Content\PagedList.cs" />
+    <Compile Include="Content\YJPagedList.cs" />
     <Compile Include="Content\Report.cs" />
     <Compile Include="Content\StyleControl.cs" />
     <Compile Include="Content\WriteIntoWord.cs" />
+    <Compile Include="Controllers\AllocateController.cs" />
     <Compile Include="Controllers\ApplyFormController.cs" />
     <Compile Include="Controllers\FAgencyRegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -85,15 +92,18 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RootController.cs" />
     <Compile Include="Controllers\UploadFileController.cs" />
+    <Compile Include="Controllers\UserRegisterController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Manage_UserDetail.cs" />
     <Compile Include="Models\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserInfoDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +172,31 @@
     <Content Include="images\yzm.jpg" />
     <Content Include="img\leftjt.gif" />
     <Content Include="img\rightjt.gif" />
+    <Content Include="js\jquery-ui\external\jquery\jquery.js" />
+    <Content Include="js\jquery-ui\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="js\jquery-ui\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="js\jquery-ui\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="js\jquery-ui\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="js\jquery-ui\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="js\jquery-ui\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="js\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="js\jquery-ui\index.html" />
+    <Content Include="js\jquery-ui\jquery-ui.css" />
+    <Content Include="js\jquery-ui\jquery-ui.js" />
+    <Content Include="js\jquery-ui\jquery-ui.min.css" />
+    <Content Include="js\jquery-ui\jquery-ui.min.js" />
+    <Content Include="js\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="js\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="js\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="js\jquery-ui\jquery-ui.theme.min.css" />
+    <Content Include="js\jquery.scrollpic.js" />
     <Content Include="js\jquery.validate.min.js" />
     <Content Include="js\pager.js" />
     <Content Include="js\ScrollPic.js" />
@@ -172,9 +207,11 @@
     <Content Include="js\uploadfiy\uploadify-cancel.png" />
     <Content Include="js\uploadfiy\uploadify.css" />
     <Content Include="js\uploadfiy\uploadify.swf" />
+    <Content Include="Libs\MvcPager.dll" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -207,7 +244,9 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -285,6 +324,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Root\ShowPicture.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserRegister\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RegisterUpload\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Allocate\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ApplyForm\AUserDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\RUserDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Root\ManageAccount.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

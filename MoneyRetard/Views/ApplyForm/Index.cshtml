@@ -36,27 +36,53 @@
         $(function () {
             $("#checkZL").click(function () {//查看专利
                 $("#mainvalue").html('<iframe src=Person_Zl width="100%" height="100%"></iframe>');
-            })
+            });
+             $("#userdetail").click(function () {//查看个人信息
+                $("#mainvalue").html('<iframe src="../ApplyForm/AUserDetail/@ViewData["user_id"]" width="100%" height="100%"></iframe>');
+            });
             $("#exportfile").click(function(){//导出文件
                 window.location.href = "http://" + window.location.host + $("#hidefiles").val();
-            })
-            $("#userContre").click(function(){//用户中心
-                window.location.href = "../ApplyForm/Index"
-            })
+            });
+//            $("#userConter").click(function(){//用户中心
+//                window.location.href = "../ApplyForm/Index"
+//            });
             $("input[type='checkbox']").click(function(){//企业性质只能选择1个
                 $("input[name='fj5']").each(function(){
                     $(this).attr("checked",false);
                 })
                 $(this).attr("checked",true);
-            })
+            });
+            $("#userConter").parent().find("ul").each(function(){
+              $(this).slideToggle();
+             });
+            $("#userConter").click( function (){
+              $(this).parent().find("ul").each(function(){
+                $(this).slideToggle();
+              });
+            });
+            $("#system_manage").click( function (){
+              $(this).parent().find("ul").each(function(){
+                $(this).slideToggle();
+              });
+            });
         })
+       
+        function removeTR(row){
+          $(row).parent().parent().remove();
+        }
         var i = 1;
         function addTR() {
-            if (i < 100) {
-                var strconn = '<tr><td><em onclick="addTR();"></em><select name="zltype' + i + '" id="zltype' + i + '"><option value="1">发明专利</option><option value="2">外观专利</option><option value="3">实用新型</option></select></td><td><input type="text" id="zlname' + i + '" name="zlname' + i + '"/></td><td><input type="text" id="zlnum' + i + '" name="zlnum' + i + '" readonly="readonly"/></td></tr>'
-                $("#zl").append(strconn);
-                $("#zlnum"+i).val("MZ"+(lastID+i))
+            var count=$("#zl tr").length+1;
+            if (count <= 10) {
+                var strconn = '<tr><td><em class="add" onclick="addTR();"></em><select name="zltype' + i + '" id="zltype' + i + '"><option value="1">发明专利</option><option value="2">外观专利</option><option value="3">实用新型</option></select></td><td><input type="text" id="zlname' + i + '" name="zlname' + i + '"/></td><td><input type="text" id="zlnum' + i + '" name="zlnum' + i + '" readonly="readonly"/></td></tr>'
+               // $("#zl").append(strconn);
+                $("#zl tr:last").parent().parent().append(strconn);
+                $("#zl tr:last :text:last").val("MZ"+(lastID+i));
+               // $("#zlnum"+i).val("MZ"+(lastID+i))
                 i++;
+                for(var n=0;n<$("#zl tr").length-1;n++){
+                  $($("#zl tr")[n]).find("em").replaceWith("<em class=\"reduce\" onclick=\"removeTR(this)\"></em>");
+               }
             } else {
                 alert("最多可以添加10条");
                 return false;
@@ -89,8 +115,19 @@
 
             })
         }
-        
-
+         function LoginOut(){
+           $.post("/ApplyForm/LoginOut?user_id=@ViewData["user_id"]",null,function(jsobj){
+                switch (jsobj.statu) {
+                   case "ok":
+                            alert(jsobj.msg);
+                            window.location.href=("/Welcome/Index");
+                            break;
+                   case "fail":
+                              alert(jsobj.msg);
+                              break;
+                   }
+           },'json');
+        }
     </script>
 </head>
 <body>
@@ -101,7 +138,7 @@
         </li>
         <li class="fr tr">
             <p>欢迎进入马鞍山市知识产权局专利申请费用减缓系统</p>
-            <p>@ViewData["now"]</p>
+            <p>@ViewData["now"]&nbsp;&nbsp;<a href="javascript:void(0)" onclick="LoginOut()">退出系统</a></p>
         </li>
 	</ul>
 </div>
@@ -119,23 +156,27 @@
         <!--  栏目列表  -->
         <div class="columnList clear">
         	<ul>
-        		<li class="userCenter"><span id="userContre">用户中心<em></em></span>
+        		<li class="userCenter"><span id="userConter">用户中心<em></em></span>
                     <ul>
                     	<li><a id="checkZL">查看专利/上传审核表单</a></li>
 						<li><a href="../ApplyForm/Index">申请审核表填写</a></li>
-						<li><a href="#">专利费用减缓证明</a></li>
+						@*<li><a href="#">专利费用减缓证明</a></li>*@
         			</ul>
                 </li>
-        		<li class="personalSet"><span>个人设置<em></em></span>
+        		@*<li class="personalSet"><span id="personset">个人设置<em></em></span>
                     @*<ul>
-                    	<li><a href="#">查看专利</a></li>
+                    	<li><a href="#" >查看专利</a></li>
 						<li><a href="#">申请审核表填写/上传</a></li>
 						<li><a href="#">专利费用减缓证明</a></li>
-        			</ul>*@
-                </li>
-        		<li class="administrator"><span><a href="#">管理员<em></em></a></span></li>
-        		<li class="announ"><span><a href="#">通知公告<em></em></a></span></li>
-        		<li class="systemManage"><span><a href="#">系统管理<em></em></a></span></li>        
+        			</ul>
+                </li>*@
+        		@*<li class="administrator"><span><a href="#">管理员<em></em></a></span></li>*@
+        		@*<li class="announ"><span><a href="#">通知公告<em></em></a></span></li>*@
+        		<li class="systemManage"><span id="system_manage"><a href="#">系统管理<em></em></a></span>
+                     <ul>
+                    <li><a href="#" id="userdetail">个人信息管理</a></li>
+                    </ul>
+                </li>        
         	</ul>
         </div>
         <!--  栏目列表 end  -->
@@ -153,7 +194,7 @@
 <!--  mainbody  -->
 <div class="mainbody fr" id="mainvalue">
 	<div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="../ApplyForm/Index">首页</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">用户中心</a>&nbsp;>&nbsp;申请审批</p>
+    	<p class="location">您的位置：<a href="../ApplyForm/Index">首页</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">用户中心</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">申请审批</a></p>
     </div>
     
     <div class="black" id="blackgroudvalue"></div>
@@ -228,7 +269,7 @@
                             </thead>
                             <tbody id="zl">
                                 <tr>
-                                    <td><em onclick="addTR()"></em>@Html.DropDownList("zltype0", ViewData["datatype_sellist"] as IEnumerable<SelectListItem>)</td>
+                                    <td><em class="add" onclick="addTR()"></em> @Html.DropDownList("zltype0", ViewData["datatype_sellist"] as IEnumerable<SelectListItem>)</td>
                                     <td><input type="text" id="zlname0" name="zlname0"/></td>
                                     <td><input type="text" id="zlnum0" name="zlnum0" readonly="readonly"/></td>
                                 </tr>

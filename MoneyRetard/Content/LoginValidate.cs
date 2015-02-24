@@ -13,7 +13,7 @@ namespace MoneyRetard.Content
         public override void OnAuthorization(AuthorizationContext filterContext) {
             var routedata = filterContext.RouteData.Values.Values.ToArray();
             string controllername = routedata[0].ToString();
-            if (controllername != "Welcome" && controllername != "Login")
+            if (controllername != "Welcome" && controllername != "Login" && controllername != "UserRegister") 
             {
                 if (controllername == "Root") 
                 {
@@ -34,7 +34,7 @@ namespace MoneyRetard.Content
                         else
                         {
                             HttpContext.Current.Response.Write("<script>alert(\"请重新登陆~\");</script>");
-                            HttpContext.Current.Response.Write("<script>window.parent.location.href=(\"../\")</script>");
+                            HttpContext.Current.Response.Write("<script>window.parent.location.href=(\"../../Welcome/Index\")</script>");
                         }
                     }
                     else {
@@ -49,13 +49,14 @@ namespace MoneyRetard.Content
                         }
                     }
                 }else{
-                    
+                    var limit = HttpContext.Current.Session["limit"];
+                    var userid = HttpContext.Current.Session["userID"];
                     if (HttpContext.Current.Session["limit"] == null && HttpContext.Current.Session["userID"] == null)
                     {
                         if (HttpContext.Current.Request.Cookies["ucookie"] == null)
                         {
                             HttpContext.Current.Response.Write("<script>alert(\"请重新登陆~\");</script>");
-                            HttpContext.Current.Response.Write("<script>window.parent.location.href=(\"../\")</script>");
+                            HttpContext.Current.Response.Write("<script>window.parent.location.href=(\"../../Welcome/Index\")</script>");
                         }
                         else
                         {

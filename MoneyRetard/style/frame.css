@@ -31,6 +31,12 @@ html{
 	height: 20px;
 	line-height: 20px;
 	margin-top: 8px;
+	color: #fff;
+}
+.topNav li.fr p a,
+.topNav li.fr p span
+{
+    color: #fff;
 }
 
 @media screen and (max-width: 1200px){
@@ -184,17 +190,19 @@ html{
 .columnList li.systemManage{ background-position: -862px -413px;}
 
 .columnList > ul > li > ul{
-	background: #f1f1f1 url(../images/formApply-sidebar-columnList-li.jpg) repeat-x 0 bottom;
+	/*background: #f1f1f1 url(../images/formApply-sidebar-columnList-li.jpg) repeat-x 0 bottom;*/
 	display: none;	
 	padding: 3px 0 15px 0;
 	clear: both;
 	overflow: hidden;
+	background: #f1f1f1;
 }
-.columnList > ul > li:hover ul{
+/*.columnList > ul > li:hover ul{
 	display: block;
-}
+}*/
 .columnList > ul > li:hover > span em{
 	background-position: -921px -72px;
+	top: 1px;
 }
 .columnList > ul > li > ul > li{
 	width: 192px;
@@ -206,7 +214,7 @@ html{
 }
 .columnList > ul > li > ul > li.on,
 .columnList > ul > li > ul > li:hover{
-	background: #fff url(../images/sprite.png) no-repeat -884px -28px;
+	background: #fff url(../images/sprite.png) no-repeat -884px -29px;
 	color: #084e8f;
 }
 .columnList > ul > li > ul > li a{

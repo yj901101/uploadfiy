@@ -34,7 +34,30 @@
             $("#allotID").click(function(){
                 $("#zlIframe").html('<iframe src=allocationID width="100%" height="100%"></iframe>')//分配账号
             })
-            
+            $("#userdetail").click(function () {//查看个人信息
+                $("#zlIframe").html('<iframe src="../Root/RUserDetail/@ViewData["user_id"]" width="100%" height="100%"></iframe>');
+            });
+            $("#managecount").click(function () {//账号管理
+                $("#zlIframe").html('<iframe src="../Root/ManageAccount" width="100%" height="100%"></iframe>');
+            });
+            $("#patent_check").parent().find("ul").each(function(){
+              $(this).slideToggle();
+             });
+            $("#patent_check").click( function (){
+              $(this).parent().find("ul").each(function(){
+                $(this).slideToggle();
+              });
+            });
+            $("#user_center").click( function (){
+              $(this).parent().find("ul").each(function(){
+                $(this).slideToggle();
+              });
+            });
+            $("#system_manage").click( function (){
+              $(this).parent().find("ul").each(function(){
+                $(this).slideToggle();
+              });
+            });
         })
         function Adownload(downguid,downzlID){
             $.ajax({type:"post",url:"../Root/Download",dataType:"html",data:{"downguid":downguid,"downzlID":downzlID},
@@ -60,6 +83,19 @@
             })
             $("#showPicture").show();
         }
+        function LoginOut(){
+           $.post("/Root/LoginOut?user_id=@ViewData["user_id"]",null,function(jsobj){
+                switch (jsobj.statu) {
+                   case "ok":
+                            alert(jsobj.msg);
+                            window.location.href=("/Welcome/Index");
+                            break;
+                   case "fail":
+                              alert(jsobj.msg);
+                              break;
+                   }
+           },'json');
+        }
     </script>
     
 </head>
@@ -71,7 +107,7 @@
         </li>
         <li class="fr tr">
             <p>欢迎进入马鞍山市知识产权局专利申请费用减缓系统</p>
-            <p>2015年1月15日 星期三</p>
+            <p>@DateTime.Now.ToString("D")&nbsp;&nbsp;<a href="javascript:void(0)" onclick="LoginOut()">退出系统</a></p>
         </li>
 	</ul>
 </div>
@@ -89,23 +125,28 @@
         <!--  栏目列表  -->
         <div class="columnList clear">
         	<ul>
-        		<li class="userCenter"><span>专利审核<em></em></span>
+        		<li class="userCenter"><span id="patent_check">专利审核<em></em></span>
                     <ul>
                         <li><a href="#" id="zlChecked">已审核专利</a></li>
                     	<li><a href="#" id="zlNotChecked">未审核专利</a></li>
 						<li><a href="#" id="zlNotSumbit">未提交专利</a></li>
 					</ul>
                 </li>
-        		<li class="personalSet"><span>用户中心<em></em></span>
+        		<li class="personalSet"><span id="user_center">用户中心<em></em></span>
                     <ul>
-                    	<li><a href="#">修改密码</a></li>
+                    	@*<li><a href="#">修改密码</a></li>*@
 						<li><a href="#" id="allotID">分配账号</a></li>
-						<li><a href="#">专利费用减缓证明</a></li>
+                        <li><a href="#" id="managecount">账号管理</a></li>
+						@*<li><a href="#">专利费用减缓证明</a></li>*@
         			</ul>
                 </li>
-        		<li class="administrator"><span><a href="#">管理员<em></em></a></span></li>
-        		<li class="announ"><span><a href="#">通知公告<em></em></a></span></li>
-        		<li class="systemManage"><span><a href="#">系统管理<em></em></a></span></li>        
+        		@*<li class="administrator"><span><a href="#">管理员<em></em></a></span></li>*@
+        		@*<li class="announ"><span><a href="#">通知公告<em></em></a></span></li>*@
+        		<li class="systemManage"><span id="system_manage"><a href="#">系统管理<em></em></a></span>
+                    <ul>
+                    <li><a href="#" id="userdetail">个人信息管理</a></li>
+                    </ul>
+                </li>        
         	</ul>
         </div>
         <!--  栏目列表 end  -->
@@ -123,7 +164,7 @@
 <!--  mainbody  -->
 <div class="mainbody fr" id="zlIframe">
 	<div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="#">首页</a>&nbsp;>&nbsp;<a href="#">用户中心</a>&nbsp;>&nbsp;申请审批</p>
+    	<p class="location">您的位置：<a href="../Root/Index">首页</a>&nbsp;>&nbsp;<a href="../Root/Index">专利审核</a>&nbsp;>&nbsp;<a href="../Root/Index">已审核专利</p>
     </div>
     
     <!--  mainContent  -->

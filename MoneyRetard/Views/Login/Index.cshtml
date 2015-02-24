@@ -24,6 +24,7 @@
             })
         }
         $(function () {
+            $("body").keydown(function (e) { var key = e.which; if (key == 13) { login(); } });
             $("#cvode").click(function () {
                 $("#icode").attr("src", "../../Content/ValidateCode.ashx?str=" + Math.random())
             })
@@ -35,7 +36,7 @@
 	<div class="topNav"></div>
     <div class="text w1000 tr">
     	<p>欢迎进入马鞍山市知识产权局专利申请费用减缓系统</p>
-		<p>2015年1月15日 星期三</p>
+		<p>@DateTime.Now.ToString("D")&nbsp&nbsp&nbsp<a href="/Welcome/Index">返回</a></p>
     </div>
 </div>
 <!--  topNav end  -->
@@ -47,7 +48,8 @@
     <div class="login-window-outer oh middle clear">
     	<div class="login-window-border middle"></div>
     	<div class="login-window oh middle tl">
-    		<h1>用户登录</h1>
+    		@*<h1>用户登录</h1>*@
+            <h1>@ViewData["title"].ToString()</h1> 
                 <form method="post" action="../Login/Index" id="from1">
     		        <ul class="clear">
             	        <li><em>用户名</em><input type="text" id="user" name="user" /></li>
@@ -55,8 +57,20 @@
             	        <li><em>验证码</em><input type="text" style="width: 142px;" id="vcode" name="vcode"/><a title="看不清？换一张" id="cvode"><img src="../../Content/ValidateCode.ashx" id="icode" /></a></li>
                         <li><label><input type="checkbox" name="always">记住用户名</label></li>
                         <li>
-                	        <span class="btn btn-login" onclick="login()"></span>
-                            <a href="../FAgencyRegister/Index"> <span class="btn btn-register"></span></a>
+                	       
+                            @{
+                                
+                              if(Convert.ToInt32((ViewData["IsDisplay"]))== 1)
+                              {
+                                  @MvcHtmlString.Create("<span class=\"btn btn-login\" onclick=\"login()\"></span>");
+                                  @MvcHtmlString.Create("<a href=\"../UserRegister/Index\"> <span class=\"btn btn-register\"></span></a>");
+                              }  
+                              else
+                              {
+                                  @MvcHtmlString.Create(" <span class=\"btn btn-login\" onclick=\"login()\" style=\"margin: 0 auto; display: block;\"></span>");
+                              }
+                             }
+                            
                         </li>
                     </ul>
                 </form>

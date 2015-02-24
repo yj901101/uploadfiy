@@ -50,7 +50,38 @@ namespace MoneyRetard.Controllers
                 ViewData["UserType"] = "";//企业性质
                 ViewData["Phone"] = "";//电话
             }
+            var user_id = Session["userID"];
+            if (user_id != null)
+            {
+                ViewData["user_id"] = user_id.ToString();
+            }
+            else
+            {
+                ViewData["user_id"] = "";
+            }
             return View();
+        }
+        public ActionResult LoginOut()
+        {
+            string user_id = Request.QueryString["user_id"];
+            JsonModel jsmodel = new JsonModel();
+            if (!string.IsNullOrEmpty(user_id))
+            {
+                HttpCookie user_cookie = Request.Cookies["ucookie"];
+                if (user_cookie != null && (user_cookie.Value.ToString() == user_id))
+                {
+                    user_cookie.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(user_cookie);
+                }
+                jsmodel.statu = "ok";
+                jsmodel.msg = "退出成功";
+            }
+            else
+            {
+                jsmodel.statu = "fail";
+                jsmodel.msg = "退出失败，用户信息错误，请联系网站管理员";
+            }
+            return Json(jsmodel);
         }
         [HttpPost]
         public ActionResult FromSubmit() {
@@ -161,14 +192,14 @@ namespace MoneyRetard.Controllers
                               where n1.userid == userid
                               orderby n1.id descending
                               select n1;
-            PagedList<personDatabase> pagerList;
+            YJPagedList<personDatabase> pagerList;
             try
             {
-                pagerList = new PagedList<personDatabase>(relationpeo, pageIndex - 1, pageSize);
+                pagerList = new YJPagedList<personDatabase>(relationpeo, pageIndex - 1, pageSize);
             }
             catch
             {
-                pagerList = new PagedList<personDatabase>(relationpeo, 0, pageSize);
+                pagerList = new YJPagedList<personDatabase>(relationpeo, 0, pageSize);
             }
             ViewData["Total"] = relationpeo.Count();
             ViewData["TotalPager"] = pagerList.TotalPages;
@@ -181,6 +212,52 @@ namespace MoneyRetard.Controllers
                 case 2: return "外观专利";
                 default: return "实用新型";
             }
-        } 
+        }
+        public ActionResult AUserDetail(int id)
+        {
+            int uid = id;
+            Models.UserInfoDetail userinfo = fjApp.FJ_User.Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ }).ToList().FirstOrDefault();
+            ViewData["User"] = userinfo;
+            List<Models.FJ_Select> lfs = fjApp.FJ_Select.Where(u => u.type == 1).ToList();//县区的下拉
+            SelectList datatype_sellist = new SelectList(lfs, "id", "name");
+            ViewData["lfs"] = datatype_sellist.AsEnumerable();
+            return View();
+        }
+        public ActionResult AUserModify()
+        {
+            int id = Convert.ToInt32(Request.Params["uid"]);
+            Models.FJ_User oldusermodel = fjApp.FJ_User.Where(u => u.id == id).ToList().FirstOrDefault();
+            Models.FJ_UserInfo oldinfo = fjApp.FJ_UserInfo.Where(i => i.UserID == id).ToList().FirstOrDefault();
+            string username = Request.Params["uname"].Trim().ToString();
+            string pwd = Request.Params["pwd"].Trim().ToString();
+            oldusermodel.UserName = username;
+            oldusermodel.Pwd = pwd;
+            fjApp.SaveChanges();
+            string userrealname = Request.Params["companyname"].Trim().ToString();
+            int usertype = Convert.ToInt32(Request.Params["busType"].ToString());
+            int area = Convert.ToInt32(Request.Params["Area"].ToString());
+            string address = Request.Params["add"].Trim().ToString();
+            string phone = Request.Params["callnum"].Trim().ToString();
+            string email = string.Empty;
+            string qq = string.Empty;
+            if (!string.IsNullOrEmpty(Request.Params["email"]))
+            {
+                email = Request.Params["email"].Trim().ToString();
+            }
+            if (!string.IsNullOrEmpty(Request.Params["qq"]))
+            {
+                qq = Request.Params["qq"].Trim().ToString();
+            }
+            oldinfo.UserRealName = userrealname;
+            oldinfo.UserType = usertype;
+            oldinfo.Adress = address;
+            oldinfo.Area = area;
+            oldinfo.Phone = phone;
+            oldinfo.Email = email;
+            oldinfo.QQ = qq;
+            fjApp.SaveChanges();
+            MoneyRetard.Content.JsonModel jsmodel = new JsonModel() { msg = "修改成功!" };
+            return Json(jsmodel);
+        }
     }
 }

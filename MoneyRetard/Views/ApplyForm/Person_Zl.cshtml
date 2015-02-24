@@ -27,9 +27,15 @@
                 $("#blackgroudvalue").hide();
             });
             getLink(pager, TotalPager, tatol, "../ApplyForm/Person_Zl", "middle", "pageLink");
+            $("#FisrtPage").click(Jump);
+            $("#secondpage").click(Jump);
         });
         function exportWord(name) {
             window.location.href="http://" + window.location.host + "/wordFiles/" + name + ".doc";
+        }
+        function Jump() {
+            window.parent.location = "/ApplyForm/Index";
+
         }
         function uploadFile(uploadguid) {
             $.ajax({ type: "post", url: "../UploadFile/Index", dataType: "html", data: { "uploadguid": uploadguid }, success: function (data) {
@@ -61,7 +67,7 @@
 <body>
 <div class="black" id="blackgroudvalue"></div>
 <div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="#">首页</a>&nbsp;>&nbsp;<a href="#">用户中心</a>&nbsp;>&nbsp;专利信息查看</p>
+    	<p class="location">您的位置：<a href="#" id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="#" id="secondpage">用户中心</a>&nbsp;>&nbsp;<a href="/ApplyForm/Person_Zl">查看专利</a></p>
     </div>
     
     <!--  mainContent  -->

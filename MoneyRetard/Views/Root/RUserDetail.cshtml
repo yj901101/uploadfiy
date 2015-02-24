@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+@using MoneyRetard.Models
+@{FJ_User usermodel = ViewData["User"] as FJ_User;}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RUserDetail</title>
+     <link href="../../style/base.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/frame.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/viewPatent.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
+    <style type="text/css">
+<!--
+.personalInfo{
+	width: 890px;
+	padding-top: 30px;
+}
+.personalInfo ul li{
+	float: left;
+	overflow: hidden;
+	position: relative;
+	padding-left: 105px;
+	height: 60px;
+	width: 330px;
+}
+.personalInfo ul li span{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	text-align: right;
+}
+.personalInfo ul li input[type="text"],
+.personalInfo ul li input[type="password"]{
+	width: 250px;
+	height: 29px;
+	line-height: 29px;
+	text-indent: 5px;
+	border: 1px solid #848282;
+}
+.personalInfo ul li input[type="file"]{
+	margin-left: 15px;
+}
+.personalInfo ul li select{
+	width: 252px;
+	height: 33px;
+	border: 1px solid #848282;
+}
+.personalInfo ul li b{
+	font-weight: normal;
+	color: #f00;
+	margin: 0 0 0 13px;
+}
+
+
+
+.personalInfo div.btn{
+	padding: 20px 0 30px 0;
+}
+.personalInfo div.btn input,
+.personalInfo div.btn img{
+	margin: 0 20px;
+}
+
+
+-->
+</style>
+    <script type="text/javascript">
+        $(function () {
+            $("#FisrtPage").click(Jump);
+            $("#modify").click(Domodify);
+            $("#reset").click(Reset);
+        });
+        function Jump() {
+            window.parent.location = "/Root/Index";
+        }
+        function Domodify() {
+            if ($("#uname").val() == '') {
+                alert('用户名不能为空');
+                return false;
+            }
+            if ($("#pwd").val() == '') {
+                alert('密码不能为空');
+                return false;
+            }
+            var data = $("#f1").serialize();
+            $.post("/Root/RUserModify", data, function (jsobj) {
+                alert(jsobj.msg);
+                window.location.reload();
+            }, "json");
+        }
+        function Reset() {
+            $("#uname").val('@usermodel.UserName');
+            $("#pwd").val('@usermodel.Pwd');
+        }
+    </script>
+</head>
+<body>
+<div class="begining w100 oh clear">
+<p class="location">您的位置：<a  href="#" id="FisrtPage"> 首页</a> > <a href="/Root/RUserDetail/@usermodel.id">系统管理</a> > <a href="/Root/RUserDetail/@usermodel.id">个人信息管理</a></p></div>
+     <div class="viewPatent clear middle oh">
+    <div class="search personalInfoManage-search clear oh">
+   </div>
+      <div class="personalInfo middle oh clear">
+        <form id="f1">
+        <input type="hidden" id="uid" name="uid" value="@usermodel.id"/>
+        <ul class="clear oh">
+        <li><span>用户名：</span><input type="text" id="uname" name="uname"  value="@usermodel.UserName" /><b>*</b></li>
+       <li><span>密码：</span><input type="text" id="pwd" name="pwd" value="@usermodel.Pwd" /><b>*</b></li>
+       </ul>
+        @*<input type="button" value="修改" id="modify"/> <input type="button" value="重置" id="reset" />*@
+         <div class="btn tc oh clear">
+            <img src="../../images/btn-common-submit.png" id="modify"   style="cursor:pointer"/>
+            <img src="../../images/btn-common-reset.png" id="reset"  style="cursor:pointer" />
+         </div>
+        </form>
+      </div>
+</div>
+</body>
+</html>

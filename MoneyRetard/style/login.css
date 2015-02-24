@@ -34,6 +34,12 @@ html{
 	height: 20px;
 	line-height: 20px;
 	margin-top: 8px;
+	color: #fff;
+}
+.topNav-outer span,
+.topNav-outer a
+{
+    color: #fff;
 }
 @media screen and (max-width: 999px){
 	.topNav-outer div.text{
@@ -135,6 +141,12 @@ html{
 .login-window ul li label{
 	margin: 0 0 0 12px;
 	cursor: pointer;
+}
+.login-window ul li img
+{
+    margin-left: 10px;
+    height: 35px;
+    width: auto;
 }
 .login-window ul li label input{
 	margin-right: 7px;

@@ -17,6 +17,32 @@ namespace MoneyRetard.Controllers
         public ActionResult Index()
         {
             Session["ty"] = Request.QueryString["ty"];
+            int ty = 1;
+            if (!string.IsNullOrEmpty(Request.QueryString["ty"]))
+            {
+                ty = Convert.ToInt32(Request.QueryString["ty"].ToString());
+            }
+            string title = string.Empty;
+            if (ty == 2)
+            {
+                ViewData["title"] = "代理机构用户登录";
+            }
+            else if (ty == 1)
+            {
+                ViewData["title"] = "非代理机构用户登录";
+            }
+            else 
+            {
+                ViewData["title"] = "管理员登录";
+            }
+            if (ty== 1)
+            {
+                ViewData["IsDisplay"] = 1;
+            }
+            else 
+            {
+                ViewData["IsDisplay"] = 2;
+            }
             return View();
         }
         [HttpPost]
@@ -49,8 +75,8 @@ namespace MoneyRetard.Controllers
                     jm.msg = "请联系管理员激活此账号!";
                     return Json(jm);
                 }
-                if (lfu[0].IsAgency != 0 && lfu[0].IsAgency!=3)
-                {//判断是否为代理机构 3是管理员，0为默认分配账号，还未选择类型
+                //if (lfu[0].IsAgency != 0 && lfu[0].IsAgency!=3)
+              //  {//判断是否为代理机构 3是管理员，0为默认分配账号，还未选择类型
                     if (lfu[0].IsAgency != bty) {
                         if (bty == 0) {
                             return RedirectToAction("../");
@@ -59,7 +85,7 @@ namespace MoneyRetard.Controllers
                         jm.msg = "用户类别出错!";
                         return Json(jm);
                     }
-                }
+              //  }
                 if (!string.IsNullOrEmpty(Request.Form["always"]))
                 {
                     HttpCookie cookie = new HttpCookie("ucookie", lfu[0].id.ToString());

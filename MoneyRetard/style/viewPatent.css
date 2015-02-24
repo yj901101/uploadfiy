@@ -96,6 +96,13 @@ img.btn-publish{
 	cursor: pointer;
 	margin: 20px auto;
 }
+
+.personalInfoManage-search{   /*  个人信息管理  */
+	background-position: 25px -1331px;
+}
+
+
+
 /*  @stepThree
 -------------------------------------------------------------------- */
 .stepThree{

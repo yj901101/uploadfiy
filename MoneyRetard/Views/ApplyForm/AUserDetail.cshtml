@@ -1,0 +1,185 @@
+﻿@{
+    Layout = null;
+}
+@using MoneyRetard.Models
+@{UserInfoDetail usermodel = ViewData["User"] as UserInfoDetail;}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>个人信息管理</title>
+    <link href="../../style/base.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/frame.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/viewPatent.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
+    <style type="text/css">
+<!--
+.personalInfo{
+	width: 890px;
+	padding-top: 30px;
+}
+.personalInfo ul li{
+	float: left;
+	overflow: hidden;
+	position: relative;
+	padding-left: 105px;
+	height: 60px;
+	width: 330px;
+}
+.personalInfo ul li span{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	text-align: right;
+}
+.personalInfo ul li input[type="text"],
+.personalInfo ul li input[type="password"]{
+	width: 250px;
+	height: 29px;
+	line-height: 29px;
+	text-indent: 5px;
+	border: 1px solid #848282;
+}
+.personalInfo ul li input[type="file"]{
+	margin-left: 15px;
+}
+.personalInfo ul li select{
+	width: 252px;
+	height: 33px;
+	border: 1px solid #848282;
+}
+.personalInfo ul li b{
+	font-weight: normal;
+	color: #f00;
+	margin: 0 0 0 13px;
+}
+
+
+
+.personalInfo div.btn{
+	padding: 20px 0 30px 0;
+}
+.personalInfo div.btn input,
+.personalInfo div.btn img{
+	margin: 0 20px;
+}
+
+
+-->
+</style>
+    <script type="text/javascript">
+        $(function () {
+            $("#Area").val('@usermodel.Area');
+            $("#busType").val('@usermodel.UserType');
+            $("#modify").click(Domodify);
+            $("#reset").click(Reset);
+            $("#FisrtPage").click(Jump);
+        });
+        function Jump() {
+            window.parent.location = "/ApplyForm/Index";
+         }
+        function Domodify() {
+            if ($("#uname").val() == '') {
+                alert('用户名不能为空');
+                return false;
+            }
+            if ($("#pwd").val() == '') {
+                alert('密码不能为空');
+                return false;
+            }
+            if ($("#companyname").val() == '') {
+                alert('企业名称不能为空');
+                return false;
+            }
+            if ($("#callnum").val() == '') {
+                alert('联系号码不能为空');
+                return false;
+            }
+            if ($("#callnum").val() != '') {
+                var reg2 = /^((0\d{2,3}-\d{7,8})|(0\d{2,3}\d{7,8})|(\d{7,8})|(1[3584]\d{9}))$/;
+                if (reg2.test($("#callnum").val()) == false) {
+                    alert("联系号不合法,请重填");
+                    $("#callnum").val("");
+                    return false;
+                }
+            }
+            if ($("#add").val() == '') {
+                alert('企业地址不能为空');
+                return false;
+            }
+            if ($("#email").val() != '') {
+                var reg = /\w+([-+.]\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                if (reg.test($("#email").val()) == false) {
+                    alert("email地址不合法,请重填");
+                    $("#email").val('');
+                    return false;
+                }
+            }
+            if ($("#qq").val() != '') {
+                var reg3 = /[1-9][0-9]{4,}/;
+                if (reg3.test($("#qq").val()) == false) {
+                    alert("qq号不合法,请重填");
+                    $("#qq").val("");
+                    return false;
+                }
+            }
+            var data = $("#f1").serialize();
+            $.post("/ApplyForm/AUserModify", data, function (jsobj) {
+                alert(jsobj.msg);
+                window.location.reload();
+            }, "json");
+        }
+        function Reset(){
+            $("#Area").val('@usermodel.Area');
+            $("#busType").val('@usermodel.UserType');
+            $("#uname").val('@usermodel.UserName');
+            $("#pwd").val('@usermodel.Pwd');
+            $("#companyname").val('@usermodel.UserRealName');
+            $("#email").val('@usermodel.Email');
+            $("#callnum").val('@usermodel.Phone');
+            $("#add").val('@usermodel.Adress');
+            $("#qq").val('@usermodel.QQ');
+        }
+    </script>
+</head>
+<body>
+<div class="begining w100 oh clear">
+    	<p class="location">您的位置：<a  href="#" id="FisrtPage"> 首页</a> > <a href="/ApplyForm/AUserDetail/@usermodel.id">系统管理</a> > <a href="/ApplyForm/AUserDetail/@usermodel.id">个人信息管理</a></p></div>
+<div class="mainContent">
+
+    <div class="viewPatent clear middle oh">
+    <div class="search personalInfoManage-search clear oh">
+   </div>
+    
+      <div class="personalInfo middle oh clear">
+      <form id="f1">
+        <input type="hidden" value="@usermodel.id" id="uid" name="uid" />
+        <ul class="clear oh">
+        <li><span>用户名：</span><input type="text" value="@usermodel.UserName" id="uname" name="uname"/><b>*</b></li>
+        <li><span>密码：</span><input type="text" value="@usermodel.Pwd" id="pwd" name="pwd"/><b>*</b></li>
+        <li><span>企业名称：</span><input type="text" value="@usermodel.UserRealName" id="companyname"  name="companyname"/><b>*</b></li>
+        <li><span>企业类型：</span><select name="busType" id="busType">
+                            <option value="6">企业</option>
+                            <option value="7">事业</option>
+                            <option value="8">高校</option>
+                            <option value="9">科研机构</option>
+                            <option value="10">机关团体</option>
+                            <option value="11">个人</option>
+                        </select><b>*</b></li>
+         <li><span>所属区县：</span>@Html.DropDownList("Area", ViewData["lfs"] as IEnumerable<SelectListItem>) <b>*</b></li>
+         <li><span>联系电话：</span><input type="text" value="@usermodel.Phone" id="callnum"  name="callnum"/><b>*</b></li>
+         <li><span>E-mail：</span><input type="text" value="@usermodel.Email" id="email"  name="email"/></li>
+         <li><span>QQ：</span><input type="text" value="@usermodel.QQ" id="qq" name="qq" /></li>
+         <li style="width: 90%;"><span>企业地址：</span><input type="text" value="@usermodel.Adress" id="add"  name="add" style="width: 685px;"><b>*</b></li>
+         </ul>
+        @*<input type="button" value="修改" id="modify"/> <input type="button" value="重置" id="reset" />*@
+        <div class="btn tc oh clear">
+            <img src="../../images/btn-common-submit.png" id="modify"   style="cursor:pointer"/>
+            <img src="../../images/btn-common-reset.png" id="reset"  style="cursor:pointer" />
+         </div>
+       </form>
+    </div>
+</div>
+</body>
+</html>

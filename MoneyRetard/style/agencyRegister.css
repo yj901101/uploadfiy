@@ -29,6 +29,7 @@ html{
 .agencyRegister h1{
 	height: 53px;
 	background: #e5e5e5;
+	margin: 30px 0;
 }
 .agencyRegister h1 span{
 	display: block;
@@ -77,6 +78,9 @@ html{
 	line-height: 29px;
 	text-indent: 5px;
 	border: 1px solid #848282;
+}
+.agencyRegister ul li input[type="file"]{
+	margin-left: 15px;
 }
 .agencyRegister ul li select{
 	width: 252px;
