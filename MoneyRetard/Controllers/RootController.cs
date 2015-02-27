@@ -183,6 +183,8 @@ namespace MoneyRetard.Controllers
         }
         public ActionResult Download(string downguid, int downzlID)
         {
+            MemoryStream stream = null;
+            List<MemoryStream> lm = new List<MemoryStream>();
             List<FJ_ExportWord> lfew = (from n in fjAppRoot.FJ_ExportWord
                                         where n.guid == downguid &&　n.FileType==2
                                         orderby n.creatTime descending
@@ -203,14 +205,27 @@ namespace MoneyRetard.Controllers
                 ViewData["zlurl"] = "../zlWordFiles/" + filename;
             }
             List<string> ls_1 = new List<string>();
-            foreach (FJ_ExportWord few in lfew) { 
-                if(few.url.IndexOf(".pdf")!=-1){
-                    ls_1.Add(few.url);
-                }
+            foreach (FJ_ExportWord few in lfew) {
+                ls_1.Add(few.url);
             }
             try
             {
-                ViewData["word"] = ls_1[0];
+                DirectoryInfo theFolderPdf = new DirectoryInfo(Server.MapPath("../zlPDFFiles"));//遍历专利模板与文件的文件夹
+                FileInfo[] fileInfoPdf = theFolderPdf.GetFiles();
+                string filenamepdf = downguid + ".pdf";
+                if (FilesContains(fileInfoPdf, filenamepdf))//判断文件是否存在文件夹
+                {
+                    ViewData["word"] = ls_1[0];//上传的文件为pdf文件
+                }
+                else { //上传的扫描件问图片,将其转化成pdf文件
+                    string newPicUrl = ls_1[0].Replace("../", "");
+                    stream = new MemoryStream(System.IO.File.ReadAllBytes(Server.MapPath("" + newPicUrl + "")));
+                    lm.Add(stream);
+                    ImageToPdf itp = new ImageToPdf();
+                    itp.TurnTheImageToPdf(ref lm, Server.MapPath("zlPDFFiles/" + downguid+".pdf"));
+                    ViewData["word"] = "../zlPDFFiles/" + downguid + ".pdf";
+                }
+                
             }
             catch {
                 ViewData["word"] = null;
@@ -349,7 +364,7 @@ namespace MoneyRetard.Controllers
             wherelamda3 = wherelamda3 == null ? u => u.id > 0 : wherelamda3;
             wherelamda4 = wherelamda4 == null ? u => u.id > 0 : wherelamda4;
             wherelamda5 = wherelamda5 == null ? u => u.id > 0 : wherelamda5;
-            PagedList<Models.Manage_UserDetail> pagedata = fjAppRoot.FJ_User.Join(fjAppRoot.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.Manage_UserDetail() { id = u.id, UserName = u.UserName, Pwd = u.Pwd, IsAgency = u.IsAgency, IsAllocation = u.IsAllocation, IsStart = u.IsStart, CreateTime = u.CreateTime, Limits = u.Limits, UInfoID = i.id, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, QQ = i.QQ, Phone = i.Phone, LegalPeo = i.LegalPeo, Email = i.Email, Icard_1 = i.Icard_1, Icard_1_Num = i.Icard_1_Num, Icard_2 = i.Icard_2, Icard_2_Num = i.Icard_2_Num }).Where(wherelamda1).Where(wherelamda2).Where(wherelamda3).Where(wherelamda4).Where(wherelamda5).OrderBy(u=>u.id).ToPagedList(id, 3);
+            PagedList<Models.Manage_UserDetail> pagedata = fjAppRoot.FJ_User.Join(fjAppRoot.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.Manage_UserDetail() { id = u.id, UserName = u.UserName, Pwd = u.Pwd, IsAgency = u.IsAgency, IsAllocation = u.IsAllocation, IsStart = u.IsStart, CreateTime = u.CreateTime, Limits = u.Limits, UInfoID = i.id, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, QQ = i.QQ, Phone = i.Phone, LegalPeo = i.LegalPeo, Email = i.Email, Icard_1 = i.FJ_Select1.name, Icard_1_Num = i.Icard_1_Num, Icard_2 = i.FJ_Select.name, Icard_2_Num = i.Icard_2_Num }).Where(wherelamda1).Where(wherelamda2).Where(wherelamda3).Where(wherelamda4).Where(wherelamda5).OrderBy(u=>u.id).ToPagedList(id, 10);
             #endregion
             //string strwhere = "where 1=1";
             //if (!string.IsNullOrEmpty(Request.QueryString["kw"]))
@@ -442,7 +457,7 @@ namespace MoneyRetard.Controllers
         {
             int uid = id;
             Models.Manage_UserDetail usermodel=fjAppRoot.FJ_User.Where(u=>u.id==uid).Join(fjAppRoot.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.Manage_UserDetail() { 
-             id=u.id,UserName=u.UserName,Pwd=u.Pwd,IsAgency=u.IsAgency,IsAllocation=u.IsAllocation,IsStart=u.IsStart,UInfoID=i.id, UserRealName=i.UserRealName, UserType=i.UserType, LegalPeo=i.LegalPeo, Area=i.Area, Adress=i.Adress, CreateTime=u.CreateTime, Limits=u.Limits, Email= i.Email, Phone=i.Phone,Icard_1=i.Icard_1, Icard_1_Num=i.Icard_1_Num, Icard_2=i.Icard_2, Icard_2_Num=i.Icard_2_Num,QQ=i.QQ
+             id=u.id,UserName=u.UserName,Pwd=u.Pwd,IsAgency=u.IsAgency,IsAllocation=u.IsAllocation,IsStart=u.IsStart,UInfoID=i.id, UserRealName=i.UserRealName, UserType=i.UserType, LegalPeo=i.LegalPeo, Area=i.Area, Adress=i.Adress, CreateTime=u.CreateTime, Limits=u.Limits, Email= i.Email, Phone=i.Phone,Icard_1=i.FJ_Select1.name, Icard_1_Num=i.Icard_1_Num, Icard_2=i.FJ_Select.name, Icard_2_Num=i.Icard_2_Num,QQ=i.QQ
             }).ToList().FirstOrDefault();
             return Json(usermodel, JsonRequestBehavior.AllowGet);
         }

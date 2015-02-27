@@ -77,6 +77,14 @@
             <End Role="FJ_ZlInfo" EntitySet="FJ_ZlInfo" />
             <End Role="FJ_AffixUrl" EntitySet="FJ_AffixUrl" />
           </AssociationSet>
+          <AssociationSet Name="FK_FJ_UserInfo_FJ_Select_1" Association="FlZlModel.Store.FK_FJ_UserInfo_FJ_Select_1">
+            <End Role="FJ_Select" EntitySet="FJ_Select" />
+            <End Role="FJ_UserInfo" EntitySet="FJ_UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FJ_UserInfo_FJ_Select2" Association="FlZlModel.Store.FK_FJ_UserInfo_FJ_Select2">
+            <End Role="FJ_Select" EntitySet="FJ_Select" />
+            <End Role="FJ_UserInfo" EntitySet="FJ_UserInfo" />
+          </AssociationSet>
           <AssociationSet Name="FK_FJ_ZlInfo_FJ_Select" Association="FlZlModel.Store.FK_FJ_ZlInfo_FJ_Select">
             <End Role="FJ_Select" EntitySet="FJ_Select" />
             <End Role="FJ_ZlInfo" EntitySet="FJ_ZlInfo" />
@@ -290,6 +298,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FJ_UserInfo_FJ_Select_1">
+          <End Role="FJ_Select" Type="FlZlModel.Store.FJ_Select" Multiplicity="0..1" />
+          <End Role="FJ_UserInfo" Type="FlZlModel.Store.FJ_UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_Select">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_UserInfo">
+              <PropertyRef Name="Icard_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FJ_UserInfo_FJ_Select2">
+          <End Role="FJ_Select" Type="FlZlModel.Store.FJ_Select" Multiplicity="0..1" />
+          <End Role="FJ_UserInfo" Type="FlZlModel.Store.FJ_UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_Select">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_UserInfo">
+              <PropertyRef Name="Icard_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FJ_ZlInfo_FJ_Select">
           <End Role="FJ_Select" Type="FlZlModel.Store.FJ_Select" Multiplicity="0..1" />
           <End Role="FJ_ZlInfo" Type="FlZlModel.Store.FJ_ZlInfo" Multiplicity="*" />
@@ -338,6 +370,14 @@
           <EntitySet Name="Checkeds" EntityType="FlZlModel.Checked" />
           <EntitySet Name="NotCheckeds" EntityType="FlZlModel.NotChecked" />
           <EntitySet Name="NotSumbits" EntityType="FlZlModel.NotSumbit" />
+          <AssociationSet Name="FK_FJ_UserInfo_FJ_Select" Association="FlZlModel.FK_FJ_UserInfo_FJ_Select">
+            <End Role="FJ_Select" EntitySet="FJ_Select" />
+            <End Role="FJ_UserInfo" EntitySet="FJ_UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FJ_UserInfo_FJ_Select_1" Association="FlZlModel.FK_FJ_UserInfo_FJ_Select_1">
+            <End Role="FJ_Select" EntitySet="FJ_Select" />
+            <End Role="FJ_UserInfo" EntitySet="FJ_UserInfo" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="FJ_AffixUrl">
           <Key>
@@ -397,6 +437,8 @@
           <Property Name="name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="type" Type="Int32" />
           <NavigationProperty Name="FJ_ZlInfo" Relationship="FlZlModel.FK_FJ_ZlInfo_FJ_Select" FromRole="FJ_Select" ToRole="FJ_ZlInfo" />
+          <NavigationProperty Name="FJ_UserInfo" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select" FromRole="FJ_Select" ToRole="FJ_UserInfo" />
+          <NavigationProperty Name="FJ_UserInfo1" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select_1" FromRole="FJ_Select" ToRole="FJ_UserInfo" />
         </EntityType>
         <EntityType Name="FJ_User">
           <Key>
@@ -432,6 +474,8 @@
           <Property Name="IsAgency" Type="Int32" />
           <Property Name="CreateTime" Type="DateTime" />
           <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="FJ_Select" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select" FromRole="FJ_UserInfo" ToRole="FJ_Select" />
+          <NavigationProperty Name="FJ_Select1" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select_1" FromRole="FJ_UserInfo" ToRole="FJ_Select" />
         </EntityType>
         <EntityType Name="FJ_ValueType">
           <Key>
@@ -548,6 +592,30 @@
           <Property Type="Int32" Name="userid" />
           <Property Type="String" Name="UserRealName" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_FJ_UserInfo_FJ_Select">
+          <End Type="FlZlModel.FJ_Select" Role="FJ_Select" Multiplicity="0..1" />
+          <End Type="FlZlModel.FJ_UserInfo" Role="FJ_UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_Select">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_UserInfo">
+              <PropertyRef Name="Icard_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FJ_UserInfo_FJ_Select_1">
+          <End Type="FlZlModel.FJ_Select" Role="FJ_Select" Multiplicity="0..1" />
+          <End Type="FlZlModel.FJ_UserInfo" Role="FJ_UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FJ_Select">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FJ_UserInfo">
+              <PropertyRef Name="Icard_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -797,6 +865,20 @@
         <EntityTypeShape EntityType="FlZlModel.Checked" Width="1.5" PointX="3.375" PointY="10.75" Height="2.7341113281250031" />
         <EntityTypeShape EntityType="FlZlModel.NotChecked" Width="1.5" PointX="5.375" PointY="10.75" Height="2.3520719401041674" />
         <EntityTypeShape EntityType="FlZlModel.NotSumbit" Width="1.5" PointX="7.375" PointY="10.75" Height="2.3520719401041674" />
+        <AssociationConnector Association="FlZlModel.FK_FJ_UserInfo_FJ_Select" >
+          <ConnectorPoint PointX="6.75" PointY="4.8305261230468748" />
+          <ConnectorPoint PointX="6.5" PointY="4.8305261230468748" />
+          <ConnectorPoint PointX="6.5" PointY="7.16105224609375" />
+          <ConnectorPoint PointX="1.5" PointY="7.16105224609375" />
+          <ConnectorPoint PointX="1.5" PointY="7.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="FlZlModel.FK_FJ_UserInfo_FJ_Select_1" >
+          <ConnectorPoint PointX="6.75" PointY="5.4020411845703116" />
+          <ConnectorPoint PointX="6.625" PointY="5.4020411845703116" />
+          <ConnectorPoint PointX="6.625" PointY="7.16105224609375" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="7.16105224609375" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="7.75" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

@@ -216,7 +216,7 @@ namespace MoneyRetard.Controllers
         public ActionResult AUserDetail(int id)
         {
             int uid = id;
-            Models.UserInfoDetail userinfo = fjApp.FJ_User.Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ }).ToList().FirstOrDefault();
+            Models.UserInfoDetail userinfo = fjApp.FJ_User.Where(u=>u.id==uid).Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ }).ToList().FirstOrDefault();
             ViewData["User"] = userinfo;
             List<Models.FJ_Select> lfs = fjApp.FJ_Select.Where(u => u.type == 1).ToList();//县区的下拉
             SelectList datatype_sellist = new SelectList(lfs, "id", "name");

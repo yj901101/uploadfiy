@@ -95,10 +95,12 @@
                             <td>专利类型</td>
                             <td>专利名称</td>
                             <td>专利编号</td>
-                            <td>专利费减证明</td>
+                            
+                            <td>导出申请审批表</td>
+                            <td>上传审批扫描件</td>
+                            
                             <td>审核状态</td>
-                            <td>费减审批表</td>
-                            <td>上传审核</td>
+                            <td>专利费减证明</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,11 +110,13 @@
                             <td>@pd.Zl_Type</td>
                             <td>@pd.Zl_Name</td>
                             <td>@pd.ZL_Bnum</td>
-                            <td>@MvcHtmlString.Create(MoneyRetard.Content.CheckAudit.imgSrc(pd.guid, pd.id))</td>
-                            <td>@MvcHtmlString.Create(MoneyRetard.Content.CheckAudit.check(pd.guid, pd.id))</td>
+                            
                             <td><span onclick="exportWord('@pd.guid')"><a href="#">
                                 <img src="../../images/btn-dcword.png" /></a></span></td>
                             @MvcHtmlString.Create(@MoneyRetard.Content.CheckAudit.rtnTd(pd.guid, pd.id))
+                            
+                            <td>@MvcHtmlString.Create(MoneyRetard.Content.CheckAudit.check(pd.guid, pd.id))</td>
+                            <td>@MvcHtmlString.Create(MoneyRetard.Content.CheckAudit.imgSrc(pd.guid, pd.id))</td>
                         </tr>
                      }
                     </tbody>            

@@ -86,9 +86,6 @@
                     <option value="1">代理机构注册证</option>
                 </select></li>
         	    <li><span>证件号码：</span><input type="text" name="IC2Num" class="required"></li>
-        	    <li><span>证件类型三：</span><select name="IC3" class="required"><option value="4">专利机构代理证</option>
-                    <option value="5">执业人证</option></select></li>
-        	    <li><span>证件号码：</span><input type="text" name="IC3Num" class="required"></li>
         	    <li><span>所属区县：</span>
                     @Html.DropDownList("Area", ViewData["lfs"] as IEnumerable<SelectListItem>)</li>
         	    <li><span>法人代表：</span><input type="text" name="faren" class="required"></li>

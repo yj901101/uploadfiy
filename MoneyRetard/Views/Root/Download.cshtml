@@ -63,19 +63,19 @@
 <a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
     <ul>
         <li style="position: relative;">
-           <a href=@ViewData["word"]>word表单</a>
+           <a href=@ViewData["word"]>审批扫描件</a>
             </li>
           <li> @try
            {
                
                if (ViewData["agen"]!=null){
                    FJ_ExportWord mf = (FJ_ExportWord)ViewData["agen"];
-                   <a href="@mf.url">代理机构证书</a>
+                   <a href="@mf.url">营业执照</a>
                }
            }
            catch { 
                 <span></span>
-           }</li><li><a href=@ViewData["zlurl"]>专利审核表单</a></li>
+           }</li><li><a href=@ViewData["zlurl"]>专利费减证明</a></li>
             </ul>
         <div class="clear oh btn">
             <input type="submit" value="确定"/>

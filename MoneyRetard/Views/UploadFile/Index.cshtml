@@ -108,7 +108,7 @@
                 'auto': false,
                 'multi': true,
                 'buttonText': "添加附件",
-                'fileTypeExts': '*.jpg', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                //'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc,*.docx', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
                 'queueSizeLimit': 5, //队列中允许的最大文件数目
                 'onSelectError': uploadify_onSelectError,
                 onError: function (a, b, c, d) {
@@ -133,7 +133,15 @@
                     alert(document.getElementById("hidd_UploadFiles").value)
                 }
             });
-            if(isagency==1){
+            if(isagency==2){
+                var agent = '<h5>代理企业营业执照扫描件</h5>'
+                         agent+= '<div id="fileQueue_1" style="width:399px">'
+                            agent+='</div>'
+                            agent+='<input type="file" name="uploadify_1" id="uploadify_1" />'
+                            
+                $("#agent").html(agent)
+            }
+            if(isagency==2){
                 $("#uploadify_1").uploadify({
                     'uploader': '../UploadFile/Uploadfiy_1?uploadType=@ViewData["guid"]',
                     'swf': '../js/uploadfiy/uploadify.swf',
@@ -146,7 +154,7 @@
                     'auto': false,
                     'multi': true,
                     'buttonText': "添加附件",
-                    'fileTypeExts': '*.jpg', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                    'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
                     'queueSizeLimit': 5, //队列中允许的最大文件数目
                     'onSelectError': uploadify_onSelectError,
                     onError: function (a, b, c, d) {
@@ -196,35 +204,30 @@
         };
         function onclick_1() {
             $('#uploadify').uploadify('upload', '*');
-            if(isagency==1){
+            if(isagency==2){
                 $('#uploadify_1').uploadify('upload', '*');
             
             }
         } 
         function onclick_cancel() {
             $('#uploadify').uploadify('cancel', '*');
-            if(isagency==1){
+            if(isagency==2){
                 $('#uploadify_1').uploadify('cancel', '*');
             }
         }
     </script>
 <a href="#" class="closeingupoad"><img src="../../images/close.png" class="img-close" /></a>
-<h5>审核表单上传</h5>
+<h5>审批扫描件</h5>
     <div id="fileQueue" style="width:399px">
     </div>
     <input type="file" name="uploadify" id="uploadify" />
-    @if (Convert.ToInt32(ViewData["ag"]) == 1)
-    {
-        
-<h5>代理机构证书上传</h5>
-    <div id="fileQueue_1" style="width:399px">
-    </div>
-    <input type="file" name="uploadify_1" id="uploadify_1" />}
-    <p>
-        <a href="javascript:onclick_1();">上传</a>| <a href="javascript:onclick_cancel()">
-            取消上传</a>
-    </p>
+ <div id="agent">  
 
+</div>
+<p>
+<a href="javascript:onclick_1();">上传</a>| <a href="javascript:onclick_cancel()">
+取消上传</a>
+</p>
 @*<form action="../UploadFile/Upload" method="post" enctype="multipart/form-data" id="upform1">
 <input type="hidden" value="@ViewData["guid"]" id="forminnerval" name= "forminnerval" />
     <ul>

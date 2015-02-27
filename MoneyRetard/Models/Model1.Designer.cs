@@ -21,6 +21,8 @@ using System.Xml.Serialization;
 
 [assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_AffixUrl_FJ_ZlInfo", "FJ_ZlInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_ZlInfo), "FJ_AffixUrl", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_AffixUrl), true)]
 [assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_ZlInfo_FJ_Select", "FJ_Select", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_Select), "FJ_ZlInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_ZlInfo), true)]
+[assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select", "FJ_Select", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_Select), "FJ_UserInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_UserInfo), true)]
+[assembly: EdmRelationshipAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select_1", "FJ_Select", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(MoneyRetard.Models.FJ_Select), "FJ_UserInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MoneyRetard.Models.FJ_UserInfo), true)]
 
 #endregion
 
@@ -1779,6 +1781,50 @@ namespace MoneyRetard.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select", "FJ_UserInfo")]
+        public EntityCollection<FJ_UserInfo> FJ_UserInfo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FJ_UserInfo>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_UserInfo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FJ_UserInfo>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_UserInfo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select_1", "FJ_UserInfo")]
+        public EntityCollection<FJ_UserInfo> FJ_UserInfo1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FJ_UserInfo>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_UserInfo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FJ_UserInfo>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_UserInfo", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2448,6 +2494,86 @@ namespace MoneyRetard.Models
         #endregion
 
     
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select", "FJ_Select")]
+        public FJ_Select FJ_Select
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_Select").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_Select").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FJ_Select> FJ_SelectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_Select");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select", "FJ_Select", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FlZlModel", "FK_FJ_UserInfo_FJ_Select_1", "FJ_Select")]
+        public FJ_Select FJ_Select1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_Select").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_Select").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FJ_Select> FJ_Select1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_Select");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FJ_Select>("FlZlModel.FK_FJ_UserInfo_FJ_Select_1", "FJ_Select", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>

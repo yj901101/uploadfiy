@@ -18,9 +18,9 @@ namespace MoneyRetard.Models
         public int? IsStart { get; set; }
         public int? UserType { get; set; }
         public string UserRealName { get; set; }
-        public int? Icard_1 { get; set; }
+        public string Icard_1 { get; set; }
         public string Icard_1_Num { get; set; }
-        public int? Icard_2 { get; set; }
+        public string Icard_2 { get; set; }
         public string Icard_2_Num { get; set; }
         public int? Area { get; set; }
         public string LegalPeo { get; set; }
