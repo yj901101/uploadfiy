@@ -520,5 +520,94 @@ namespace MoneyRetard.Controllers
             };
             return Json(jsomodel);
         }
+        public ActionResult PrintTable(int id=1) 
+        {
+            List<string> allnames = new List<string>() { "ZL_Bnum", "Zl_Name", "Zl_Type", "IsAgency", "LegalPeo", "UserRealName", "Adress" };
+            List<string> undisplaynames = new List<string>();
+            List<string> displaynames = new List<string>();
+            System.Text.StringBuilder sbhtml = new System.Text.StringBuilder();
+            sbhtml.AppendLine("<script type=\"text/javascript\">");
+            string displayitems= Request.QueryString["condtion"];
+            if (!string.IsNullOrEmpty(displayitems)) 
+            {
+               displayitems=displayitems.Substring(0, displayitems.Length - 1);
+               displaynames = displayitems.Split(';').ToList();
+               foreach (string item in allnames)
+               {
+                   if (!displayitems.Contains(item))
+                   {
+                       undisplaynames.Add(item);
+                   }
+               }
+            }
+            if (undisplaynames.Count() != 0)
+            {
+                foreach (string item in undisplaynames)
+                {
+                    sbhtml.AppendLine("$(\"[name='" + item + "']\").each(function(){ $(this).hide();});");
+                }
+            }
+            int isagency = 0;
+            int zllx = 0;
+            string companyname = string.Empty;
+            string legalperson = string.Empty;
+            string zlname = string.Empty;
+            System.Linq.Expressions.Expression<Func<Models.printmodel, bool>> wherelamda1 = null;
+            System.Linq.Expressions.Expression<Func<Models.printmodel, bool>> wherelamda2 = null;
+            System.Linq.Expressions.Expression<Func<Models.printmodel, bool>> wherelamda3 = null;
+            System.Linq.Expressions.Expression<Func<Models.printmodel, bool>> wherelamda4 = null;
+            System.Linq.Expressions.Expression<Func<Models.printmodel, bool>> wherelamda5 = null;
+            if (!string.IsNullOrEmpty(Request.QueryString["isagency"]))
+            {
+                isagency = Convert.ToInt32(Request.QueryString["isagency"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["companyname"]))
+            {
+                companyname = Request.QueryString["companyname"];
+                wherelamda2 = u => u.UserRealName.Contains(companyname);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["legalperson"]))
+            {
+                legalperson = Request.QueryString["legalperson"];
+                wherelamda3 = u => u.LegalPeo.Contains(legalperson);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["zllx"]))
+            {
+                zllx = Convert.ToInt32(Request.QueryString["zllx"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["zlname"]))
+            {
+                zlname= Request.QueryString["zlname"];
+                wherelamda5 = u => u.Zl_Name.Contains(zlname);
+            }
+            if (isagency != 0)
+            {
+                wherelamda1 = u => u.IsAgency == isagency;
+            }
+            if(zllx!=0)
+            {
+                wherelamda4=u=>u.Zl_Type==zllx;
+            }
+            wherelamda1 = wherelamda1 == null ? u => u.id > 0 : wherelamda1;
+            wherelamda2 = wherelamda2 == null ? u => u.id > 0 : wherelamda2;
+            wherelamda3 = wherelamda3 == null ? u => u.id > 0 : wherelamda3;
+            wherelamda4 = wherelamda4 == null ? u => u.id > 0 : wherelamda4;
+            wherelamda5 = wherelamda5 == null ? u => u.id > 0 : wherelamda5;
+            PagedList<Models.printmodel> pagedata = fjAppRoot.FJ_ZlInfo.Join(fjAppRoot.FJ_UserInfo, z => z.userid, u => u.UserID, (z, u) => new printmodel() { Adress = u.Adress, IsAgency = u.IsAgency, LegalPeo = u.LegalPeo, UserRealName = u.UserRealName, ZL_Bnum = z.ZL_Bnum, Zl_Name = z.Zl_Name, Zl_Type = z.Zl_Type, id = z.id }).OrderBy(z => z.id).Where(wherelamda1).Where(wherelamda2).Where(wherelamda3).Where(wherelamda4).Where(wherelamda5).ToPagedList(id, 10);
+            sbhtml.AppendLine("$(\"#sel\").val("+isagency+");");
+            sbhtml.AppendLine("$(\"#companyname\").val(\"" + companyname + "\");");
+            sbhtml.AppendLine("$(\"#legalperson\").val(\""+legalperson+"\");");
+            sbhtml.AppendLine("$(\"#sel2\").val("+zllx+");");
+            sbhtml.AppendLine("$(\"#zlname\").val(\""+zlname+"\");");
+            foreach (string item in displaynames) 
+            {
+                sbhtml.AppendLine("$(\"[value='"+item+"']\").attr(\"checked\",true);");
+            }
+            sbhtml.AppendLine("</script>");
+            ViewData["script"] = sbhtml.ToString();
+            int userid = Convert.ToInt32(Session["userID"]);
+            ViewData["uid"] = userid;
+            return View(pagedata);
+        }
     }
 }

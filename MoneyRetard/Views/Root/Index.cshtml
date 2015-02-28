@@ -40,6 +40,9 @@
             $("#managecount").click(function () {//账号管理
                 $("#zlIframe").html('<iframe src="../Root/ManageAccount" width="100%" height="100%"></iframe>');
             });
+            $("#printtable").click(function () {//打印报表
+                $("#zlIframe").html('<iframe src="../Root/PrintTable" width="100%" height="100%"></iframe>');
+            });
             $("#patent_check").parent().find("ul").each(function(){
               $(this).slideToggle();
              });
@@ -145,6 +148,7 @@
         		<li class="systemManage"><span id="system_manage"><a href="#">系统管理<em></em></a></span>
                     <ul>
                     <li><a href="#" id="userdetail">个人信息管理</a></li>
+                    <li><a href="#" id="printtable">打印报表</a></li>
                     </ul>
                 </li>        
         	</ul>

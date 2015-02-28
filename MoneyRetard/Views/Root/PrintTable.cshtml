@@ -1,0 +1,153 @@
+﻿
+@{
+    Layout = null;
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<MoneyRetard.Models.printmodel>
+@using MoneyRetard.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <title>打印报表</title>
+    <script src="../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#createtable").click(Search);
+            $("#FisrtPage").click(Jump);
+            $("#doprint").click(Print);
+        });
+        function Jump() {
+            window.parent.location = "/Root/Index";
+        }
+        function Print(){
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->";
+            eprnstr = "<!--endprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.location.reload();
+        }
+        function Search() {
+            var val = "";
+            $("[name='condtion']").each(function () {
+                if (this.checked) {
+                    val = $(this).val() +";"+ val;
+                }
+            });
+            window.location = "/Root/PrintTable?isagency=" + $("#sel").val() + "&companyname=" + $("#companyname").val() + "&legalperson=" + $("#legalperson").val() + "&zllx=" + $("#sel2").val() + "&zlname=" + $("#zlname").val() + "&condtion=" + val;
+        };
+    </script>
+    
+    <link href="../../style/base.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/frame.css" rel="stylesheet" type="text/css" />
+    <link href="../../style/viewPatent.css" rel="stylesheet" type="text/css" />
+    
+    <style type="text/css">
+    <!--
+    .userSearch
+    {
+        margin: 25px auto;
+        background: #e5e5e5;
+        padding: 20px;
+        }
+    .userSearch label
+    {
+        display: inline-block;
+        *display: inline;
+        white-space: nowrap;
+        zoom: 1;
+        margin: 0 15px;
+        font-size: 12px;
+        vertical-align: middle;
+    }
+    .userSearch label input
+    {
+        
+        margin: 0 5px;
+        }
+    -->
+    </style>
+</head>
+<body>
+<div class="begining w100 oh clear">
+    	<p class="location">您的位置：<a href="#"id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="/Root/RUserDetail/@ViewData["uid"]">系统管理</a> &nbsp;>&nbsp;<a href="/Root/PrintTable">打印报表</a></p>
+    </div>
+<div class="mainContent clear">
+
+    <!--  查看专利  -->
+    <div class="viewPatent clear middle oh">
+        <div class="userSearch clear oh">
+        @*打印报表*@
+        <form id="f1">
+         <h5>显示项：</h5>
+        <label><input type="checkbox" value="ZL_Bnum" name="condtion"/>流水号</label>
+        <label><input type="checkbox" value="Zl_Name" name="condtion"/>专利名称</label>
+        <label><input type="checkbox" value="Zl_Type" name="condtion"/>专利类型</label>
+        <label><input type="checkbox" value="IsAgency" name="condtion"/>代理机构</label>
+        <label><input type="checkbox" value="LegalPeo" name="condtion"/>代理人</label>
+        <label><input type="checkbox" value="UserRealName" name="condtion"/>企业名称</label>
+        <label><input type="checkbox" value="Adress" name="condtion"/>企业地址</label><br />
+        <h5>搜索条件项：</h5>
+        <label>是否代理：
+        <select id="sel" name="isagency">
+        <option value="0">全部</option>
+        <option value="1">非代理</option>
+        <option value="2">代理</option>
+        </select></label>
+        <label>企业名称/代理机构名称<input id="companyname" type="text" name="companyname"/></label>
+        <label>代理人<input type="text" name="legalperson" id="legalperson"/></label>
+        <label>专利类型
+        <select id="sel2" name="zllx">
+        <option value="0">全部</option>
+        <option value="1">发明专利</option>
+        <option value="2">外观专利</option>
+        <option value="3">实用新型</option>
+        </select></label>
+        <label>专利名称
+        <input type="text" name="zlname" id="zlname"/></label>
+        <input type="button"  value="生成表格" id="createtable"/> <input type="button" id="doprint"  value="打印报表"/>
+        </form>
+       
+
+        </div>
+
+        <div class="clear oh" style="border: 1px solid #bfbfbf;">
+        <!--startprint-->
+        <table class="clear tc w100">
+        <thead>
+        <tr>
+        <td name="ZL_Bnum">流水号</td>
+        <td name="Zl_Name">专利名称</td>
+        <td name="Zl_Type">专利类型</td>
+        <td name="IsAgency">代理机构</td>
+        <td name="LegalPeo">代理人</td>
+        <td name="UserRealName">企业名称</td>
+        <td name="Adress">企业地址</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (MoneyRetard.Models.printmodel item in Model)
+        {
+        <tr>
+        <td name="ZL_Bnum">@item.ZL_Bnum</td>
+        <td name="Zl_Name">@item.Zl_Name</td>
+        <td name="Zl_Type">@PageHelper.Zllx(item.Zl_Type)</td>
+        <td name="IsAgency">@PageHelper.IsAgency(Convert.ToInt32(item.IsAgency), item.UserRealName)</td>
+        <td name="LegalPeo">@PageHelper.IsAgency(Convert.ToInt32(item.IsAgency), item.LegalPeo)</td>
+        <td name="UserRealName">@item.UserRealName</td>
+        <td name="Adress">@item.Adress</td>
+        </tr>
+        }
+        </tbody>
+        </table>
+        <!--endprint-->
+        @MvcHtmlString.Create(ViewData["script"].ToString())
+        <div>
+         @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "id", ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.TextBox, ShowGoButton = true })
+         @{Html.RegisterMvcPagerScriptResource();}
+         </div>
+    </div>
+</body>
+</html>

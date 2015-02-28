@@ -19,6 +19,7 @@
     <script type="text/javascript">
         $(function () {
             $("#btn").click(Search);
+            $("#FisrtPage").click(Jump);
             $("#txt").val('@ViewData["kw"]');
             $("#usertype").val('@ViewData["usertype"]');
             $("#type").val('@ViewData["type"]');
@@ -88,6 +89,9 @@
                 }
             });
         });
+        function Jump() {
+            window.parent.location = "/Root/Index";
+        }
         function Search() {
             window.location = "/Root/Manageaccount?kw=" + $("#txt").val() + "&usertype=" + $("#usertype").val() + "&type=" + $("#type").val() + "&start=" + $("#start").val() + "&area=" + $("#area").val();
         };
@@ -165,7 +169,7 @@
 </head>
 <body>
  <div class="begining w100 oh clear">
-    	<p class="location">您的位置：<a href="#"id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="#" id="secondpage">专利审核</a>&nbsp;>&nbsp;<a href="/Root/NotSumbit">账号管理</a></p>
+    	<p class="location">您的位置：<a href="#"id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="/Root/allocationID" id="secondpage">用户中心</a>&nbsp;>&nbsp;<a href="/Root/ManageAccount">账号管理</a></p>
     </div>
 <div class="mainContent clear">
 

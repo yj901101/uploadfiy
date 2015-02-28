@@ -7,6 +7,29 @@ namespace MoneyRetard.Common
 {
     public static class PageHelper
     {
+        public static string Zllx(int? n) 
+        {
+            string zllx = string.Empty;
+            switch(n)
+            {
+                case 1: zllx="发明专利"; break;
+                case 2: zllx = "外观专利"; break;
+                case 3: zllx = "实用新型"; break;
+            }
+            return zllx;
+        }
+        public static string IsAgency(int n,string username)
+        {
+
+            if (n == 1)
+            {
+                return "无";
+            }
+            else 
+            {
+                return username;
+            }
+        }
        public static string  IsAllocation(bool n)
        {
            if (n==true)
