@@ -41,6 +41,7 @@ namespace MoneyRetard.Controllers
                     fewu.creatTime = DateTime.Now;
                     fewu.FileType = 2;
                     fewu.guid = forminnerval;
+                    fewu.timeQueue = Request.QueryString["timequeue"].ToString();
                     fewu.url = ".." + imageDir + newFileName;
                     fjApp1.FJ_ExportWord.AddObject(fewu);
                     fjApp1.SaveChanges();
@@ -63,6 +64,7 @@ namespace MoneyRetard.Controllers
                 FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
                 fewu.creatTime = DateTime.Now;
                 fewu.FileType = 3;
+                fewu.timeQueue = Request.QueryString["timequeue"].ToString();
                 fewu.guid = forminnerval;
                 fewu.url = ".." + imageDir + newFileName;
                 fjApp1.FJ_ExportWord.AddObject(fewu);
@@ -172,7 +174,7 @@ namespace MoneyRetard.Controllers
                 }
                 
             }
-            return RedirectToAction("../Root/Index");
+            return RedirectToAction("../Root/NotChecked");
         }
     }
 }

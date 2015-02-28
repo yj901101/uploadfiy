@@ -5,6 +5,7 @@
 }
 
 @model PagedList<MoneyRetard.Models.Manage_UserDetail>
+@using MoneyRetard.Content;
 <!DOCTYPE html>
 
 <html>
@@ -26,7 +27,7 @@
             $("#area").val('@ViewData["area"]');
             $("#UserInfo").dialog({
                 autoOpen: false,
-                height: 800,
+                height: 450,
                 width: 850,
                 modal: true,
                 title: "用户信息审核/修改",
@@ -87,6 +88,9 @@
                     }
                 }
             });
+            $("#uisstart").change(function () {
+                $.post("../Root/vStart", { "vStart": $("#uisstart").val(), "dID": $("#uid").val(), "agent": $("#uisagency").val() }, function (objdata) { })
+            })
         });
         function Search() {
             window.location = "/Root/Manageaccount?kw=" + $("#txt").val() + "&usertype=" + $("#usertype").val() + "&type=" + $("#type").val() + "&start=" + $("#start").val() + "&area=" + $("#area").val();
@@ -130,6 +134,18 @@
                     }
                 }
                 $("#img2").html(img2);
+                if (jsobj.IsAgency == 2) {
+                    var img3 = "<h5>专利机构代理证</h5>";
+                        var iList_3 = jsobj.mustNum.split("|");
+                        for (var i = 0; i < iList_3.length; i++) {
+                        if (iList_3[i] != "") {
+                            img3 += '<img src="../../RegisterUpload/' + iList_3[i] + '" />';
+                        }
+                    }
+                    $("#img3").html(img3);
+                }else{
+                    $("#img3").html("");
+                }
             });
         }
         function DoDel(id) {
@@ -160,6 +176,16 @@
         margin: 0 15px;
         font-size: 12px;
     }
+    .icon-warning
+    {
+        vertical-align: middle;
+        width: 18px;
+        height: auto;
+        position: relative;
+        top: -3px;
+        right: 5px;
+        cursor: help;
+        }
     -->
     </style>
 </head>
@@ -221,7 +247,7 @@
         @foreach (MoneyRetard.Models.Manage_UserDetail item in Model) 
         {
             <tr>
-            <td>@item.id</td>
+            <td>@MvcHtmlString.Create(CheckAudit.IsRemind(item.id, item.IsAgency,item.CreateTime))</td>
             <td>@item.UserName</td>
               <td>@item.UserRealName</td>
               @*<td>@PageHelper.IsAllocation(Convert.ToBoolean(item.IsAllocation))</td>*@
@@ -302,6 +328,7 @@
             <span>证件照:</span>
              <div class="idPhotoUpload" id="img1"></div>
              <div class="idPhotoUpload" id="img2"></div>
+             <div class="idPhotoUpload" id="img3"></div>
          </div>
         </div>
 </body>

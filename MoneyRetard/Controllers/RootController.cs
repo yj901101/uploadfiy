@@ -81,6 +81,9 @@ namespace MoneyRetard.Controllers
             return Json(jsmodel);
         }
         public ActionResult CheckedAlready() {
+            string filtername = Request.QueryString["filtername"];
+            string filternum = Request.QueryString["filternum"];
+            
             int pageIndex = 1;
             try
             {
@@ -95,8 +98,21 @@ namespace MoneyRetard.Controllers
             int userid = Convert.ToInt32(Session["userID"]);
             //查看需要审核的专利FJ_ExportWord表中FileType=2
             var relationpeo = from n1 in fjAppRoot.Checkeds
-                              orderby n1.id descending
+                              //orderby n1.id descending
                               select n1;
+            if (!string.IsNullOrEmpty(filtername))
+            {
+                relationpeo = relationpeo.Where(u => u.Zl_Name.Contains(filtername));
+            }
+            if (!string.IsNullOrEmpty(filternum))
+            {
+                relationpeo = relationpeo.Where(u => u.ZL_Bnum.Contains(filternum));
+            }
+            string applyname = Request.QueryString["applyname"];
+            if (!string.IsNullOrEmpty(applyname)) {
+                relationpeo = relationpeo.Where(u => u.UserRealName.Contains(applyname));
+            }
+            relationpeo = relationpeo.OrderByDescending(u => u.id);
             YJPagedList<Checked> pagerList;
             try
             {
@@ -114,6 +130,8 @@ namespace MoneyRetard.Controllers
         public ActionResult NotChecked()
         {
             int pageIndex = 1;
+            string filtername = Request.QueryString["filtername"];
+            string filternum = Request.QueryString["filternum"];
             try
             {
                 pageIndex = int.Parse(Request.QueryString["pager"]);
@@ -127,8 +145,20 @@ namespace MoneyRetard.Controllers
             int userid = Convert.ToInt32(Session["userID"]);
             //查看需要审核的专利FJ_ExportWord表中FileType=2
             var relationpeo = from n1 in fjAppRoot.NotCheckeds
-                              orderby n1.id descending
+                              //orderby n1.id descending
                               select n1;
+            if (!string.IsNullOrEmpty(filtername)) {
+                relationpeo = relationpeo.Where(u => u.Zl_Name.Contains(filtername));
+            }
+            if (!string.IsNullOrEmpty(filternum)) {
+                relationpeo = relationpeo.Where(u => u.ZL_Bnum.Contains(filternum));
+            }
+            string applyname = Request.QueryString["applyname"];
+            if (!string.IsNullOrEmpty(applyname))
+            {
+                relationpeo = relationpeo.Where(u => u.UserRealName.Contains(applyname));
+            }
+            relationpeo = relationpeo.OrderByDescending(u => u.id);
             YJPagedList<NotChecked> pagerList;
             try
             {
@@ -146,6 +176,8 @@ namespace MoneyRetard.Controllers
         public ActionResult NotSumbit()
         {
             int pageIndex = 1;
+            string filtername = Request.QueryString["filtername"];
+            string filternum = Request.QueryString["filternum"];
             try
             {
                 pageIndex = int.Parse(Request.QueryString["pager"]);
@@ -158,9 +190,24 @@ namespace MoneyRetard.Controllers
             const int pageSize = 10;
             int userid = Convert.ToInt32(Session["userID"]);
             //查看需要审核的专利FJ_ExportWord表中FileType=2
+            string s = "";
             var relationpeo = from n1 in fjAppRoot.NotSumbits
-                              orderby n1.id descending
+                              //orderby n1.id descending
                               select n1;
+            if (!string.IsNullOrEmpty(filtername))
+            {
+                relationpeo = relationpeo.Where(u => u.Zl_Name.Contains(filtername));
+            }
+            if (!string.IsNullOrEmpty(filternum))
+            {
+                relationpeo = relationpeo.Where(u => u.ZL_Bnum.Contains(filternum));
+            }
+            string applyname = Request.QueryString["applyname"];
+            if (!string.IsNullOrEmpty(applyname))
+            {
+                relationpeo = relationpeo.Where(u => u.UserRealName.Contains(applyname));
+            }
+            relationpeo = relationpeo.OrderByDescending(u => u.id);
             YJPagedList<NotSumbit> pagerList;
             try
             {
@@ -183,69 +230,142 @@ namespace MoneyRetard.Controllers
         }
         public ActionResult Download(string downguid, int downzlID)
         {
+            FJ_ZlInfo zl = fjAppRoot.FJ_ZlInfo.Where(u => u.id == downzlID).FirstOrDefault();
+
             MemoryStream stream = null;
-            List<MemoryStream> lm = new List<MemoryStream>();
-            List<FJ_ExportWord> lfew = (from n in fjAppRoot.FJ_ExportWord
-                                        where n.guid == downguid &&　n.FileType==2
-                                        orderby n.creatTime descending
-                                        select n).ToList();//提交的审核word表单,取最新的一个
-            List<FJ_ExportWord> lfew_1 = (from n in fjAppRoot.FJ_ExportWord
-                                        where n.guid == downguid && n.FileType == 3
-                                        orderby n.creatTime descending
-                                        select n).ToList();//代理机构证书，去最新的一个,时间从前往后排序
             DirectoryInfo theFolder = new DirectoryInfo(Server.MapPath("../zlWordFiles"));//遍历专利模板与文件的文件夹
             FileInfo[] fileInfo = theFolder.GetFiles();
-            string filename = downguid + "_" + downzlID + ".doc";
+            string filename = zl.ZL_Bnum+ ".doc";
             if (FilesContains(fileInfo, filename))//判断文件是否存在文件夹
             {
                 ViewData["zlurl"] = "../zlWordFiles/" + filename;
             }
-            else {
-                createFileFromTempates(downguid, downzlID);
+            else
+            {
+                createFileFromTempates(downguid, downzlID, zl.ZL_Bnum);
                 ViewData["zlurl"] = "../zlWordFiles/" + filename;
-            }
+            }//以上为生成费减证明
+
+            List<MemoryStream> lm = new List<MemoryStream>();
+            List<FJ_ExportWord> lfew = (from n in fjAppRoot.FJ_ExportWord
+                                        where n.guid == downguid &&　n.FileType==2
+                                        orderby n.creatTime descending
+                                        select n).ToList();//提交的审核扫描单
+            List<FJ_ExportWord> lfew_1 = (from n in fjAppRoot.FJ_ExportWord
+                                        where n.guid == downguid && n.FileType == 3
+                                        orderby n.creatTime descending
+                                        select n).ToList();//代理企业营业证书
+            
             List<string> ls_1 = new List<string>();
+            List<string> ls_2 = new List<string>();
+            List<string> ls_timequene = new List<string>();
             foreach (FJ_ExportWord few in lfew) {
-                ls_1.Add(few.url);
+                ls_timequene.Add(few.timeQueue);
+            }
+            long maxQueneID = maxTimeQuene(ls_timequene);
+            foreach (FJ_ExportWord few in lfew) {
+                if (few.timeQueue != "" && few.timeQueue!=null)
+                {
+                    if (Convert.ToInt64(few.timeQueue) == maxQueneID)
+                    {
+                        ls_1.Add(few.url);
+                    }
+                }
+            }
+            foreach (FJ_ExportWord few in lfew_1)
+            {
+                if (few.timeQueue != "" && few.timeQueue != null)
+                {
+                    if (Convert.ToInt64(few.timeQueue) == maxQueneID)
+                    {
+                        ls_2.Add(few.url);
+                    }
+                }
             }
             try
             {
                 DirectoryInfo theFolderPdf = new DirectoryInfo(Server.MapPath("../zlPDFFiles"));//遍历专利模板与文件的文件夹
                 FileInfo[] fileInfoPdf = theFolderPdf.GetFiles();
-                string filenamepdf = downguid + ".pdf";
+                string filenamepdf = "审批扫描件_" + maxQueneID + ".pdf";
                 if (FilesContains(fileInfoPdf, filenamepdf))//判断文件是否存在文件夹
                 {
-                    ViewData["word"] = ls_1[0];//上传的文件为pdf文件
+                    ViewData["word"] = "../zlPDFFiles/审批扫描件_" + maxQueneID + ".pdf";//上传的文件为pdf文件
                 }
                 else { //上传的扫描件问图片,将其转化成pdf文件
-                    string newPicUrl = ls_1[0].Replace("../", "");
-                    stream = new MemoryStream(System.IO.File.ReadAllBytes(Server.MapPath("" + newPicUrl + "")));
-                    lm.Add(stream);
+                    //string newPicUrl = ls_1[0];//.Replace("../", "");
+                    foreach (string newPicUrl in ls_1)
+                    {
+                        stream = new MemoryStream(System.IO.File.ReadAllBytes(Server.MapPath("" + newPicUrl + "")));
+                        lm.Add(stream);
+                    }
                     ImageToPdf itp = new ImageToPdf();
-                    itp.TurnTheImageToPdf(ref lm, Server.MapPath("zlPDFFiles/" + downguid+".pdf"));
-                    ViewData["word"] = "../zlPDFFiles/" + downguid + ".pdf";
+                    itp.TurnTheImageToPdf(ref lm, Server.MapPath("../zlPDFFiles/审批扫描件_" + maxQueneID + ".pdf"));
+                    ViewData["word"] = "../zlPDFFiles/审批扫描件_" + maxQueneID + ".pdf";
                 }
                 
             }
             catch {
                 ViewData["word"] = null;
-            }//最新提交的数据
+            }//最新提交的数据zlBussPDF
+            lm = new List<MemoryStream>();
             try
             {
-                ViewData["agen"] = lfew_1[0];//最新的代理证书证明
+                if (ls_2.Count >= 1) {
+                    DirectoryInfo theFolderPdf = new DirectoryInfo(Server.MapPath("../zlBussPDF"));//遍历专利模板与文件的文件夹
+                    FileInfo[] fileInfoPdf = theFolderPdf.GetFiles();
+                    string filenamepdf = "代理企业营业执照_" + maxQueneID + ".pdf";
+                    if (FilesContains(fileInfoPdf, filenamepdf))//判断文件是否存在文件夹
+                    {
+                        ViewData["agen"] = "../zlBussPDF/代理企业营业执照_" + maxQueneID + ".pdf";//上传的文件为pdf文件
+                    }
+                    else
+                    { //上传的扫描件问图片,将其转化成pdf文件
+                        //string newPicUrl = ls_1[0];//.Replace("../", "");
+                        foreach (string newPicUrl in ls_2)
+                        {
+                            stream = new MemoryStream(System.IO.File.ReadAllBytes(Server.MapPath("" + newPicUrl + "")));
+                            lm.Add(stream);
+                        }
+                        ImageToPdf itp = new ImageToPdf();
+                        itp.TurnTheImageToPdf(ref lm, Server.MapPath("../zlBussPDF/代理企业营业执照_" + maxQueneID + ".pdf"));
+                        ViewData["agen"] = "../zlBussPDF/代理企业营业执照_" + maxQueneID + ".pdf";
+                    }
+                }//最新的代理证书证明
             }
             catch {
                 ViewData["agen"] = null;
             }
             return View();
         }
+        private long maxTimeQuene(List<string> timequene)
+        {//返回最近的上传的文件识别码
+            long tmep = 0;
+            if (timequene.Count >= 1) {
+                tmep = Convert.ToInt64(timequene[0]);
+                try
+                {
+                    for (int i = 1; i < timequene.Count; i++)
+                    {
+                        long x = Convert.ToInt64(timequene[i]);
+                        if (tmep <= x)
+                        {
+                            tmep = x;
+                        }
+                    }
+                }
+                catch {
+                    tmep = Convert.ToInt64(timequene[0]);
+                }
+            }
+            return tmep;
+        }
         public ActionResult Upload(int downzlID)
         {
             ViewData["id"] = downzlID;
             return View();
         }
-        private void createFileFromTempates(string guid,int id) {//根据模板创建文件
-            string filename = guid + "_" + id + ".doc";
+        private void createFileFromTempates(string guid,int id,string ZL_Bnum) {//根据模板创建文件
+            string filename = ZL_Bnum+".doc";
             Report report = new Report();
             string FilePath = Server.MapPath("../zlWordFiles/zlInfo.doc");//模板路径
             report.CreateNewDocument(FilePath);
@@ -458,7 +578,19 @@ namespace MoneyRetard.Controllers
             int uid = id;
             Models.Manage_UserDetail usermodel=fjAppRoot.FJ_User.Where(u=>u.id==uid).Join(fjAppRoot.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.Manage_UserDetail() { 
              id=u.id,UserName=u.UserName,Pwd=u.Pwd,IsAgency=u.IsAgency,IsAllocation=u.IsAllocation,IsStart=u.IsStart,UInfoID=i.id, UserRealName=i.UserRealName, UserType=i.UserType, LegalPeo=i.LegalPeo, Area=i.Area, Adress=i.Adress, CreateTime=u.CreateTime, Limits=u.Limits, Email= i.Email, Phone=i.Phone,Icard_1=i.FJ_Select1.name, Icard_1_Num=i.Icard_1_Num, Icard_2=i.FJ_Select.name, Icard_2_Num=i.Icard_2_Num,QQ=i.QQ
-            }).ToList().FirstOrDefault();
+            ,mustNum = i.MustNum}).ToList().FirstOrDefault();
+            //判断此用是否过期
+            FJ_User fu = fjAppRoot.FJ_User.Where(u => u.id == id).FirstOrDefault();
+            if (fu.IsAgency == 2) {
+                DateTime nowTime = DateTime.Now;
+                DateTime newTime = Convert.ToDateTime(fu.CreateTime).AddYears(1);
+                if (newTime <= nowTime)
+                {
+                    fu.IsStart = 0;
+                    UpdateModel(fu);
+                    fjAppRoot.SaveChanges();
+                }
+            }
             return Json(usermodel, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DoModify() 
@@ -519,6 +651,39 @@ namespace MoneyRetard.Controllers
              statu="ok", msg="删除成功"
             };
             return Json(jsomodel);
+        }
+        public ActionResult downPdf()
+        {
+            string filepath = Request.QueryString["filepath"].ToString();
+            if (System.IO.File.Exists(filepath))
+            {
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(""));
+                Response.WriteFile(filepath);
+                return View();
+            }
+            else 
+            {
+                return View();
+            }
+
+        }
+        public string vStart(int? vStart, int? dID, int? agent)
+        { //启动到期用户
+            if (agent == 2)
+            {
+                if (vStart == 1) {
+                    FJ_User fu = fjAppRoot.FJ_User.Where(u => u.id == dID).FirstOrDefault();
+                    DateTime nowTime = DateTime.Now;
+                    DateTime newTime = Convert.ToDateTime(fu.CreateTime).AddYears(1);
+                    if (newTime <= nowTime)
+                    {
+                        fu.CreateTime = newTime;
+                        UpdateModel(fu);
+                        fjAppRoot.SaveChanges();
+                    }
+                }
+            }
+            return "";
         }
     }
 }

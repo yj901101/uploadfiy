@@ -30,7 +30,6 @@ namespace MoneyRetard.Controllers
                 ls.Add(s);
             }
             ViewData["ls"] = ls;
-            List
             return View();
         }
 

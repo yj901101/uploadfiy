@@ -78,6 +78,9 @@
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Common\ImageToPdf.cs" />
     <Compile Include="Common\PageHelper.cs" />
+    <Compile Include="Common\PdfUpload.ashx.cs">
+      <DependentUpon>PdfUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Common\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>
@@ -178,6 +181,7 @@
     <Content Include="images\welcome-announ-bg.png" />
     <Content Include="images\welcome-nail.png" />
     <Content Include="images\yzm.jpg" />
+    <Content Include="img\icon-warning.png" />
     <Content Include="img\leftjt.gif" />
     <Content Include="img\rightjt.gif" />
     <Content Include="js\commonuploadfiy.js" />
@@ -354,6 +358,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\UploadHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\PdfUpload.ashx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

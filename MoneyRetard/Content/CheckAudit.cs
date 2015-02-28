@@ -82,6 +82,19 @@ namespace MoneyRetard.Content
             }
             return "";
         }
+        public static string IsRemind(int id, int? agent,DateTime? creatTime) { //监测用户账户是否到年了
+            string str = "" + id;
+            if (agent == 2)
+            {
+                DateTime nowTime = DateTime.Now;
+                DateTime newTime = Convert.ToDateTime(creatTime).AddYears(1);
+                if (newTime <= nowTime)
+                {
+                    str = " <img src=../../img/icon-warning.png class='icon-warning' title='此账号已过期' />" + id;
+                }
+            }
+            return str;
+        }
         private static int isMin(List<int> li) { //id是否数组中的最小值
             int temp = li[0];
             for(int i=1;i<li.Count;i++){
@@ -90,6 +103,19 @@ namespace MoneyRetard.Content
                 }
             }
             return temp;
-        } 
+        }
+        public static string zlType(int? ty) {
+            if (ty == 1) {
+                return "发明专利";
+            }
+            else if (ty == 2) {
+                return "外观专利";
+            }
+            else if (ty == 3)
+            {
+                return "实用新型";
+            }
+            else { return ""; }
+        }
     }
 }

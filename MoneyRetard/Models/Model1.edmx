@@ -139,6 +139,7 @@
           <Property Name="guid" Type="varchar" MaxLength="100" />
           <Property Name="FileType" Type="int" />
           <Property Name="creatTime" Type="datetime" />
+          <Property Name="timeQueue" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FJ_File">
           <Key>
@@ -541,6 +542,7 @@
           <Property Type="String" Name="guid" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="FileType" />
           <Property Type="DateTime" Name="creatTime" />
+          <Property Type="String" Name="timeQueue" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="personDatabaseByReal">
           <Key>
@@ -757,6 +759,7 @@
           <EntitySetMapping Name="FJ_ExportWord">
             <EntityTypeMapping TypeName="FlZlModel.FJ_ExportWord">
               <MappingFragment StoreEntitySet="FJ_ExportWord">
+                <ScalarProperty Name="timeQueue" ColumnName="timeQueue" />
                 <ScalarProperty Name="creatTime" ColumnName="creatTime" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
                 <ScalarProperty Name="guid" ColumnName="guid" />

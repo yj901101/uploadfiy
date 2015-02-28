@@ -12,12 +12,23 @@
         var tatol = @ViewData["Total"]
         var TotalPager = @ViewData["TotalPager"]
         $(document).ready(function () {
-            getLink(pager, TotalPager, tatol, "../Root/NotSumbit", "middle", "pageLinkRoot");
+            if(getQueryString("filtername")!=null){
+            $("#filterzlname").val(unescape(getQueryString("filtername")))}
+            if(getQueryString("filternum")!=null){
+            $("#filterzlnum").val(unescape(getQueryString("filternum")))}
+            if(getQueryString("applyname")!=null){
+            $("#applyzlname").val(unescape(getQueryString("applyname")))}
+            var filter ="&filtername="+escape($("#filterzlname").val())+"&filternum="+escape($("#filterzlnum").val())+"&applyname="+escape($("#applyzlname").val());
+            getLink(pager, TotalPager, tatol, "../Root/NotSumbit", "middle", "pageLinkRoot",filter);
             $("#FisrtPage").click(Jump);
             $("#secondpage").click(Jump);
         });
          function Jump() {
             window.parent.location = "/Root/Index";
+        }
+        function addNewFilter(){
+            var filter ="&filtername="+escape($("#filterzlname").val())+"&filternum="+escape($("#filterzlnum").val())+"&applyname="+escape($("#applyzlname").val());
+            location.href="../Root/NotSumbit?pager=1"+filter;
         }
    </script>
     <div class="begining w100 oh clear">
@@ -34,8 +45,10 @@
         <div class="viewPatent clear middle oh">
         	<div class="search administrator-search clear oh">
             	<p class="fr">
-                    <input type="text">
-                    <input type="image" src="../images/viewpatent-search-btn.png">
+                    申请人名称：<input type="text" id="applyzlname"/>
+                    专利名称：<input type="text" id="filterzlname"/>
+                    专利编号：<input type="text" id="filterzlnum"/>
+                    <a href="#"><img src="../images/viewpatent-search-btn.png" onclick="addNewFilter()"></a>
                 </p>
             </div>
             

@@ -12,8 +12,19 @@
         var tatol = @ViewData["Total"]
         var TotalPager = @ViewData["TotalPager"]
         $(document).ready(function () {
-            getLink(pager, TotalPager, tatol, "../Root/CheckedAlready", "middle", "pageLinkRoot");
+            if(getQueryString("filtername")!=null){
+            $("#filterzlname").val(unescape(getQueryString("filtername")))}
+            if(getQueryString("filternum")!=null){
+            $("#filterzlnum").val(unescape(getQueryString("filternum")))}
+            if(getQueryString("applyname")!=null){
+            $("#applyzlname").val(unescape(getQueryString("applyname")))}
+            var filter ="&filtername="+escape($("#filterzlname").val())+"&filternum="+escape($("#filterzlnum").val())+"&applyname="+escape($("#applyzlname").val());
+            getLink(pager, TotalPager, tatol, "../Root/CheckedAlready", "middle", "pageLinkRoot",filter);
         });
+         function addNewFilter(){
+            var filter ="&filtername="+escape($("#filterzlname").val())+"&filternum="+escape($("#filterzlnum").val())+"&applyname="+escape($("#applyzlname").val());
+            location.href="../Root/CheckedAlready?pager=1"+filter;
+        }
    </script>
     <div class="begining w100 oh clear">
     	<p class="location">您的位置：<a href="#">首页</a>&nbsp;>&nbsp;<a href="#">用户中心</a>&nbsp;>&nbsp;申请审批</p>
@@ -29,8 +40,10 @@
         <div class="viewPatent clear middle oh">
         	<div class="search administrator-search clear oh">
             	<p class="fr">
-                    <input type="text">
-                    <input type="image" src="../images/viewpatent-search-btn.png">
+                    申请人名称：<input type="text" id="applyzlname"/>
+                    专利名称：<input type="text" id="filterzlname"/>
+                    专利编号：<input type="text" id="filterzlnum"/>
+                    <a href="#"><img src="../images/viewpatent-search-btn.png" onclick="addNewFilter()"></a>
                 </p>
             </div>
             

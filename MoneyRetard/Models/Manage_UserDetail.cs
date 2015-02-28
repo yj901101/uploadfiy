@@ -28,5 +28,6 @@ namespace MoneyRetard.Models
         public string Phone { get; set; }
         public string Adress { get; set; }
         public string QQ { get; set; }
+        public string mustNum { get; set; }
     }
 }

@@ -176,6 +176,8 @@ namespace MoneyRetard.Controllers
         }
         public ActionResult Person_Zl() {
             int pageIndex = 1;
+            string filtername = Request.QueryString["filtername"];
+            string filternum = Request.QueryString["filternum"];
             try
             {
                 pageIndex = int.Parse(Request.QueryString["pager"]);
@@ -190,8 +192,17 @@ namespace MoneyRetard.Controllers
             //查看专利
             var relationpeo = from n1 in fjApp.personDatabases
                               where n1.userid == userid
-                              orderby n1.id descending
+                              //orderby n1.id descending
                               select n1;
+            if (!string.IsNullOrEmpty(filtername))
+            {
+                relationpeo = relationpeo.Where(u => u.Zl_Name.Contains(filtername));
+            }
+            if (!string.IsNullOrEmpty(filternum))
+            {
+                relationpeo = relationpeo.Where(u => u.ZL_Bnum.Contains(filternum));
+            }
+            relationpeo = relationpeo.OrderByDescending(u => u.id);
             YJPagedList<personDatabase> pagerList;
             try
             {
@@ -216,11 +227,29 @@ namespace MoneyRetard.Controllers
         public ActionResult AUserDetail(int id)
         {
             int uid = id;
-            Models.UserInfoDetail userinfo = fjApp.FJ_User.Where(u=>u.id==uid).Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ }).ToList().FirstOrDefault();
+            Models.UserInfoDetail userinfo = fjApp.FJ_User.Where(u=>u.id==uid).Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ, }).ToList().FirstOrDefault();
             ViewData["User"] = userinfo;
             List<Models.FJ_Select> lfs = fjApp.FJ_Select.Where(u => u.type == 1).ToList();//县区的下拉
             SelectList datatype_sellist = new SelectList(lfs, "id", "name");
             ViewData["lfs"] = datatype_sellist.AsEnumerable();
+            FJ_User fj = fjApp.FJ_User.Where(u => u.id == uid).FirstOrDefault();
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<SelectListItem> items2 = new List<SelectListItem>();
+            if (fj.IsAgency == 1) {
+                items.Add(new SelectListItem { Text = "电子申请号批文", Value = "6", Selected = true });
+                items.Add(new SelectListItem { Text = "营业执照副本", Value = "7" });
+                items2.Add(new SelectListItem { Text = "电子申请号批文", Value = "6" });
+                items2.Add(new SelectListItem { Text = "营业执照副本", Value = "7", Selected = true });
+            }
+            else if (fj.IsAgency == 2) {
+                items.Add(new SelectListItem { Text = "职业人证1", Value = "5", Selected = true });
+                items.Add(new SelectListItem { Text = "职业人证2", Value = "15" });
+                items2.Add(new SelectListItem { Text = "职业人证2", Value = "15", Selected = true });
+                items2.Add(new SelectListItem { Text = "职业人证1", Value = "5" });
+            }
+            ViewData["item"] = items;
+            ViewData["item2"] = items2;
+            ViewData["agent"] = fj.IsAgency;
             return View();
         }
         public ActionResult AUserModify()
@@ -238,6 +267,19 @@ namespace MoneyRetard.Controllers
             int area = Convert.ToInt32(Request.Params["Area"].ToString());
             string address = Request.Params["add"].Trim().ToString();
             string phone = Request.Params["callnum"].Trim().ToString();
+            if (Request.Params["file1"] != null && Request.Params["file1"].ToString() != "") {
+                oldinfo.Icard_1_Num = Request.Params["file1"].ToString(); 
+            }
+            if (Request.Params["file2"] != null && Request.Params["file2"].ToString() != "")
+            {
+                oldinfo.Icard_2_Num = Request.Params["file2"].ToString();
+            }
+            if (Request.Params["file8"] != null && Request.Params["file8"].ToString() != "")
+            {
+                oldinfo.MustNum = Request.Params["file8"].ToString();
+            }
+            oldinfo.Icard_1 = Convert.ToInt32(Request.Params["IC1"]);
+            oldinfo.Icard_2 = Convert.ToInt32(Request.Params["IC2"]);
             string email = string.Empty;
             string qq = string.Empty;
             if (!string.IsNullOrEmpty(Request.Params["email"]))
