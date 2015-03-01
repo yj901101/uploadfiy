@@ -1,4 +1,4 @@
-﻿var wait = 0;
+﻿
 function Commonuploadfiy(url, DivID, limitFile, fileID, saveFileID, outId) {
     $("#" + fileID).uploadify({
         'uploader': url,

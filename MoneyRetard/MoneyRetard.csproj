@@ -78,6 +78,9 @@
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Common\ImageToPdf.cs" />
     <Compile Include="Common\PageHelper.cs" />
+    <Compile Include="Common\PdfUpload.ashx.cs">
+      <DependentUpon>PdfUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Common\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>
@@ -180,6 +183,7 @@
     <Content Include="images\welcome-announ-bg.png" />
     <Content Include="images\welcome-nail.png" />
     <Content Include="images\yzm.jpg" />
+    <Content Include="img\icon-warning.png" />
     <Content Include="img\leftjt.gif" />
     <Content Include="img\rightjt.gif" />
     <Content Include="js\commonuploadfiy.js" />

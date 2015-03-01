@@ -1520,6 +1520,30 @@ namespace MoneyRetard.Models
         private Nullable<global::System.DateTime> _creatTime;
         partial void OncreatTimeChanging(Nullable<global::System.DateTime> value);
         partial void OncreatTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String timeQueue
+        {
+            get
+            {
+                return _timeQueue;
+            }
+            set
+            {
+                OntimeQueueChanging(value);
+                ReportPropertyChanging("timeQueue");
+                _timeQueue = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("timeQueue");
+                OntimeQueueChanged();
+            }
+        }
+        private global::System.String _timeQueue;
+        partial void OntimeQueueChanging(global::System.String value);
+        partial void OntimeQueueChanged();
 
         #endregion
 

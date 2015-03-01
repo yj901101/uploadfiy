@@ -1,5 +1,5 @@
-﻿function getLink(pageIndex, totalpage, total, urls, TwoStatusDiv, pageLink) {
-    linkHTML = '<span>' + pageIndex + '/' + totalpage + '页</span><a href="' + urls + '?pager=1">首页</a>&nbsp;&nbsp;';
+﻿function getLink(pageIndex, totalpage, total, urls, TwoStatusDiv, pageLink,filter) {
+    linkHTML = '<span>' + pageIndex + '/' + totalpage + '页</span><a href="' + urls + '?pager=1' + filter + '">首页</a>&nbsp;&nbsp;';
     //var page=totalpage;
     var start_page = 0;
     var end_page = 0;
@@ -15,7 +15,7 @@
         end_page = totalpage;
     }
     if (pageIndex > 1) {
-        linkHTML += '<a href="' + urls + '?pager=' + (pageIndex - 1) + '">上一页</a>&nbsp;&nbsp';
+        linkHTML += '<a href="' + urls + '?pager=' + (pageIndex - 1) + '' + filter + '">上一页</a>&nbsp;&nbsp';
     }
     else {
         linkHTML += '上一页&nbsp;&nbsp';
@@ -26,17 +26,22 @@
             linkHTML += '<span class="current">' + i + '</span>&nbsp;&nbsp;'
         }
         else {
-            linkHTML += '<a href=\"' + urls + '?pager=' + i + '\" >' + i + '</a>&nbsp;&nbsp;'
+            linkHTML += '<a href=\"' + urls + '?pager=' + i + '' + filter + '\" >' + i + '</a>&nbsp;&nbsp;'
         }
 
 
     }
     if (pageIndex < totalpage) {
-        linkHTML += '<a href=\"' + urls + '?pager=' + (pageIndex + 1) + '\">下一页</a>&nbsp;&nbsp';
+        linkHTML += '<a href=\"' + urls + '?pager=' + (pageIndex + 1) + '' + filter + '\">下一页</a>&nbsp;&nbsp';
     }
     else {
         linkHTML += '下一页&nbsp;&nbsp';
     }
-    linkHTML += '<a href=\"' + urls + '?pager=' + totalpage + '\">末页</a> &nbsp;&nbsp;';
+    linkHTML += '<a href=\"' + urls + '?pager=' + totalpage + '' + filter + '\">末页</a> &nbsp;&nbsp;';
     $("#" + pageLink).html(linkHTML);
+}
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
 }

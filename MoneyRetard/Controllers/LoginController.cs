@@ -58,6 +58,16 @@ namespace MoneyRetard.Controllers
             catch {
                 bty = 0;
             }
+            if (bty == 2) {
+                DateTime nowTime = DateTime.Now;
+                DateTime newTime = Convert.ToDateTime(lfu[0].CreateTime).AddYears(1);
+                if (newTime <= nowTime)
+                {
+                    lfu[0].IsStart = 0;
+                    UpdateModel(lfu[0]);
+                    fjLgon.SaveChanges();                                         
+                }
+            }
             string code = Session["vcode"].ToString();
             if (lfu.Count <= 0)
             {

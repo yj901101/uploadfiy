@@ -38,7 +38,13 @@
                 $("#mainvalue").html('<iframe src=Person_Zl width="100%" height="100%"></iframe>');
             });
              $("#userdetail").click(function () {//查看个人信息
-                $("#mainvalue").html('<iframe src="../ApplyForm/AUserDetail/@ViewData["user_id"]" width="100%" height="100%"></iframe>');
+                //$("#mainvalue").html('<iframe src="../ApplyForm/AUserDetail/@ViewData["user_id"]" width="100%" height="100%"></iframe>');
+                $.ajax({
+                    type:"post",
+                    url:"../ApplyForm/AUserDetail",data:{"id":@ViewData["user_id"]},dataType:"html",success : function(data){
+                        $("#mainvalue").html(data)
+                    }
+                })
             });
             $("#exportfile").click(function(){//导出文件
                 window.location.href = "http://" + window.location.host + $("#hidefiles").val();

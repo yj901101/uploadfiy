@@ -94,10 +94,15 @@
             })
         })
         var isagency = 0;
+        var timequeue = "";
+        var d = new Date();
+        var t1= 0;
+        var t2 = 0;
         $(document).ready(function () {
+            timequeue = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds()+""+d.getMilliseconds()
             isagency = @ViewData["ag"];
             $("#uploadify").uploadify({
-                'uploader': '../UploadFile/Uploadfiy?uploadType=@ViewData["guid"]',
+                'uploader': '../UploadFile/Uploadfiy?timequeue='+timequeue+'&uploadType=@ViewData["guid"]',
                 'swf': '../js/uploadfiy/uploadify.swf',
                 'cancelImg': '../js/uploadfiy/img/uploadify-cancel.png',
                 'sizeLimit': '300000000000',
@@ -122,15 +127,14 @@
                         alert('error ' + d.type + ": " + d.info);
                 },
                 onUploadSuccess: function (file, data, response) {
-                    alert(file.name)
                     this.enable();
                     var responseText = response.toString();
                     if (/MSIE 6.0/i.test(navigator.userAgent)) {
                         responseText = getCookies();
                     }
-                    document.getElementById("hidd_UploadFiles").value += param + "%" + file + "&";
-                    var imgCount = $("#hidd_imgCount").val();
-                    alert(document.getElementById("hidd_UploadFiles").value)
+                },
+                onQueueComplete: function (queueData) { //文件上传队列处理完毕后触发。
+                    t1=1;
                 }
             });
             if(isagency==2){
@@ -143,7 +147,7 @@
             }
             if(isagency==2){
                 $("#uploadify_1").uploadify({
-                    'uploader': '../UploadFile/Uploadfiy_1?uploadType=@ViewData["guid"]',
+                    'uploader': '../UploadFile/Uploadfiy_1?timequeue='+timequeue+'&uploadType=@ViewData["guid"]',
                     'swf': '../js/uploadfiy/uploadify.swf',
                     'cancelImg': '../js/uploadfiy/img/uploadify-cancel.png',
                     'sizeLimit': '300000000000',
@@ -154,7 +158,7 @@
                     'auto': false,
                     'multi': true,
                     'buttonText': "添加附件",
-                    'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                    //'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
                     'queueSizeLimit': 5, //队列中允许的最大文件数目
                     'onSelectError': uploadify_onSelectError,
                     onError: function (a, b, c, d) {
@@ -168,15 +172,15 @@
                             alert('error ' + d.type + ": " + d.info);
                     },
                     onUploadSuccess: function (file, data, response) {
-                        alert(file.name)
                         this.enable();
                         var responseText = response.toString();
                         if (/MSIE 6.0/i.test(navigator.userAgent)) {
                             responseText = getCookies();
                         }
-                        document.getElementById("hidd_UploadFiles").value += param + "%" + file + "&";
-                        var imgCount = $("#hidd_imgCount").val();
-                        alert(document.getElementById("hidd_UploadFiles").value)
+
+                    },
+                    onQueueComplete: function (queueData) { //文件上传队列处理完毕后触发。
+                        t2=1;
                     }
                 });
             }
@@ -202,7 +206,9 @@
             }
             alert(msgText);
         };
-        function onclick_1() {
+       function onclick_1() {
+            timeclose();//及时关闭弹出窗
+            d = new Date();
             $('#uploadify').uploadify('upload', '*');
             if(isagency==2){
                 $('#uploadify_1').uploadify('upload', '*');
@@ -213,6 +219,14 @@
             $('#uploadify').uploadify('cancel', '*');
             if(isagency==2){
                 $('#uploadify_1').uploadify('cancel', '*');
+            }
+        }
+        function timeclose(){
+            if(t1==1&&t2==1){
+               $("#popUploadFile").hide();
+               location.href = location.href;
+            }else{
+                setTimeout('timeclose()',500)
             }
         }
     </script>

@@ -204,8 +204,8 @@
                             <td>专利类型</td>
                             <td>专利名称</td>
                             <td>文件编号</td>
-                            <td>查看</td>
-                            <td>操作</td>
+                            @*<td>查看</td>
+                            <td>操作</td>*@
                             <td>审核状态</td>
                         </tr>
                     </thead>
@@ -222,10 +222,10 @@
                             { <td>实用新型 </td>}
                             <td>@pbr.Zl_Name</td>
                             <td>@pbr.ZL_Bnum</td>
-                            <td onclick="ShowPicture('@pbr.guid');">查看</td>
+                            @*<td onclick="ShowPicture('@pbr.guid');">查看</td>
                             <td><a href="#" onclick="Adownload('@pbr.guid','@pbr.id')"><img src="../images/btn-download.png"></a>
                                 <a href="#" onclick="Aupload('@pbr.id')"><img src="../images/btn-upload.png"></a>
-                            </td>
+                            </td>*@
                             <td>已通过</td>
                         </tr>
                     }
