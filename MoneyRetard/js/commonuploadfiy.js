@@ -1,5 +1,5 @@
 ﻿
-function Commonuploadfiy(url, DivID, limitFile, fileID, saveFileID, outId) {
+function Commonuploadfiy(url, DivID, limitFile, fileID, saveFileID, outId,ImgID) {
     $("#" + fileID).uploadify({
         'uploader': url,
         'swf': '../js/uploadfiy/uploadify.swf',
@@ -47,7 +47,8 @@ function Commonuploadfiy(url, DivID, limitFile, fileID, saveFileID, outId) {
         uploadsSuccessful – 上传成功的文件数量
         uploadsErrored – 上传失败的文件数量**/
         onQueueComplete: function (queueData) { //文件上传队列处理完毕后触发。
-            $("#" + outId).hide();//弹出层的DIV隐藏
+            $("#" + outId).hide(); //弹出层的DIV隐藏
+            showImg(ImgID);
         }
     });
 }

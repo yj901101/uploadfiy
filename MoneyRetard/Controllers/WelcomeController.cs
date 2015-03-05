@@ -30,6 +30,10 @@ namespace MoneyRetard.Controllers
                 ls.Add(s);
             }
             ViewData["ls"] = ls;
+            var relationpeo = (from n1 in fjWel.Checkeds
+                              orderby n1.createTime descending
+                              select n1).Take(10);
+            ViewData["wel"] = relationpeo.ToList();
             return View();
         }
 

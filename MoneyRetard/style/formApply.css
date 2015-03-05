@@ -53,23 +53,6 @@
 	color: #848484;
 }
 
-@media screen and (min-width:1100px){
-	.progressBar ul li{
-		margin: 0 20px;
-	}
-}
-@media screen and (min-width:1300px){
-	.progressBar ul li{
-		margin: 0 50px;
-	}
-}
-@media screen and (min-width:1600px){
-	.progressBar ul li{
-		margin: 0 100px;
-	}
-}
-
-
 
 /*  @stepOne 
 ---------------------------------------------------------------- */
@@ -230,12 +213,4 @@
 	text-indent: 20px;
 	margin: 0 10px;
 }
-
-
-
-
-
-
-
-
 

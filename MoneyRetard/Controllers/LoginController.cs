@@ -58,7 +58,8 @@ namespace MoneyRetard.Controllers
             catch {
                 bty = 0;
             }
-            if (bty == 2) {
+            if (lfu[0].IsAgency == 2)
+            {
                 DateTime nowTime = DateTime.Now;
                 DateTime newTime = Convert.ToDateTime(lfu[0].CreateTime).AddYears(1);
                 if (newTime <= nowTime)

@@ -758,7 +758,7 @@ namespace MoneyRetard.Controllers
             wherelamda3 = wherelamda3 == null ? u => u.id > 0 : wherelamda3;
             wherelamda4 = wherelamda4 == null ? u => u.id > 0 : wherelamda4;
             wherelamda5 = wherelamda5 == null ? u => u.id > 0 : wherelamda5;
-            PagedList<Models.printmodel> pagedata = fjAppRoot.FJ_ZlInfo.Join(fjAppRoot.FJ_UserInfo, z => z.userid, u => u.UserID, (z, u) => new printmodel() { Adress = u.Adress, IsAgency = u.IsAgency, LegalPeo = u.LegalPeo, UserRealName = u.UserRealName, ZL_Bnum = z.ZL_Bnum, Zl_Name = z.Zl_Name, Zl_Type = z.Zl_Type, id = z.id }).OrderBy(z => z.id).Where(wherelamda1).Where(wherelamda2).Where(wherelamda3).Where(wherelamda4).Where(wherelamda5).ToPagedList(id, 10);
+            PagedList<Models.printmodel> pagedata = fjAppRoot.FJ_ZlInfo.Join(fjAppRoot.FJ_UserInfo, z => z.userid, u => u.UserID, (z, u) => new printmodel() { Adress = u.Adress, IsAgency = u.IsAgency, LegalPeo = u.LegalPeo, UserRealName = u.UserRealName, ZL_Bnum = z.ZL_Bnum, Zl_Name = z.Zl_Name, Zl_Type = z.Zl_Type, id = z.id }).OrderBy(z => z.id).Where(wherelamda1).Where(wherelamda2).Where(wherelamda3).Where(wherelamda4).Where(wherelamda5).ToPagedList(id, 40);
             sbhtml.AppendLine("$(\"#sel\").val("+isagency+");");
             sbhtml.AppendLine("$(\"#companyname\").val(\"" + companyname + "\");");
             sbhtml.AppendLine("$(\"#legalperson\").val(\""+legalperson+"\");");

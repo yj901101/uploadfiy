@@ -192,6 +192,7 @@
           <Property Name="IsAgency" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="UserID" Type="int" />
+          <Property Name="LinkName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="FJ_ValueType">
           <Key>
@@ -477,6 +478,7 @@
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="FJ_Select" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select" FromRole="FJ_UserInfo" ToRole="FJ_Select" />
           <NavigationProperty Name="FJ_Select1" Relationship="FlZlModel.FK_FJ_UserInfo_FJ_Select_1" FromRole="FJ_UserInfo" ToRole="FJ_Select" />
+          <Property Type="String" Name="LinkName" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FJ_ValueType">
           <Key>
@@ -704,6 +706,7 @@
           <EntitySetMapping Name="FJ_UserInfo">
             <EntityTypeMapping TypeName="FlZlModel.FJ_UserInfo">
               <MappingFragment StoreEntitySet="FJ_UserInfo">
+                <ScalarProperty Name="LinkName" ColumnName="LinkName" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />

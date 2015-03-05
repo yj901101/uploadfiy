@@ -16,10 +16,15 @@
         window.parent.location = "/Root/Index";
     }
     var sumbitForm_allot = function () {
-        var formData = $("#userForm1").serialize();
-        $.post("../Register/AllotID", formData, function (data) {
-            alert(data.msg);
-        })
+        if ($("#userID").val() != "") {
+            var formData = $("#userForm1").serialize();
+            $.post("../Register/AllotID", formData, function (data) {
+                alert(data.msg);
+            })
+        } else {
+            alert("用户名不能为空")
+            return false;
+        }
     }
 </script>
 <!--  mainbody  -->
@@ -54,7 +59,7 @@
                 <h2>分配账号</h2>
                 <li><span>用户性质：</span><select name="userType"><option value="2">代理机构</option></select></li>
                 <li><span>申请人名称：</span><input type="text" name="userRealName"></li>
-                <li><span>用户名：</span><input type="text" name="userID"></li>
+                <li><span>用户名：</span><input type="text" name="userID" id="userID"></li>
                 <li><span>密码：</span><input type="password" name="userPwd"></li>
                 <li><span>用户权限：</span><select name="userLimit"><option value="1">普通用户</option></select></li>
                 <li></li>

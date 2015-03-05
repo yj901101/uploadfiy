@@ -133,7 +133,7 @@
                 window.location.reload();
             }, "json");
         }
-        function Reset(){
+        function Reset() {
             $("#Area").val('@usermodel.Area');
             $("#busType").val('@usermodel.UserType');
             $("#uname").val('@usermodel.UserName');
@@ -143,11 +143,12 @@
             $("#callnum").val('@usermodel.Phone');
             $("#add").val('@usermodel.Adress');
             $("#qq").val('@usermodel.QQ');
+            $("#linkname").val('@usermodel.LinkName');
         }
         $(document).ready(function () {
-            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue', '*.jpg', 'file3', 'file1', 'pop1')
-            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue1', '*.jpg', 'file4', 'file2', 'pop2')
-            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue2', '*.jpg', 'file10', 'file11', 'pop3')
+            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue', '*.jpg;*.png;*.jpeg', 'file3', 'file1', 'pop1', 'imgDis1')
+            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue1', '*.jpg;*.png;*.jpeg', 'file4', 'file2', 'pop2', 'imgDis2')
+            Commonuploadfiy('../Common/UploadHandler.ashx', 'fileQueue2', '*.jpg;*.png;*.jpeg', 'file10', 'file11', 'pop3', 'imgDis3')
         })
         $(function () {
             $("#file5").click(function () {
@@ -169,6 +170,11 @@
                 $("#pop3").hide();
             })
         })
+        function showImg(imgID) {
+            if ($("#" + imgID).hasClass("imgDis")) {
+                $("#" + imgID).removeClass("imgDis")
+            }
+        }
     </script>
     <style type="text/css">
         div.popUpload
@@ -197,6 +203,10 @@
             right: 5px;
             cursor: pointer;
             }
+            .imgDis
+            {
+                display:none;
+                }
     </style>
 </head>
 <body>
@@ -227,14 +237,16 @@
                                   @Html.DropDownList("IC1", ViewData["item"] as IEnumerable<SelectListItem>)
                                   <b>*</b>
                                   <input type="button" name="file2" id="file5" style="width:100px" value="上传证件" />
-                                  <input type="hidden" id="file1" name="file1" />
+                                  <input type="hidden" id="file1" name="file1" class="hideIcard"/>
+                                  <img src="../../images/icon-success.png" class="imgDis" id="imgDis1" />
                                                            
          </li>
          <li style="width: 90%;"><span>证件二：</span>
                                    @Html.DropDownList("IC2", ViewData["item2"] as IEnumerable<SelectListItem>)
                                    <b>*</b>
                                     <input type="button" name="file2" id="file6" style="width:100px" value="上传证件"/>
-                                    <input type="hidden" id="file2" name="file2" />
+                                    <input type="hidden" id="file2" name="file2" class="hideIcard" />
+                                    <img src="../../images/icon-success.png" class="imgDis" id="imgDis2" />
         </li>
         @if ((int)ViewData["agent"] == 2)
         {
@@ -244,9 +256,11 @@
                                     <option value="15">职业认证2</option>
                                    </select> <b>*</b>
                                     <input type="button" name="file3" id="file7" style="width:100px" value="上传证件"/>
-                                    <input type="hidden" id="file11" name="file8" />
+                                    <input type="hidden" id="file11" name="file8" class="hideIcard"/>
+                                    <img src="../../images/icon-success.png" class="imgDis" id="imgDis3" />
         </li>}
-         <li><span>所属区县：</span>@Html.DropDownList("Area", ViewData["lfs"] as IEnumerable<SelectListItem>) <b>*</b></li>
+         <li style="width:90%"><span>所属区县：</span>@Html.DropDownList("Area", ViewData["lfs"] as IEnumerable<SelectListItem>) <b>*</b></li>
+         <li><span>联系人：</span><input type="text" name="linkname" id="linkname" value="@usermodel.LinkName" /></li>
          <li><span>联系电话：</span><input type="text" value="@usermodel.Phone" id="callnum"  name="callnum"/><b>*</b></li>
          <li><span>E-mail：</span><input type="text" value="@usermodel.Email" id="email"  name="email"/></li>
          <li><span>QQ：</span><input type="text" value="@usermodel.QQ" id="qq" name="qq" /></li>

@@ -17,7 +17,7 @@
     div.black
     {
         position: absolute;
-        top: 43px;
+        top: 36px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -26,7 +26,25 @@
         filter: Alpha(opacity=40);
         z-index: 1000;
         display:none;
+        color: #fff;
     }
+    div.black .black-center
+    {
+        width: 110px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -14px 0 0 -14px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: #fff;
+        }
+    div.black .black-center span
+    {
+        color: #fff;
+        margin-right: 3px;
+        }
     
     -->
     </style>
@@ -117,6 +135,22 @@
 //                        $(this).removeClass("on")
 //                    })
 //                    $("#flowli2").addClass("on")
+                //location.href= "../ApplyForm/Index"
+                $.ajax({
+                    type:"post",
+                    url:"../ApplyForm/lastId",
+                    dataType:"html",
+                    success :function(data){
+                        var strconn = '<tr>'
+                        strconn+='<td><em class="add" onclick="addTR()"></em>'
+                        strconn+='<select id="zltype0" name="zltype0"><option value="1">发明专利</option><option value="2">外观专利</option><option value="3">实用新型</option></select>'
+                        strconn+='</td>'
+                        strconn+='<td><input type="text" id="zlname0" name="zlname0"/></td>'
+                        strconn+='<td><input type="text" id="zlnum0" name="zlnum0" readonly="readonly" value="MZ'+data+'"/></td>'
+                        strconn+= '</tr>'
+                        $("#zl").html(strconn)
+                    }
+                })
                 }
 
             })
@@ -203,7 +237,12 @@
     	<p class="location">您的位置：<a href="../ApplyForm/Index">首页</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">用户中心</a>&nbsp;>&nbsp;<a href="../ApplyForm/Index">申请审批</a></p>
     </div>
     
-    <div class="black" id="blackgroudvalue"></div>
+    <div class="black" id="blackgroudvalue">
+        <div class="black-center">
+            <span>文件生成中</span>
+            <img src="../../img/loading.gif" style="width: 28px; height: auto;" />
+        </div>
+    </div>
     <!--  mainContent  -->
    <div class="mainContent">
    

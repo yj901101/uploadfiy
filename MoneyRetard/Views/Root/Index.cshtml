@@ -13,11 +13,13 @@
     <link type="text/css" rel="stylesheet" href="../../style/frame.css">
     <link type="text/css" rel="stylesheet" href="../../style/viewPatent.css">
     <script src="../../js/ScrollPic.js" type="text/javascript"></script>
+    
     <script type="text/javascript">
         var pager = @ViewData["pagerIndex"]
         var tatol = @ViewData["Total"]
         var TotalPager = @ViewData["TotalPager"]
         $(document).ready(function () {
+           
             getLink(pager, TotalPager, tatol, "../Root/Index", "middle", "pageLinkRoot");
             $("#showPicture").hide();
         });

@@ -28,7 +28,14 @@ namespace MoneyRetard.Controllers
                 fu.Limits = Convert.ToInt32(Request.Form["userLimit"]);//用户权限
                 fu.CreateTime = DateTime.Now;
                 fu.IsStart = 1;
+                string user = Request.Form["userID"];
                 fu.UserName = Request.Form["userID"];
+                List<FJ_User> ffu = fjReg.FJ_User.Where(u => u.UserName == user).ToList();
+                if (ffu.Count >= 1) {
+                    jsm.statu = "error";
+                    jsm.msg = "用户已存在";
+                    return Json(jsm);
+                }
                 try
                 {
                     if (Request.Form["userPwd"].ToString() != "")

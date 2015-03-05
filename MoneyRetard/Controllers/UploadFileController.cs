@@ -31,20 +31,39 @@ namespace MoneyRetard.Controllers
                 {
                     var fileName = Path.GetFileName(Filedata.FileName);
                     string fileExt = Path.GetExtension(fileName);//接收文件的扩展名
-                    string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
-                    Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
-                    string newFileName = Guid.NewGuid().ToString() + fileExt;
-                    var path = Path.Combine(Server.MapPath(imageDir), newFileName);
-                    Filedata.SaveAs(path);
+                    if (fileExt == ".pdf" || fileExt == ".PDF")
+                    {
+                        string timequne = Request.QueryString["timequeue"].ToString();
+                        string imageDir = "/zlPDFFiles/";
+                        string newFileName ="审批扫描件_" + timequne + "" + fileExt;
+                        var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                        Filedata.SaveAs(path);
+                        FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                        fewu.creatTime = DateTime.Now;
+                        fewu.FileType = 2;
+                        fewu.guid = forminnerval;
+                        fewu.timeQueue = timequne;
+                        fewu.url = ".." + imageDir + newFileName;
+                        fjApp1.FJ_ExportWord.AddObject(fewu);
+                        fjApp1.SaveChanges();
+                    }
+                    else
+                    {
+                        string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+                        Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
+                        string newFileName = Guid.NewGuid().ToString() + fileExt;
+                        var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                        Filedata.SaveAs(path);
 
-                    FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
-                    fewu.creatTime = DateTime.Now;
-                    fewu.FileType = 2;
-                    fewu.guid = forminnerval;
-                    fewu.timeQueue = Request.QueryString["timequeue"].ToString();
-                    fewu.url = ".." + imageDir + newFileName;
-                    fjApp1.FJ_ExportWord.AddObject(fewu);
-                    fjApp1.SaveChanges();
+                        FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                        fewu.creatTime = DateTime.Now;
+                        fewu.FileType = 2;
+                        fewu.guid = forminnerval;
+                        fewu.timeQueue = Request.QueryString["timequeue"].ToString();
+                        fewu.url = ".." + imageDir + newFileName;
+                        fjApp1.FJ_ExportWord.AddObject(fewu);
+                        fjApp1.SaveChanges();
+                    }
                 }
             }
         }
@@ -55,20 +74,39 @@ namespace MoneyRetard.Controllers
             {
                 var fileName = Path.GetFileName(Filedata.FileName);
                 string fileExt = Path.GetExtension(fileName);//接收文件的扩展名
-                string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
-                Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
-                string newFileName = Guid.NewGuid().ToString() + fileExt;
-                var path = Path.Combine(Server.MapPath(imageDir), newFileName);
-                Filedata.SaveAs(path);
+                if (fileExt == ".pdf" || fileExt == ".PDF")
+                {
+                    string timequne = Request.QueryString["timequeue"].ToString();
+                    string imageDir = "/zlBussPDF/";
+                    string newFileName = "代理企业营业执照_" + timequne + "" + fileExt;
+                    var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                    Filedata.SaveAs(path);
+                    FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                    fewu.creatTime = DateTime.Now;
+                    fewu.FileType = 3;
+                    fewu.guid = forminnerval;
+                    fewu.timeQueue = timequne;
+                    fewu.url = ".." + imageDir + newFileName;
+                    fjApp1.FJ_ExportWord.AddObject(fewu);
+                    fjApp1.SaveChanges();
+                }
+                else
+                {
+                    string imageDir = "/imgFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+                    Directory.CreateDirectory(Path.GetDirectoryName(Server.MapPath(imageDir)));//创建存储图片的目录;
+                    string newFileName = Guid.NewGuid().ToString() + fileExt;
+                    var path = Path.Combine(Server.MapPath(imageDir), newFileName);
+                    Filedata.SaveAs(path);
 
-                FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
-                fewu.creatTime = DateTime.Now;
-                fewu.FileType = 3;
-                fewu.timeQueue = Request.QueryString["timequeue"].ToString();
-                fewu.guid = forminnerval;
-                fewu.url = ".." + imageDir + newFileName;
-                fjApp1.FJ_ExportWord.AddObject(fewu);
-                fjApp1.SaveChanges();
+                    FJ_ExportWord fewu = new FJ_ExportWord();//将提交文件地址添加到表中
+                    fewu.creatTime = DateTime.Now;
+                    fewu.FileType = 3;
+                    fewu.timeQueue = Request.QueryString["timequeue"].ToString();
+                    fewu.guid = forminnerval;
+                    fewu.url = ".." + imageDir + newFileName;
+                    fjApp1.FJ_ExportWord.AddObject(fewu);
+                    fjApp1.SaveChanges();
+                }
             }
         }
         [HttpPost]

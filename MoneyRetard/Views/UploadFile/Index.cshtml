@@ -99,7 +99,7 @@
         var t1= 0;
         var t2 = 0;
         $(document).ready(function () {
-            timequeue = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds()+""+d.getMilliseconds()
+            timequeue = d.getFullYear()+""+changedate(d.getMonth()+1)+""+changedate(d.getDate())+""+changedate(d.getHours())+""+changedate(d.getMinutes())+""+changedate(d.getSeconds())
             isagency = @ViewData["ag"];
             $("#uploadify").uploadify({
                 'uploader': '../UploadFile/Uploadfiy?timequeue='+timequeue+'&uploadType=@ViewData["guid"]',
@@ -113,7 +113,7 @@
                 'auto': false,
                 'multi': true,
                 'buttonText': "添加附件",
-                //'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc,*.docx', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                'fileTypeExts': '*.jpg;*.pdf;*.PDF;*.jpeg;*.png', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
                 'queueSizeLimit': 5, //队列中允许的最大文件数目
                 'onSelectError': uploadify_onSelectError,
                 onError: function (a, b, c, d) {
@@ -139,10 +139,9 @@
             });
             if(isagency==2){
                 var agent = '<h5>代理企业营业执照扫描件</h5>'
-                         agent+= '<div id="fileQueue_1" style="width:399px">'
-                            agent+='</div>'
-                            agent+='<input type="file" name="uploadify_1" id="uploadify_1" />'
-                            
+                    agent+= '<div id="fileQueue_1" style="width:399px">'
+                    agent+='</div>'
+                    agent+='<input type="file" name="uploadify_1" id="uploadify_1" />'
                 $("#agent").html(agent)
             }
             if(isagency==2){
@@ -158,7 +157,7 @@
                     'auto': false,
                     'multi': true,
                     'buttonText': "添加附件",
-                    //'fileTypeExts': '*.jpg,*.pdf,*.PDF,*.jpeg,*.doc', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
+                    'fileTypeExts': '*.jpg;*.pdf;*.PDF;*.jpeg;*.png', //允许上传的文件类型，限制弹出文件选择框里能选择的文件
                     'queueSizeLimit': 5, //队列中允许的最大文件数目
                     'onSelectError': uploadify_onSelectError,
                     onError: function (a, b, c, d) {
@@ -185,6 +184,13 @@
                 });
             }
         })
+        function changedate(dateNum){
+            if(dateNum<10){
+                return "0"+dateNum;
+            }else{
+                return dateNum+"";
+            }
+        }
         var uploadify_onSelectError = function (file, errorCode, errorMsg) {
             var msgText = "上传失败\n";
             switch (errorCode) {

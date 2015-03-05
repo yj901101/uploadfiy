@@ -168,6 +168,7 @@
     <Content Include="images\formApply-sidebar-columnList-li.jpg" />
     <Content Include="images\formApply-sidebar-h1.jpg" />
     <Content Include="images\html-bg.jpg" />
+    <Content Include="images\icon-success.png" />
     <Content Include="images\index-topNav-bg.jpg" />
     <Content Include="images\login-btn-login.png" />
     <Content Include="images\login-btn-register.png" />
@@ -185,6 +186,7 @@
     <Content Include="images\yzm.jpg" />
     <Content Include="img\icon-warning.png" />
     <Content Include="img\leftjt.gif" />
+    <Content Include="img\loading.gif" />
     <Content Include="img\rightjt.gif" />
     <Content Include="js\commonuploadfiy.js" />
     <Content Include="js\jquery-ui\external\jquery\jquery.js" />

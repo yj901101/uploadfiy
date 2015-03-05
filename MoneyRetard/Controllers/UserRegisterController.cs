@@ -103,6 +103,7 @@ namespace MoneyRetard.Controllers
                         modeluserinfo.Area = Convert.ToInt32(Request.Params["Area"].ToString());
                         modeluserinfo.Adress = Request.Params["add"].Trim().ToString();
                         modeluserinfo.Phone = Request.Params["callnum"].Trim().ToString();
+                        modeluserinfo.LinkName = Request.Params["linkname"].Trim().ToString();
                         modeluserinfo.IsAgency = 1;
                         modeluserinfo.CreateTime = modeluser.CreateTime;
                         if (!string.IsNullOrEmpty(Request.Params["email"]))

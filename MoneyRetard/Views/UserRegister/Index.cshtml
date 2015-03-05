@@ -200,13 +200,13 @@
                                     <input type="button" name="file2" id="file6" style="width:100px" value="上传证件"/>
                                     <input type="hidden" id="file2" name="file2" />
         </li>
-        <li><span>所属区县：</span>
+        <li style="width: 90%;"><span>所属区县：</span>
          @Html.DropDownList("Area", ViewData["lfs"] as IEnumerable<SelectListItem>)
         <b>*</b>
         </li>
-       <!--<span>法人代表：</span><input type="text" name="faren" id="faren" /><br />-->
-        <li><span>E-mail：</span><input type="text" name="email" id="email"/></li>
+        <li><span>联系人：</span><input type="text" name="linkname" id="linkname" /></li>
         <li><span>联系号码：</span><input type="text" name="callnum" id="callnum"/><b>*</b></li>
+        <li><span>E-mail：</span><input type="text" name="email" id="email"/></li>
         <li><span>QQ：</span><input type="text" name="qq" id="qq"/></li>
         <li style="width: 90%;"><span>企业地址：</span><input type="text" name="add" id="add" style="width: 685px;"/><b>*</b></li>
         

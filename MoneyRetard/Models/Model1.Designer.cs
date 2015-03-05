@@ -2514,6 +2514,30 @@ namespace MoneyRetard.Models
         private Nullable<global::System.Int32> _UserID;
         partial void OnUserIDChanging(Nullable<global::System.Int32> value);
         partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LinkName
+        {
+            get
+            {
+                return _LinkName;
+            }
+            set
+            {
+                OnLinkNameChanging(value);
+                ReportPropertyChanging("LinkName");
+                _LinkName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LinkName");
+                OnLinkNameChanged();
+            }
+        }
+        private global::System.String _LinkName;
+        partial void OnLinkNameChanging(global::System.String value);
+        partial void OnLinkNameChanged();
 
         #endregion
 

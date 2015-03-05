@@ -8,11 +8,53 @@
     <link type="text/css" rel="stylesheet" href="../../style/base.css">
     <link type="text/css" rel="stylesheet" href="../../style/frame.css">
     <link type="text/css" rel="stylesheet" href="../../style/viewPatent.css">
+    <style type="text/css">
+    <!--
+    div.black
+    {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.4) none repeat scroll !important;
+        background: #000; 
+        filter: Alpha(opacity=40);
+        z-index: 1000;
+        display:none;
+        color: #fff;
+    }
+    div.black .black-center
+    {
+        width: 110px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -14px 0 0 -14px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: #fff;
+        }
+    div.black .black-center span
+    {
+        color: #fff;
+        margin-right: 3px;
+        }
+    
+    -->
+    </style>
     <script type="text/javascript">
         var pager = @ViewData["pagerIndex"]
         var tatol = @ViewData["Total"]
         var TotalPager = @ViewData["TotalPager"]
         $(document).ready(function () {
+             $("div").ajaxStart(function(){
+                $("#blackgroudvalue").show();
+            });
+            $("div").ajaxStop(function(){
+                $("#blackgroudvalue").hide();
+            });
             if(getQueryString("filtername")!=null){
             $("#filterzlname").val(unescape(getQueryString("filtername")))}
             if(getQueryString("filternum")!=null){
@@ -51,7 +93,12 @@
     <div class="begining w100 oh clear">
     	<p class="location">您的位置：<a href="#" id="FisrtPage">首页</a>&nbsp;>&nbsp;<a href="#" id="secondpage">专利审核</a>&nbsp;>&nbsp;<a href="/Root/NotChecked">未审核专利</a></p>
     </div>
-    
+    <div class="black" id="blackgroudvalue">
+        <div class="black-center">
+            <span>文件生成中</span>
+            <img src="../../img/loading.gif" style="width: 28px; height: auto;" />
+        </div>
+    </div>
     <!--  mainContent  -->
     <div class="mainContent clear">
     

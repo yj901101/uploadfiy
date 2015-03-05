@@ -38,7 +38,7 @@ namespace MoneyRetard.Controllers
             try
             {
                 ViewData["deptname"] = fu.UserRealName;//申请单位
-                ViewData["LinkPeo"] = fu.LegalPeo;//联系人
+                ViewData["LinkPeo"] = fu.LinkName;//联系人
                 ViewData["Adress"] = fu.Adress;//地址
                 ViewData["UserType"] = fu.UserType;//企业性质
                 ViewData["Phone"] = fu.Phone;//电话
@@ -227,7 +227,7 @@ namespace MoneyRetard.Controllers
         public ActionResult AUserDetail(int id)
         {
             int uid = id;
-            Models.UserInfoDetail userinfo = fjApp.FJ_User.Where(u=>u.id==uid).Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ, }).ToList().FirstOrDefault();
+            Models.UserInfoDetail userinfo = fjApp.FJ_User.Where(u=>u.id==uid).Join(fjApp.FJ_UserInfo, u => u.id, i => i.UserID, (u, i) => new Models.UserInfoDetail { id = u.id, UserName = u.UserName, Pwd = u.Pwd, UserType = i.UserType, UserRealName = i.UserRealName, Area = i.Area, Adress = i.Adress, Phone = i.Phone, Email = i.Email, QQ = i.QQ,LinkName = i.LinkName }).ToList().FirstOrDefault();
             ViewData["User"] = userinfo;
             List<Models.FJ_Select> lfs = fjApp.FJ_Select.Where(u => u.type == 1).ToList();//县区的下拉
             SelectList datatype_sellist = new SelectList(lfs, "id", "name");
@@ -297,9 +297,23 @@ namespace MoneyRetard.Controllers
             oldinfo.Phone = phone;
             oldinfo.Email = email;
             oldinfo.QQ = qq;
+            oldinfo.LinkName = Request.Params["linkname"];
             fjApp.SaveChanges();
             MoneyRetard.Content.JsonModel jsmodel = new JsonModel() { msg = "修改成功!" };
             return Json(jsmodel);
+        }
+        public string lastId() {
+            FJ_ZlInfo fz = (from n1 in fjApp.FJ_ZlInfo
+                            orderby n1.id descending
+                            select n1).FirstOrDefault();
+            try
+            {
+                return DateTime.Now.ToString("yyyy") + "00" + (fz.id + 1);//获取最大的一个id
+            }
+            catch
+            {
+                return DateTime.Now.ToString("yyyy") + "001";
+            }
         }
     }
 }

@@ -13,76 +13,30 @@ html{
 	left: 0;
 	right: 0;
 	background: url(../images/index-topNav-bg.jpg) no-repeat center 0;
-	height: 120px;
+	height: 70px;
 }
 .topNav ul{
-	padding: 0 30px;
+	padding: 0 20px;
 }
 .topNav img.img-logo{
-	width: 700px;
+	width: 430px;
 	height: auto;
-	margin-top: 30px;
+	margin-top: 12px;
 }
 .topNav li.fr{
 	color: #fff;
-	padding-top: 28px;
+	padding-top: 10px;
 }
 .topNav li.fr p{
 	height: 20px;
 	line-height: 20px;
-	margin-top: 8px;
+	margin-top: 3px;
 	color: #fff;
 }
 .topNav li.fr p a,
 .topNav li.fr p span
 {
     color: #fff;
-}
-
-@media screen and (max-width: 1200px){
-	.topNav{
-		height: 110px;
-	}
-	.topNav ul{
-		padding: 0 20px;
-	}
-	.topNav img.img-logo{
-		width: 640px;
-		margin-top: 28px;
-	}
-	.topNav li.fr{
-		padding-top: 22px;
-	}
-}
-@media screen and (max-width: 1100px){
-	.topNav{
-		height: 100px;
-	}
-	.topNav ul{
-		padding: 0 12px;
-	}
-	.topNav img.img-logo{
-		width: 550px;
-		margin-top: 26px;
-	}
-	.topNav li.fr{
-		padding-top: 18px;
-	}
-}
-@media screen and (max-width: 1000px){
-	.topNav{
-		height: 90px;
-	}
-	.topNav ul{
-		padding: 0 10px;
-	}
-	.topNav img.img-logo{
-		width: 450px;
-		margin-top: 26px;
-	}
-	.topNav li.fr{
-		padding-top: 14px;
-	}
 }
 
 
@@ -95,8 +49,9 @@ html{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	height: 60px;
-	line-height: 60px;
+	height: 55px;
+	line-height: 55px;
+	overflow: hidden;
 	z-index: 1;
 	background-color: #084E8F;
 	color: #fff;
@@ -108,8 +63,8 @@ html{
 .sidebar{
 	position: absolute;
 	left: 0;
-	bottom: 60px;
-	top: 122px;
+	bottom: 55px;
+	top: 70px;
 	background: #f1f1f1;
 	width: 225px;
 	-webkit-box-shadow: 1px -1px 1px rgba(0,0,0,0.1);
@@ -118,32 +73,15 @@ html{
 	box-shadow: 1px -1px 1px rgba(0,0,0,0.1);
 }
 
-@media screen and (max-width: 1200px){
-	.sidebar{
-		top: 112px;
-	}
-}
-@media screen and (max-width: 1100px){
-	.sidebar{
-		top: 102px;
-	}
-}
-@media screen and (max-width: 1000px){
-	.sidebar{
-		top: 92px;
-	}
-}
-
-
 .begining{
 	border-bottom: 1px solid #d6d6d6;
 	background: #fff url(../images/formApply-sidebar-h1.jpg) repeat-x;
-	height: 42px;
-	line-height: 42px;
+	height: 35px;
+	line-height: 36px;
 }
 .sidebar .begining h1{
-	font: normal 20px/40px "Microsoft Yahei","宋体";
-	text-indent: 15px;
+	font: normal 16px/35px "Microsoft Yahei","宋体";
+	text-indent: 35px;
 }
 .sidebar .begining em{
 	font-size: 12px;
@@ -153,7 +91,7 @@ html{
 
 .mainContent{
 	position: absolute;
-	top: 43px;
+	top: 36px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -228,17 +166,14 @@ html{
 
 
 
-
-
-
 /*  @mainbody 
 ---------------------------------------------------------------------------- */
 .mainbody{
 	position: absolute;
-	top: 122px;
+	top: 70px;
 	right: 0;
 	left: 230px;
-	bottom: 60px;
+	bottom: 55px;
 	background: #fff;
 	-webkit-box-shadow: -1px -1px 1px rgba(0,0,0,0.1);
 	-moz-box-shadow: -1px -1px 1px rgba(0,0,0,0.1);
@@ -246,50 +181,8 @@ html{
 	box-shadow: -1px -1px 1px rgba(0,0,0,0.1);
 }
 
-@media screen and (max-width: 1200px){
-	.mainbody{
-		top: 112px;
-	}
-}
-@media screen and (max-width: 1100px){
-	.mainbody{
-		top: 102px;
-	}
-}
-@media screen and (max-width: 1000px){
-	.mainbody{
-		top: 92px;
-	}
-}
-
 p.location{
-	background-position: 12px -607px;
+	background-position: 12px -610px;
 	text-indent: 35px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
